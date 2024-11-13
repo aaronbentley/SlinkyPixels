@@ -5,12 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Next.js [server-side]",
-            "type": "node-terminal",
-            "request": "launch",
-            "command": "yarn dev"
-        },
-        {
             "name": "Next.js Turbo [server-side]",
             "type": "node-terminal",
             "request": "launch",
@@ -26,14 +20,6 @@
     "compounds": [
         {
             "name": "Next.js [full stack]",
-            "configurations": [
-                "Next.js [server-side]",
-                "Next.js [client-side]"
-            ],
-            "stopAll": true
-        },
-        {
-            "name": "Next.js Turbo [full stack]",
             "configurations": [
                 "Next.js Turbo [server-side]",
                 "Next.js [client-side]"

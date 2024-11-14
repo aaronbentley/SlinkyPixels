@@ -33,6 +33,24 @@ export default defineConfig({
     document: {
         comments: {
             enabled: false
+        },
+        newDocumentOptions: (prev, { creationContext }) => {
+            if (creationContext.type === 'global') {
+                return prev.filter(
+                    (templateItem) =>
+                        !['settings'].includes(templateItem.templateId)
+                )
+            }
+            return prev
+        },
+        actions: (prev, { schemaType }) => {
+            if (schemaType === 'settings') {
+                return prev.filter(
+                    ({ action }) =>
+                        !['unpublish', 'delete', 'duplicate'].includes(action!)
+                )
+            }
+            return prev
         }
     },
     tasks: { enabled: false },

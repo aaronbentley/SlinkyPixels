@@ -31,8 +31,8 @@ export const Work = defineType({
             title: 'Title',
             type: 'string',
             description: `${documentType} Title`,
-            Validation: (Rule) =>
-                Rule.required(`Specify ${documentType} Title`),
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Title`),
             group: 'content'
         }),
         defineField({
@@ -61,7 +61,8 @@ export const Work = defineType({
             title: 'Content',
             type: 'content',
             group: 'content',
-            validation: (Rule) => Rule.required()
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Content`)
         }),
         defineField({
             name: 'image',
@@ -69,7 +70,8 @@ export const Work = defineType({
             type: 'image',
             description: `Specify an image for ${documentType}`,
             group: 'media',
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) =>
+                Rule.required().error(`Specify an image for ${documentType}`),
             options: {
                 hotspot: true
             }
@@ -89,10 +91,10 @@ export const Work = defineType({
         },
         prepare({ title = 'No title', slug = {}, media = {} }) {
             return {
-                title: title ?? null,
+                title: title ?? undefined,
                 subtitle: slug.current
                     ? `/${documentType.toLowerCase()}/${slug.current}/`
-                    : null,
+                    : undefined,
                 media: media
             }
         }

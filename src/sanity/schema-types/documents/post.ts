@@ -31,8 +31,8 @@ export const Post = defineType({
             title: 'Title',
             type: 'string',
             description: `${documentType} Title`,
-            Validation: (Rule) =>
-                Rule.required(`Specify ${documentType} Title`),
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Title`),
             group: 'content'
         }),
         defineField({
@@ -41,7 +41,8 @@ export const Post = defineType({
             type: 'slug',
             description: 'Generate slug from the Title',
             group: 'content',
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Slug`),
             options: {
                 source: 'title',
                 // slugify: (source) => {
@@ -55,7 +56,7 @@ export const Post = defineType({
                 //     return slug
                 // },
                 maxLength: 96
-            },
+            }
             // components: {
             //     input: PrefixSlugInput
             // }
@@ -65,7 +66,8 @@ export const Post = defineType({
             title: 'Content',
             type: 'content',
             group: 'content',
-            validation: (Rule) => Rule.required()
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Content`)
         }),
         defineField({
             name: 'image',
@@ -73,7 +75,8 @@ export const Post = defineType({
             type: 'image',
             description: `Specify an image for ${documentType}`,
             group: 'media',
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) =>
+                Rule.required().error(`Specify an image for ${documentType}`),
             options: {
                 hotspot: true
             }
@@ -99,14 +102,18 @@ export const Post = defineType({
             name: 'seo',
             title: 'SEO',
             type: 'seo',
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) =>
+                Rule.required().error(`Specify SEO for ${documentType}`),
             group: 'seo'
         }),
         defineField({
             name: 'publishDate',
             title: 'Publish date',
             type: 'date',
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) =>
+                Rule.required().error(
+                    `Specify Publish date for ${documentType}`
+                ),
             group: 'content'
         })
     ],
@@ -121,7 +128,7 @@ export const Post = defineType({
                 title: title,
                 subtitle: slug.current
                     ? `/${documentType.toLowerCase()}s/${slug.current}/`
-                    : null,
+                    : undefined,
                 media: media
             }
         }

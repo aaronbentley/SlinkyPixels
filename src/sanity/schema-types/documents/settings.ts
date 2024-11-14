@@ -57,16 +57,5 @@ export const Settings = defineType({
                 }),
             group: 'content'
         })
-        // defineField({
-        //     name: 'socialUrls',
-        //     type: 'array',
-        //     title: 'Social URLs',
-        //     description: 'Social URL contact points for Site',
-        //     of: [{ type: 'socialUrls' }],
-        //     options: {
-        //         layout: 'categories'
-        //     },
-        //     group: 'contact'
-        // })
     ]
 })

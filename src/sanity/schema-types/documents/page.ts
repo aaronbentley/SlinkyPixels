@@ -90,12 +90,12 @@ export const Page = defineType({
         },
         prepare({ id = '', title = 'No title', slug = {} }) {
             return {
-                title: title ?? null,
+                title: title ?? undefined,
                 subtitle: id.includes('frontpage')
                     ? slug.current
                     : slug.current !== undefined
                       ? `/${slug.current}/`
-                      : null
+                      : undefined
             }
         }
     }

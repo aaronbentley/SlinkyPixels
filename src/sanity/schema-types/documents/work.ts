@@ -1,0 +1,100 @@
+/**
+ * Slinky Pixels : Work
+ */
+import { defineField, defineType } from 'sanity'
+
+// Define document type
+const documentType = 'Work'
+
+export const Work = defineType({
+    name: documentType.toLowerCase(),
+    title: documentType,
+    type: 'document',
+    groups: [
+        {
+            name: 'content',
+            title: 'Content',
+            default: true
+        },
+        {
+            name: 'media',
+            title: 'Media'
+        },
+        {
+            name: 'seo',
+            title: 'SEO'
+        }
+    ],
+    fields: [
+        defineField({
+            name: 'title',
+            title: 'Title',
+            type: 'string',
+            description: `${documentType} Title`,
+            Validation: (Rule) =>
+                Rule.required(`Specify ${documentType} Title`),
+            group: 'content'
+        }),
+        defineField({
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            description: 'Generate slug from the Title',
+            group: 'content',
+            options: {
+                source: 'title',
+                // slugify: (source) => {
+                //     const slug = slugify(source, {
+                //         replacement: '-',
+                //         remove: /[*+~.()'"!:@]/g,
+                //         lower: true,
+                //         trim: true
+                //     })
+
+                //     return slug
+                // },
+                maxLength: 96
+            }
+        }),
+        defineField({
+            name: 'content',
+            title: 'Content',
+            type: 'content',
+            group: 'content',
+            validation: (Rule) => Rule.required()
+        }),
+        defineField({
+            name: 'image',
+            title: 'Image',
+            type: 'image',
+            description: `Specify an image for ${documentType}`,
+            group: 'media',
+            validation: (Rule) => Rule.required(),
+            options: {
+                hotspot: true
+            }
+        }),
+        defineField({
+            name: 'seo',
+            title: 'SEO',
+            type: 'seo',
+            group: 'seo'
+        })
+    ],
+    preview: {
+        select: {
+            title: 'title',
+            slug: 'slug',
+            media: 'image'
+        },
+        prepare({ title = 'No title', slug = {}, media = {} }) {
+            return {
+                title: title ?? null,
+                subtitle: slug.current
+                    ? `/${documentType.toLowerCase()}/${slug.current}/`
+                    : null,
+                media: media
+            }
+        }
+    }
+})

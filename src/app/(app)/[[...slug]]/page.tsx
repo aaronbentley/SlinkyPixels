@@ -1,5 +1,7 @@
 /**
  * SlinkyPixels : /[[...slug]]/ - Page
+ * Optional catch-all route segment
+ * @link https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#optional-catch-all-segments
  */
 import { client } from '@/sanity/lib/client'
 import { sanityFetch } from '@/sanity/lib/live'

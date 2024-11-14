@@ -41,7 +41,7 @@ const RootLayout = async ({
                 {(await draftMode()).isEnabled && (
                     <>
                         <DisableDraftMode />
-                        <VisualEditing />
+                        <VisualEditing trailingSlash />
                     </>
                 )}
             </body>

@@ -1,3 +1,6 @@
+/**
+ * SlinkyPixels : /posts/ - Page
+ */
 import { sanityFetch } from '@/sanity/lib/live'
 import { POSTS_QUERY } from '@/sanity/lib/queries'
 

@@ -1,5 +1,5 @@
 /**
- * Slinky Pixels : Content
+ * SlinkyPixels : Content
  */
 import { defineArrayMember, defineType } from 'sanity'
 

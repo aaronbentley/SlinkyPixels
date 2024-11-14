@@ -1,5 +1,5 @@
 /**
- * Slinky Pixels : Menu
+ * SlinkyPixels : Menu
  */
 import { defineField, defineType } from 'sanity'
 

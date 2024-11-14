@@ -1,5 +1,5 @@
 /**
- * Slinky Pixels : Work
+ * SlinkyPixels : Work
  */
 import { defineField, defineType } from 'sanity'
 
@@ -39,20 +39,10 @@ export const Work = defineType({
             name: 'slug',
             title: 'Slug',
             type: 'slug',
-            description: 'Generate slug from the Title',
+            description: `Generate slug from the ${documentType} Title`,
             group: 'content',
             options: {
                 source: 'title',
-                // slugify: (source) => {
-                //     const slug = slugify(source, {
-                //         replacement: '-',
-                //         remove: /[*+~.()'"!:@]/g,
-                //         lower: true,
-                //         trim: true
-                //     })
-
-                //     return slug
-                // },
                 maxLength: 96
             }
         }),

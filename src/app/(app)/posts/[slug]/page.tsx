@@ -1,3 +1,6 @@
+/**
+ * SlinkyPixels : /posts/[slug]/ - Page
+ */
 import { client } from '@/sanity/lib/client'
 import { sanityFetch } from '@/sanity/lib/live'
 import { POST_QUERY, POSTS_QUERY } from '@/sanity/lib/queries'
@@ -12,15 +15,15 @@ export const generateStaticParams = async () => {
     }))
 }
 
-const PostPage = async ({ params }: { params: Promise<QueryParams> }) => {
+const Post = async ({ params }: { params: Promise<QueryParams> }) => {
     const { data: post } = await sanityFetch({
         query: POST_QUERY,
         params: await params
     })
-    if (!post) {
-        return notFound()
-    }
+
+    if (!post) notFound()
+
     return <h1>{post.title}</h1>
 }
 
-export default PostPage
+export default Post

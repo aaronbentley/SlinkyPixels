@@ -1,5 +1,5 @@
 /**
- * Slinky Pixels : Category
+ * SlinkyPixels : Category
  */
 import { defineField, defineType } from 'sanity'
 
@@ -23,7 +23,7 @@ export const Category = defineType({
             name: 'slug',
             title: 'Slug',
             type: 'slug',
-            description: 'Generate slug from the Title',
+            description: `Generate slug from the ${documentType} Title`,
             validation: (Rule) =>
                 Rule.required().error(`Specify ${documentType} Slug`),
             options: {

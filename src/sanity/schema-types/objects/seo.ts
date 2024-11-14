@@ -1,5 +1,5 @@
 /**
- * Slinky Pixels : Seo
+ * SlinkyPixels : Seo
  */
 import { defineField, defineType } from 'sanity'
 

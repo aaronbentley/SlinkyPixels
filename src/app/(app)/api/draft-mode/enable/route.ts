@@ -1,3 +1,6 @@
+/**
+ * SlinkyPixels : Route Handler : Enable Draft Mode
+ */
 import { client } from '@/sanity/lib/client'
 import { token } from '@/sanity/lib/token'
 import { defineEnableDraftMode } from 'next-sanity/draft-mode'

@@ -1,5 +1,5 @@
 /**
- * Slinky Pixels : Playlist
+ * SlinkyPixels : Playlist
  */
 import { PlaylistIcon } from '@/sanity/icons/icons'
 import { defineField, defineType } from 'sanity'
@@ -41,22 +41,12 @@ export const Playlist = defineType({
             name: 'slug',
             title: 'Slug',
             type: 'slug',
-            description: 'Generate slug from the Title',
+            description: `Generate slug from the ${documentType} Title`,
             group: 'content',
             validation: (Rule) =>
                 Rule.required().error(`Specify ${documentType} Slug`),
             options: {
                 source: 'title',
-                // slugify: (source) => {
-                //     const slug = slugify(source, {
-                //         replacement: '-',
-                //         remove: /[*+~.()'"!:@]/g,
-                //         lower: true,
-                //         trim: true
-                //     })
-
-                //     return slug
-                // },
                 maxLength: 96
             }
         }),

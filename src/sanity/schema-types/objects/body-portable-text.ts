@@ -1,5 +1,5 @@
 /**
- * Slinky Pixels : Body Portable Text
+ * SlinkyPixels : Body Portable Text
  */
 import { defineField, defineType } from 'sanity'
 

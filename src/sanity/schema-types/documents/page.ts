@@ -1,5 +1,5 @@
 /**
- * Slinky Pixels : Page
+ * SlinkyPixels : Page
  */
 import { FrontPageIcon, PageIcon } from '@/sanity/icons/icons'
 import { defineField, defineType } from 'sanity'
@@ -40,22 +40,22 @@ export const Page = defineType({
             name: 'slug',
             title: 'Slug',
             type: 'slug',
-            description: 'Generate slug from the Title',
+            description: `Generate slug from the ${documentType} Title`,
             group: 'content',
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Slug`),
+            readOnly: ({ document }) => document?._id === 'frontpage',
+            hidden: ({ document }) => {
+                if (document?._id === 'frontpage') return true
+                return !document?.title
+            },
             options: {
                 source: 'title',
-                // slugify: (source) => {
-                //     const slug = slugify(source, {
-                //         replacement: '-',
-                //         remove: /[*+~.()'"!:@]/g,
-                //         lower: true,
-                //         trim: true
-                //     })
-
-                //     return slug
-                // },
                 maxLength: 96
+            },
+            initialValue: ({ document }) => {
+                if (document?._id === 'frontpage') return { current: '/' }
+                return { current: '' }
             }
         }),
         defineField({

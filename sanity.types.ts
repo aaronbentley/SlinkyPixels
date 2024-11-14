@@ -378,12 +378,12 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PAGES_QUERY
-// Query: *[_type == 'page' && defined(slug.current) && slug.current != '/']{slug}
+// Query: *[_type == 'page' && defined(slug.current)]{slug}
 export type PAGES_QUERYResult = Array<{
   slug: Slug | null;
 }>;
 // Variable: PAGE_QUERY
-// Query: *[_type == 'post' && slug.current == $slug][0]{title,content,image}
+// Query: *[_type == 'page' && slug.current == $slug][0]{title,content,image}
 export type PAGE_QUERYResult = {
   title: string | null;
   content: Content | null;
@@ -428,8 +428,9 @@ export type POST_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == 'page' && defined(slug.current) && slug.current != '/']{slug}": PAGES_QUERYResult;
-    "*[_type == 'post' && slug.current == $slug][0]{title,content,image}": PAGE_QUERYResult | POST_QUERYResult;
+    "*[_type == 'page' && defined(slug.current)]{slug}": PAGES_QUERYResult;
+    "*[_type == 'page' && slug.current == $slug][0]{title,content,image}": PAGE_QUERYResult;
     "*[_type == 'post' && defined(slug.current)][0...12]{_id,title,slug}": POSTS_QUERYResult;
+    "*[_type == 'post' && slug.current == $slug][0]{title,content,image}": POST_QUERYResult;
   }
 }

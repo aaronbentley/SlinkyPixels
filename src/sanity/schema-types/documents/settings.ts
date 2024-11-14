@@ -1,5 +1,5 @@
 /**
- * Slinky Pixels : Settings
+ * SlinkyPixels : Settings
  */
 
 import { defineField, defineType } from 'sanity'

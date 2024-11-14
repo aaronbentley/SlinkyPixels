@@ -31,8 +31,8 @@ export const Playlist = defineType({
             title: 'Title',
             type: 'string',
             description: `${documentType} Title`,
-            Validation: (Rule) =>
-                Rule.required(`Specify ${documentType} Title`),
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Title`),
             group: 'content'
         }),
         defineField({
@@ -41,7 +41,8 @@ export const Playlist = defineType({
             type: 'slug',
             description: 'Generate slug from the Title',
             group: 'content',
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Slug`),
             options: {
                 source: 'title',
                 // slugify: (source) => {
@@ -62,7 +63,8 @@ export const Playlist = defineType({
             title: 'Playlist ID',
             type: 'string',
             description: `YouTube ${documentType} ID`,
-            Validation: (Rule) => Rule.required(`Specify ${documentType} ID`),
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} ID`),
             group: 'content'
         }),
         defineField({
@@ -70,7 +72,8 @@ export const Playlist = defineType({
             title: 'Content',
             type: 'content',
             group: 'content',
-            validation: (Rule) => Rule.required()
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Content`)
         }),
         defineField({
             name: 'image',
@@ -78,7 +81,8 @@ export const Playlist = defineType({
             type: 'image',
             description: `Specify an image for ${documentType}`,
             group: 'media',
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Image`),
             options: {
                 hotspot: true
             }
@@ -93,16 +97,14 @@ export const Playlist = defineType({
     preview: {
         select: {
             title: 'title',
-            slug: 'slug',
-            media: 'image'
+            slug: 'slug'
         },
-        prepare({ title = 'No title', slug = {}, media = {} }) {
+        prepare({ title = 'No title', slug = {} }) {
             return {
-                title: title ?? null,
+                title: title ?? undefined,
                 subtitle: slug.current
                     ? `/${documentType.toLowerCase()}/${slug.current}`
-                    : null,
-                media: media ? media : PlaylistIcon
+                    : undefined
             }
         }
     }

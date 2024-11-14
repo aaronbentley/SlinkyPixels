@@ -16,7 +16,8 @@ export const Menu = defineType({
             title: 'Title',
             type: 'string',
             description: `${documentType} Title`,
-            Validation: (Rule) => Rule.required(`Specify ${documentType} Title`)
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Title`)
         }),
         defineField({
             name: 'menuLinkItems',
@@ -26,7 +27,7 @@ export const Menu = defineType({
             description: `${documentType} Items`,
             validation: (Rule) =>
                 Rule.custom((menuLinkItems) => {
-                    if (menuLinkItems.length === 0) {
+                    if (!menuLinkItems || menuLinkItems.length === 0) {
                         return 'Menus must contain at least one Link'
                     }
                     return true

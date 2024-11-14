@@ -38,7 +38,7 @@ export const structure: StructureResolver = (S) => {
                             )
                         ])
                 ),
-            S.documentTypeListItem('playlist').title('Playlist'),
+            S.documentTypeListItem('playlist').title('Playlists'),
             S.documentTypeListItem('work').title('Work'),
             S.divider(),
             S.documentTypeListItem('menu').title('Menus'),

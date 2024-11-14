@@ -86,10 +86,9 @@ export const Page = defineType({
         select: {
             id: '_id',
             title: 'title',
-            slug: 'slug',
-            media: 'image'
+            slug: 'slug'
         },
-        prepare({ id = '', title = 'No title', slug = {}, media = {} }) {
+        prepare({ id = '', title = 'No title', slug = {} }) {
             return {
                 title: title ?? null,
                 subtitle: id.includes('frontpage')

@@ -47,7 +47,7 @@ export const BodyPortableText = defineType({
                                 title: 'Destination Reference',
                                 type: 'reference',
                                 to: [{ type: 'post' }, { type: 'page' }],
-                                hidden: ({ parent, document, value }) => {
+                                hidden: ({ parent }) => {
                                     if (parent.customUrl !== true) {
                                         return false
                                     }
@@ -72,7 +72,7 @@ export const BodyPortableText = defineType({
                                             'tel'
                                         ] // Default is ["https", "http"]
                                     }),
-                                hidden: ({ parent, document, value }) => {
+                                hidden: ({ parent }) => {
                                     if (parent.customUrl === true) {
                                         return false
                                     }

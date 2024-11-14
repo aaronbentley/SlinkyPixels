@@ -2,10 +2,14 @@
  * SlinkyPixels : Root Layout
  */
 import '@/assets/styles/globals.css'
+import { DisableDraftMode } from '@/components/disable-draft-mode'
 import { fonts } from '@/components/font-loader'
 import TailwindIndicator from '@/components/tailwind-indicator'
 import { cn } from '@/lib/utils'
+import { SanityLive } from '@/sanity/lib/live'
 import type { Metadata } from 'next'
+import { VisualEditing } from 'next-sanity'
+import { draftMode } from 'next/headers'
 
 export const metadata: Metadata = {
     metadataBase: new URL(process.env.APP_URL!),
@@ -16,7 +20,7 @@ export const metadata: Metadata = {
     description: process.env.APP_DESCRIPTION!
 }
 
-const RootLayout = ({
+const RootLayout = async ({
     children
 }: Readonly<{
     children: React.ReactNode
@@ -30,6 +34,13 @@ const RootLayout = ({
                     </div>
                 </main>
                 <TailwindIndicator />
+                <SanityLive />
+                {(await draftMode()).isEnabled && (
+                    <>
+                        <DisableDraftMode />
+                        <VisualEditing />
+                    </>
+                )}
             </body>
         </html>
     )

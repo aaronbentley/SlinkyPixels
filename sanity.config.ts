@@ -4,22 +4,30 @@
  * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...tool]]/page.tsx` route
  */
 import { apiVersion, dataset, projectId } from '@/sanity/env'
+import { resolve } from '@/sanity/presentation/resolve'
 import { schema } from '@/sanity/schema-types'
-import { structure } from '@/sanity/structure'
+import { structure } from '@/sanity/structure/structure'
 import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
+import { presentationTool } from 'sanity/presentation'
 import { structureTool } from 'sanity/structure'
 
 export default defineConfig({
     basePath: '/studio',
     projectId,
     dataset,
-    // Add and edit the content schema in the './sanity/schemaTypes' folder
     schema,
     plugins: [
         structureTool({ structure }),
-        // Vision is for querying with GROQ from inside the Studio
-        // https://www.sanity.io/docs/the-vision-plugin
+        presentationTool({
+            resolve,
+            previewUrl: {
+                previewMode: {
+                    enable: '/api/draft-mode/enable'
+                    // disable: '/api/draft-mode/disable'
+                }
+            }
+        }),
         visionTool({ defaultApiVersion: apiVersion })
     ],
     document: {

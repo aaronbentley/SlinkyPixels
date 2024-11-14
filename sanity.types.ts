@@ -377,16 +377,59 @@ export type Slug = {
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Work | Settings | Playlist | MenuLink | Menu | Content | Category | BodyPortableText | Body | BasicPortableText | Post | Page | Seo | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
-// Variable: PAGE_PATHS_QUERY
-// Query: *[        _type == 'page' &&        defined(slug.current) &&        slug.current != '/'    ] {        slug    }
-export type PAGE_PATHS_QUERYResult = Array<{
+// Variable: PAGES_QUERY
+// Query: *[_type == 'page' && defined(slug.current) && slug.current != '/']{slug}
+export type PAGES_QUERYResult = Array<{
   slug: Slug | null;
 }>;
+// Variable: PAGE_QUERY
+// Query: *[_type == 'post' && slug.current == $slug][0]{title,content,image}
+export type PAGE_QUERYResult = {
+  title: string | null;
+  content: Content | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+} | null;
+// Variable: POSTS_QUERY
+// Query: *[_type == 'post' && defined(slug.current)][0...12]{_id,title,slug}
+export type POSTS_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: Slug | null;
+}>;
+// Variable: POST_QUERY
+// Query: *[_type == 'post' && slug.current == $slug][0]{title,content,image}
+export type POST_QUERYResult = {
+  title: string | null;
+  content: Content | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n    *[\n        _type == 'page' &&\n        defined(slug.current) &&\n        slug.current != '/'\n    ] {\n        slug\n    }\n": PAGE_PATHS_QUERYResult;
+    "*[_type == 'page' && defined(slug.current) && slug.current != '/']{slug}": PAGES_QUERYResult;
+    "*[_type == 'post' && slug.current == $slug][0]{title,content,image}": PAGE_QUERYResult | POST_QUERYResult;
+    "*[_type == 'post' && defined(slug.current)][0...12]{_id,title,slug}": POSTS_QUERYResult;
   }
 }

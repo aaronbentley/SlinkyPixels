@@ -1,8 +1,18 @@
+/**
+ * Define Sanity Studio structure
+ *
+ * @link https://www.sanity.io/docs/structure-builder-cheat-sheet
+ */
+import {
+    FrontPageIcon,
+    MenuIcon,
+    PageIcon,
+    PlaylistIcon,
+    PostIcon,
+    SettingsIcon,
+    WorkIcon
+} from '@/sanity/icons/icons'
 import type { StructureResolver } from 'sanity/structure'
-
-// https://www.sanity.io/docs/structure-builder-cheat-sheet
-// export const structure: StructureResolver = (S) =>
-//     S.list().title('Content').items(S.documentTypeListItems())
 
 export const structure: StructureResolver = (S) => {
     return S.list()
@@ -11,11 +21,13 @@ export const structure: StructureResolver = (S) => {
             S.listItem()
                 .title('Frontpage')
                 .id('frontpage')
+                .icon(FrontPageIcon)
                 .child(S.document().schemaType('page').documentId('frontpage')),
             S.divider(),
             S.listItem()
                 .title('Pages')
                 .schemaType('page')
+                .icon(PageIcon)
                 .child(
                     S.documentList()
                         .title('Pages')
@@ -28,6 +40,7 @@ export const structure: StructureResolver = (S) => {
             S.listItem()
                 .title('Posts')
                 .schemaType('post')
+                .icon(PostIcon)
                 .child(
                     S.list()
                         .title('Posts')
@@ -38,13 +51,16 @@ export const structure: StructureResolver = (S) => {
                             )
                         ])
                 ),
-            S.documentTypeListItem('playlist').title('Playlists'),
-            S.documentTypeListItem('work').title('Work'),
+            S.documentTypeListItem('playlist')
+                .title('Playlists')
+                .icon(PlaylistIcon),
+            S.documentTypeListItem('work').title('Work').icon(WorkIcon),
             S.divider(),
-            S.documentTypeListItem('menu').title('Menus'),
+            S.documentTypeListItem('menu').title('Menus').icon(MenuIcon),
             S.listItem()
                 .title('Settings')
                 .id('settings')
+                .icon(SettingsIcon)
                 .child(
                     S.document().schemaType('settings').documentId('settings')
                 )

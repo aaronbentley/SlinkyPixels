@@ -1,6 +1,7 @@
 /**
  * Slinky Pixels : Playlist
  */
+import { PlaylistIcon } from '@/sanity/icons/icons'
 import { defineField, defineType } from 'sanity'
 
 // Define document type
@@ -10,6 +11,7 @@ export const Playlist = defineType({
     name: documentType.toLowerCase(),
     title: documentType,
     type: 'document',
+    icon: PlaylistIcon,
     groups: [
         {
             name: 'content',
@@ -97,14 +99,16 @@ export const Playlist = defineType({
     preview: {
         select: {
             title: 'title',
-            slug: 'slug'
+            slug: 'slug',
+            media: 'image'
         },
-        prepare({ title = 'No title', slug = {} }) {
+        prepare({ title = 'No title', slug = {}, media = {} }) {
             return {
                 title: title ?? undefined,
                 subtitle: slug.current
                     ? `/${documentType.toLowerCase()}/${slug.current}`
-                    : undefined
+                    : undefined,
+                media: media ?? PlaylistIcon
             }
         }
     }

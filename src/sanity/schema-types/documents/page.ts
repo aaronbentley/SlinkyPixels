@@ -1,6 +1,7 @@
 /**
  * Slinky Pixels : Page
  */
+import { FrontPageIcon, PageIcon } from '@/sanity/icons/icons'
 import { defineField, defineType } from 'sanity'
 
 // Define document type
@@ -95,7 +96,8 @@ export const Page = defineType({
                     ? slug.current
                     : slug.current !== undefined
                       ? `/${slug.current}/`
-                      : undefined
+                      : undefined,
+                media: id.includes('frontpage') ? FrontPageIcon : PageIcon
             }
         }
     }

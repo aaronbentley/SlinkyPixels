@@ -27,7 +27,7 @@ export const MenuLink = defineType({
             title: 'Destination',
             type: 'reference',
             to: [{ type: 'page' }, { type: 'post' }, { type: 'category' }],
-            hidden: ({ parent, document, value }) => {
+            hidden: ({ parent }) => {
                 if (parent.customUrl !== true) {
                     return false
                 }
@@ -47,7 +47,7 @@ export const MenuLink = defineType({
                     relativeOnly: false, // Force only relative links
                     scheme: ['https', 'http', 'mailto', 'tel'] // Default is ["https", "http"]
                 }),
-            hidden: ({ parent, document, value }) => {
+            hidden: ({ parent }) => {
                 if (parent.customUrl === true) {
                     return false
                 }
@@ -66,13 +66,11 @@ export const MenuLink = defineType({
         select: {
             label: 'label',
             customUrl: 'customUrl',
-            linkDestinationRef: 'linkDestinationRef',
             linkDestinationHref: 'linkDestinationHref'
         },
         prepare: ({
             label = null,
             customUrl = false,
-            linkDestinationRef = null,
             linkDestinationHref = null
         }) => {
             return {

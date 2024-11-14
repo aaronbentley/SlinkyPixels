@@ -4,7 +4,7 @@ import type { StructureResolver } from 'sanity/structure'
 // export const structure: StructureResolver = (S) =>
 //     S.list().title('Content').items(S.documentTypeListItems())
 
-export const structure: StructureResolver = (S, context) => {
+export const structure: StructureResolver = (S) => {
     return S.list()
         .title('Content')
         .items([

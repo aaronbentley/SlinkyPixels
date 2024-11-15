@@ -7,6 +7,7 @@ import { fonts } from '@/components/font-loader'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import TailwindIndicator from '@/components/tailwind-indicator'
+import { ThemeProvider } from '@/components/theme-provider'
 import { SanityLive } from '@/sanity/lib/live'
 import type { Metadata } from 'next'
 import { VisualEditing } from 'next-sanity'
@@ -27,23 +28,32 @@ const RootLayout = async ({
     children: React.ReactNode
 }>) => {
     return (
-        <html lang='en'>
+        <html
+            lang='en'
+            suppressHydrationWarning>
             <body className={fonts}>
-                <main className='flex min-h-screen flex-col'>
-                    <Header />
-                    <div className='flex min-h-max flex-1 flex-col items-center justify-start gap-y-4 md:gap-y-12'>
-                        {children}
-                    </div>
-                    <Footer />
-                </main>
-                <TailwindIndicator />
-                <SanityLive />
-                {(await draftMode()).isEnabled && (
-                    <>
-                        <DisableDraftMode />
-                        <VisualEditing trailingSlash />
-                    </>
-                )}
+                <ThemeProvider
+                    attribute='class'
+                    defaultTheme='system'
+                    enableSystem
+                    disableTransitionOnChange
+                    enableColorScheme>
+                    <main className='flex min-h-screen flex-col'>
+                        <Header />
+                        <div className='flex min-h-max flex-1 flex-col items-center justify-start gap-y-4 md:gap-y-12'>
+                            {children}
+                        </div>
+                        <Footer />
+                    </main>
+                    <TailwindIndicator />
+                    <SanityLive />
+                    {(await draftMode()).isEnabled && (
+                        <>
+                            <DisableDraftMode />
+                            <VisualEditing trailingSlash />
+                        </>
+                    )}
+                </ThemeProvider>
             </body>
         </html>
     )

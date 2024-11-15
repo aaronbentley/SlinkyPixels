@@ -1,8 +1,8 @@
 import {
-    AppWindowMac,
     File,
     FileText,
     House,
+    Layers,
     ListVideo,
     Menu,
     SlidersHorizontal
@@ -16,7 +16,7 @@ export const PostIcon = () => <FileText />
 
 export const PlaylistIcon = () => <ListVideo />
 
-export const WorkIcon = () => <AppWindowMac />
+export const WorkIcon = () => <Layers />
 
 export const MenuIcon = () => <Menu />
 

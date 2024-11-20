@@ -10,6 +10,7 @@ import { BasicPortableText } from './objects/basic-portable-text'
 import { BodyPortableText } from './objects/body-portable-text'
 import { Body } from './objects/content/body'
 import { Content } from './objects/content/content'
+import { Frontpage } from './objects/content/frontpage'
 import { MenuLink } from './objects/menu-link'
 import { Seo } from './objects/seo'
 
@@ -20,6 +21,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         BodyPortableText,
         Category,
         Content,
+        Frontpage,
         Menu,
         MenuLink,
         Page,

@@ -8,7 +8,10 @@ export const Content = defineType({
     name: 'content',
     type: 'array',
     description: 'Compose Page content',
-    of: [defineArrayMember({ type: 'body' })],
+    of: [
+        defineArrayMember({ type: 'frontpage' }),
+        defineArrayMember({ type: 'body' })
+    ],
     options: {
         insertMenu: {
             showIcons: true

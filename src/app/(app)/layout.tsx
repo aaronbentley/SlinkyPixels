@@ -30,6 +30,7 @@ const RootLayout = async ({
     return (
         <html
             lang='en'
+            className='dark'
             suppressHydrationWarning>
             <body className={fonts}>
                 <ThemeProvider

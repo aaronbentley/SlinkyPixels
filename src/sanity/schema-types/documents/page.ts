@@ -1,7 +1,7 @@
 /**
  * SlinkyPixels : Page
  */
-import { FrontPageIcon, PageIcon } from '@/sanity/icons/icons'
+import { FrontPageIcon, PageIcon } from '@/components/icons'
 import { defineField, defineType } from 'sanity'
 
 // Define document type

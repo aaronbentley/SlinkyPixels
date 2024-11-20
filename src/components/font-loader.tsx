@@ -7,7 +7,7 @@
  * Import Google Variable Font
  * @link https://fonts.google.com/variablefonts
  */
-import { Victor_Mono as FontSans } from 'next/font/google'
+import { Geist as FontSans } from 'next/font/google'
 
 /**
  * Configure Font(s)
@@ -18,7 +18,8 @@ import { Victor_Mono as FontSans } from 'next/font/google'
 const fontSans = FontSans({
     subsets: ['latin'],
     variable: '--font-sans',
-    weight: ['100', '200', '300', '400', '500', '600', '700']
+    display: 'swap'
+    // weight: ['100', '200', '300', '400', '500', '600', '700']
 })
 
 /**

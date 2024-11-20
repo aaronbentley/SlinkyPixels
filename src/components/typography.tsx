@@ -20,32 +20,43 @@ const typographyVariants = cva([], {
                 ...headingBaseClasses,
                 'text-4xl',
                 'md:text-5xl',
-                'lg:text-6xl'
+                'lg:text-6xl',
+                'xl:text-7xl'
             ],
             h2: [
                 ...headingBaseClasses,
                 'text-2xl',
                 'md:text-3xl',
-                'lg:text-4xl'
+                'lg:text-4xl',
+                'xl:text-5xl'
             ],
             h3: [
                 ...headingBaseClasses,
                 'text-xl',
                 'md:text-2xl',
-                'lg:text-3xl'
+                'lg:text-3xl',
+                'xl:text-4xl'
             ],
-            h4: [...headingBaseClasses, 'text-lg', 'md:text-xl', 'lg:text-2xl'],
+            h4: [
+                ...headingBaseClasses,
+                'text-lg',
+                'md:text-xl',
+                'lg:text-2xl',
+                'xl:text-3xl'
+            ],
             h5: [
                 ...headingBaseClasses,
                 'text-base',
                 'md:text-lg',
-                'lg:text-xl'
+                'lg:text-xl',
+                'xl:text-2xl'
             ],
             h6: [
                 ...headingBaseClasses,
                 'text-sm',
                 'md:text-base',
-                'lg:text-lg'
+                'lg:text-lg',
+                'xl:text-xl'
             ],
             link: [
                 ...proseBaseClasses,
@@ -114,12 +125,47 @@ const typographyVariants = cva([], {
             bold: ['font-bold'],
             extrabold: ['font-extrabold'],
             black: ['font-black']
+        },
+        display: {
+            true: ''
         }
     },
-    compoundVariants: [],
+    compoundVariants: [
+        {
+            variant: 'h1',
+            display: true,
+            className: ['text-6xl', 'md:text-7xl', 'lg:text-8xl', 'xl:text-9xl']
+        },
+        {
+            variant: 'h2',
+            display: true,
+            className: ['text-5xl', 'md:text-6xl', 'lg:text-7xl', 'xl:text-8xl']
+        },
+        {
+            variant: 'h3',
+            display: true,
+            className: ['text-4xl', 'md:text-5xl', 'lg:text-6xl', 'xl:text-7xl']
+        },
+        {
+            variant: 'h4',
+            display: true,
+            className: ['text-3xl', 'md:text-4xl', 'lg:text-5xl', 'xl:text-6xl']
+        },
+        {
+            variant: 'h5',
+            display: true,
+            className: ['text-2xl', 'md:text-3xl', 'lg:text-4xl', 'xl:text-5xl']
+        },
+        {
+            variant: 'h6',
+            display: true,
+            className: ['text-xl', 'md:text-2xl', 'lg:text-3xl', 'xl:text-4xl']
+        }
+    ],
     defaultVariants: {
         variant: 'p',
-        muted: false
+        muted: false,
+        display: false
     }
 })
 
@@ -166,6 +212,7 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
             muted,
             size,
             weight,
+            display,
             as,
             asChild,
             disableSelect,
@@ -186,7 +233,8 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
                         className,
                         muted,
                         size,
-                        weight
+                        weight,
+                        display
                     }),
                     disableSelect && 'select-none'
                 )}

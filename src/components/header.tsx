@@ -1,18 +1,38 @@
 /**
  * SlinkyPixels : Header
  */
-import { Typography } from '@/components/typography'
+import ModeToggle from '@/components/mode-toggle'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import Link from 'next/link'
 
 const Header = () => (
-    <header className='mx-auto flex max-w-5xl flex-row items-center justify-center py-6'>
-        <Link href='/'>
-            <Typography
-                variant='h1'
-                className='bg-gradient-to-br from-primary to-muted bg-clip-text leading-normal tracking-tighter text-transparent'>
-                {process.env.APP_TITLE}
-            </Typography>
-        </Link>
+    <header className='sticky top-0 z-50 w-full border-b border-muted bg-background/80 backdrop-blur dark:bg-background/80'>
+        <div className='container flex items-center px-4'>
+            <div className='flex w-full justify-between py-4'>
+                <Link
+                    href='/'
+                    className={cn(
+                        buttonVariants({
+                            variant: 'ghost',
+                            size: 'sm',
+                            className: [
+                                'md:mr-6',
+                                'text-xl',
+                                'tracking-tight',
+                                'transition-all',
+                                'duration-200',
+                                'font-bold'
+                            ]
+                        })
+                    )}>
+                    {process.env.APP_TITLE!}
+                </Link>
+            </div>
+            <div className='flex items-center md:space-x-4'>
+                <ModeToggle />
+            </div>
+        </div>
     </header>
 )
 

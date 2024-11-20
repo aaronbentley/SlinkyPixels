@@ -14,423 +14,513 @@
 
 // Source: schema.json
 export type SanityImagePaletteSwatch = {
-  _type: "sanity.imagePaletteSwatch";
-  background?: string;
-  foreground?: string;
-  population?: number;
-  title?: string;
-};
+    _type: 'sanity.imagePaletteSwatch'
+    background?: string
+    foreground?: string
+    population?: number
+    title?: string
+}
 
 export type SanityImagePalette = {
-  _type: "sanity.imagePalette";
-  darkMuted?: SanityImagePaletteSwatch;
-  lightVibrant?: SanityImagePaletteSwatch;
-  darkVibrant?: SanityImagePaletteSwatch;
-  vibrant?: SanityImagePaletteSwatch;
-  dominant?: SanityImagePaletteSwatch;
-  lightMuted?: SanityImagePaletteSwatch;
-  muted?: SanityImagePaletteSwatch;
-};
+    _type: 'sanity.imagePalette'
+    darkMuted?: SanityImagePaletteSwatch
+    lightVibrant?: SanityImagePaletteSwatch
+    darkVibrant?: SanityImagePaletteSwatch
+    vibrant?: SanityImagePaletteSwatch
+    dominant?: SanityImagePaletteSwatch
+    lightMuted?: SanityImagePaletteSwatch
+    muted?: SanityImagePaletteSwatch
+}
 
 export type SanityImageDimensions = {
-  _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
-};
+    _type: 'sanity.imageDimensions'
+    height?: number
+    width?: number
+    aspectRatio?: number
+}
 
 export type SanityFileAsset = {
-  _id: string;
-  _type: "sanity.fileAsset";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  source?: SanityAssetSourceData;
-};
+    _id: string
+    _type: 'sanity.fileAsset'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    originalFilename?: string
+    label?: string
+    title?: string
+    description?: string
+    altText?: string
+    sha1hash?: string
+    extension?: string
+    mimeType?: string
+    size?: number
+    assetId?: string
+    uploadId?: string
+    path?: string
+    url?: string
+    source?: SanityAssetSourceData
+}
 
 export type Geopoint = {
-  _type: "geopoint";
-  lat?: number;
-  lng?: number;
-  alt?: number;
-};
+    _type: 'geopoint'
+    lat?: number
+    lng?: number
+    alt?: number
+}
 
 export type Work = {
-  _id: string;
-  _type: "work";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  content?: Array<{
-    _key: string;
-  } & Body>;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  seo?: Seo;
-};
+    _id: string
+    _type: 'work'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title?: string
+    slug?: Slug
+    content?: Array<
+        | ({
+              _key: string
+          } & Frontpage)
+        | ({
+              _key: string
+          } & Body)
+    >
+    image?: {
+        asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+    }
+    seo?: Seo
+}
 
 export type Settings = {
-  _id: string;
-  _type: "settings";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  description?: string;
-  url?: string;
-};
+    _id: string
+    _type: 'settings'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title?: string
+    description?: string
+    url?: string
+    socialLinks?: Array<{
+        name?:
+            | 'X'
+            | 'Instagram'
+            | 'GitHub'
+            | 'Reddit'
+            | 'Threads'
+            | 'Facebook'
+            | 'Youtube'
+            | 'LinkedIn'
+        url?: string
+        _type: 'socialLink'
+        _key: string
+    }>
+}
 
 export type Playlist = {
-  _id: string;
-  _type: "playlist";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  playlistId?: string;
-  content?: Array<{
-    _key: string;
-  } & Body>;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  seo?: Seo;
-};
+    _id: string
+    _type: 'playlist'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title?: string
+    slug?: Slug
+    playlistId?: string
+    content?: Array<
+        | ({
+              _key: string
+          } & Frontpage)
+        | ({
+              _key: string
+          } & Body)
+    >
+    image?: {
+        asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+    }
+    seo?: Seo
+}
 
 export type MenuLink = {
-  _type: "menuLink";
-  label?: string;
-  customUrl?: boolean;
-  linkDestinationRef?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "page";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "post";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
-  };
-  linkDestinationHref?: string;
-  blank?: boolean;
-};
+    _type: 'menuLink'
+    label?: string
+    customUrl?: boolean
+    linkDestinationRef?:
+        | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'page'
+          }
+        | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'post'
+          }
+        | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'category'
+          }
+    linkDestinationHref?: string
+    blank?: boolean
+}
 
 export type Menu = {
-  _id: string;
-  _type: "menu";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  menuTitle?: string;
-  menuLinkItems?: Array<{
-    _key: string;
-  } & MenuLink>;
-};
+    _id: string
+    _type: 'menu'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    menuTitle?: string
+    menuLinkItems?: Array<
+        {
+            _key: string
+        } & MenuLink
+    >
+}
 
-export type Content = Array<{
-  _key: string;
-} & Body>;
+export type Frontpage = {
+    _type: 'frontpage'
+    title?: string
+}
+
+export type Content = Array<
+    | ({
+          _key: string
+      } & Frontpage)
+    | ({
+          _key: string
+      } & Body)
+>
 
 export type Category = {
-  _id: string;
-  _type: "category";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  content?: Content;
-};
+    _id: string
+    _type: 'category'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title?: string
+    slug?: Slug
+    content?: Content
+}
 
 export type BodyPortableText = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-  listItem?: "bullet" | "number";
-  markDefs?: Array<{
-    customUrl?: boolean;
-    linkDestinationRef?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "post";
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "page";
-    };
-    linkDestinationHref?: string;
-    blank?: boolean;
-    _type: "link";
-    _key: string;
-  }>;
-  level?: number;
-  _type: "block";
-  _key: string;
-}>;
+    children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+    }>
+    style?: 'normal' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+    listItem?: 'bullet' | 'number'
+    markDefs?: Array<{
+        customUrl?: boolean
+        linkDestinationRef?:
+            | {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'post'
+              }
+            | {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+              }
+        linkDestinationHref?: string
+        blank?: boolean
+        _type: 'link'
+        _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+}>
 
 export type Body = {
-  _type: "body";
-  title?: string;
-  content?: BodyPortableText;
-};
+    _type: 'body'
+    title?: string
+    content?: BodyPortableText
+}
 
 export type BasicPortableText = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "normal";
-  listItem?: never;
-  markDefs?: Array<{
-    customUrl?: boolean;
-    linkDestinationRef?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "post";
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "page";
-    };
-    linkDestinationHref?: string;
-    blank?: boolean;
-    _type: "link";
-    _key: string;
-  }>;
-  level?: number;
-  _type: "block";
-  _key: string;
-}>;
+    children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+    }>
+    style?: 'normal'
+    listItem?: never
+    markDefs?: Array<{
+        customUrl?: boolean
+        linkDestinationRef?:
+            | {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'post'
+              }
+            | {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+              }
+        linkDestinationHref?: string
+        blank?: boolean
+        _type: 'link'
+        _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+}>
 
 export type Post = {
-  _id: string;
-  _type: "post";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  content?: Content;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  categories?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
-  seo?: Seo;
-  publishDate?: string;
-};
+    _id: string
+    _type: 'post'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title?: string
+    slug?: Slug
+    content?: Content
+    image?: {
+        asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+    }
+    categories?: Array<{
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: 'category'
+    }>
+    seo?: Seo
+    publishDate?: string
+}
 
 export type Page = {
-  _id: string;
-  _type: "page";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  content?: Content;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  seo?: Seo;
-};
+    _id: string
+    _type: 'page'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title?: string
+    slug?: Slug
+    content?: Content
+    image?: {
+        asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+    }
+    seo?: Seo
+}
 
 export type Seo = {
-  _type: "seo";
-  seoTitle?: string;
-  seoDescription?: string;
-};
+    _type: 'seo'
+    seoTitle?: string
+    seoDescription?: string
+}
 
 export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
+    _type: 'sanity.imageCrop'
+    top?: number
+    bottom?: number
+    left?: number
+    right?: number
+}
 
 export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
+    _type: 'sanity.imageHotspot'
+    x?: number
+    y?: number
+    height?: number
+    width?: number
+}
 
 export type SanityImageAsset = {
-  _id: string;
-  _type: "sanity.imageAsset";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  metadata?: SanityImageMetadata;
-  source?: SanityAssetSourceData;
-};
+    _id: string
+    _type: 'sanity.imageAsset'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    originalFilename?: string
+    label?: string
+    title?: string
+    description?: string
+    altText?: string
+    sha1hash?: string
+    extension?: string
+    mimeType?: string
+    size?: number
+    assetId?: string
+    uploadId?: string
+    path?: string
+    url?: string
+    metadata?: SanityImageMetadata
+    source?: SanityAssetSourceData
+}
 
 export type SanityAssetSourceData = {
-  _type: "sanity.assetSourceData";
-  name?: string;
-  id?: string;
-  url?: string;
-};
+    _type: 'sanity.assetSourceData'
+    name?: string
+    id?: string
+    url?: string
+}
 
 export type SanityImageMetadata = {
-  _type: "sanity.imageMetadata";
-  location?: Geopoint;
-  dimensions?: SanityImageDimensions;
-  palette?: SanityImagePalette;
-  lqip?: string;
-  blurHash?: string;
-  hasAlpha?: boolean;
-  isOpaque?: boolean;
-};
+    _type: 'sanity.imageMetadata'
+    location?: Geopoint
+    dimensions?: SanityImageDimensions
+    palette?: SanityImagePalette
+    lqip?: string
+    blurHash?: string
+    hasAlpha?: boolean
+    isOpaque?: boolean
+}
 
 export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
+    _type: 'slug'
+    current?: string
+    source?: string
+}
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Work | Settings | Playlist | MenuLink | Menu | Content | Category | BodyPortableText | Body | BasicPortableText | Post | Page | Seo | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
-export declare const internalGroqTypeReferenceTo: unique symbol;
+export type AllSanitySchemaTypes =
+    | SanityImagePaletteSwatch
+    | SanityImagePalette
+    | SanityImageDimensions
+    | SanityFileAsset
+    | Geopoint
+    | Work
+    | Settings
+    | Playlist
+    | MenuLink
+    | Menu
+    | Frontpage
+    | Content
+    | Category
+    | BodyPortableText
+    | Body
+    | BasicPortableText
+    | Post
+    | Page
+    | Seo
+    | SanityImageCrop
+    | SanityImageHotspot
+    | SanityImageAsset
+    | SanityAssetSourceData
+    | SanityImageMetadata
+    | Slug
+export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PAGES_QUERY
 // Query: *[_type == 'page' && defined(slug.current)]{slug}
 export type PAGES_QUERYResult = Array<{
-  slug: Slug | null;
-}>;
+    slug: Slug | null
+}>
 // Variable: PAGE_QUERY
 // Query: *[_type == 'page' && slug.current == $slug][0]{title,content,image}
 export type PAGE_QUERYResult = {
-  title: string | null;
-  content: Content | null;
-  image: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-} | null;
+    title: string | null
+    content: Content | null
+    image: {
+        asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+    } | null
+} | null
 // Variable: POSTS_QUERY
 // Query: *[_type == 'post' && defined(slug.current)][0...12]{_id,title,slug}
 export type POSTS_QUERYResult = Array<{
-  _id: string;
-  title: string | null;
-  slug: Slug | null;
-}>;
+    _id: string
+    title: string | null
+    slug: Slug | null
+}>
 // Variable: POST_QUERY
 // Query: *[_type == 'post' && slug.current == $slug][0]{title,content,image}
 export type POST_QUERYResult = {
-  title: string | null;
-  content: Content | null;
-  image: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-} | null;
+    title: string | null
+    content: Content | null
+    image: {
+        asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+    } | null
+} | null
+// Variable: SETTINGS_QUERY
+// Query: *[_type == 'settings'][0]{title,description,url,socialLinks}
+export type SETTINGS_QUERYResult = {
+    title: string | null
+    description: string | null
+    url: string | null
+    socialLinks: Array<{
+        name?:
+            | 'Facebook'
+            | 'GitHub'
+            | 'Instagram'
+            | 'LinkedIn'
+            | 'Reddit'
+            | 'Threads'
+            | 'X'
+            | 'Youtube'
+        url?: string
+        _type: 'socialLink'
+        _key: string
+    }> | null
+} | null
 
 // Query TypeMap
-import "@sanity/client";
-declare module "@sanity/client" {
-  interface SanityQueries {
-    "*[_type == 'page' && defined(slug.current)]{slug}": PAGES_QUERYResult;
-    "*[_type == 'page' && slug.current == $slug][0]{title,content,image}": PAGE_QUERYResult;
-    "*[_type == 'post' && defined(slug.current)][0...12]{_id,title,slug}": POSTS_QUERYResult;
-    "*[_type == 'post' && slug.current == $slug][0]{title,content,image}": POST_QUERYResult;
-  }
+import '@sanity/client'
+declare module '@sanity/client' {
+    interface SanityQueries {
+        "*[_type == 'page' && defined(slug.current)]{slug}": PAGES_QUERYResult
+        "*[_type == 'page' && slug.current == $slug][0]{title,content,image}": PAGE_QUERYResult
+        "*[_type == 'post' && defined(slug.current)][0...12]{_id,title,slug}": POSTS_QUERYResult
+        "*[_type == 'post' && slug.current == $slug][0]{title,content,image}": POST_QUERYResult
+        "*[_type == 'settings'][0]{title,description,url,socialLinks}": SETTINGS_QUERYResult
+    }
 }

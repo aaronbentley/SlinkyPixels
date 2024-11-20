@@ -1,18 +1,18 @@
 /**
- * SlinkyPixels : Body
+ * SlinkyPixels : Frontpage
  */
 
-import { BodyIcon } from '@/components/icons'
+import { FrontPageIcon } from '@/components/icons'
 import { defineField, defineType } from 'sanity'
 
 // Define content type
-const contentType = 'Body'
+const contentType = 'Frontpage'
 
-export const Body = defineType({
+export const Frontpage = defineType({
     name: contentType.toLowerCase(),
     title: contentType,
     type: 'object',
-    icon: BodyIcon,
+    icon: FrontPageIcon,
     fields: [
         defineField({
             name: 'title',
@@ -20,15 +20,18 @@ export const Body = defineType({
             type: 'string',
             description: `${contentType} Title`,
             validation: (Rule) =>
-                Rule.required().error(`Specify ${contentType} Title`)
+                Rule.required().error(`Specify ${contentType} Title`),
+            initialValue: process.env.NEXT_PUBLIC_APP_TITLE
         }),
         defineField({
             name: 'content',
             title: 'Content',
-            type: 'bodyPortableText',
+            type: 'text',
             description: `${contentType} Content`,
             validation: (Rule) =>
-                Rule.required().error(`Specify ${contentType} Content`)
+                Rule.required().error(`Specify ${contentType} Content`),
+            initialValue: process.env.NEXT_PUBLIC_APP_DESCRIPTION,
+            rows: 4
         })
     ],
     preview: {

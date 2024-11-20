@@ -21,3 +21,10 @@ export const POSTS_QUERY = defineQuery(
 export const POST_QUERY = defineQuery(
     `*[_type == 'post' && slug.current == $slug][0]{title,content,image}`
 )
+
+/**
+ * Document type [Settings] queries
+ */
+export const SETTINGS_QUERY = defineQuery(
+    `*[_type == 'settings'][0]{title,description,url,socialLinks}`
+)

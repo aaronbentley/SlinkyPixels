@@ -11,7 +11,7 @@ import {
     PostIcon,
     SettingsIcon,
     WorkIcon
-} from '@/sanity/icons/icons'
+} from '@/components/icons'
 import type { StructureResolver } from 'sanity/structure'
 
 export const structure: StructureResolver = (S) => {

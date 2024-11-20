@@ -1,7 +1,7 @@
 /**
  * SlinkyPixels : Playlist
  */
-import { PlaylistIcon } from '@/sanity/icons/icons'
+import { PlaylistIcon } from '@/components/icons'
 import { defineField, defineType } from 'sanity'
 
 // Define document type

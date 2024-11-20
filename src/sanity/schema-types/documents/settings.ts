@@ -18,7 +18,7 @@ import { defineField, defineType } from 'sanity'
 const documentType = 'Settings'
 
 // Define social icons map
-const socialIconsMap: Record<string, any> = {
+const socialIconsMap: Record<string, React.FC> = {
     X: X,
     Instagram: Instagram,
     GitHub: GitHub,
@@ -133,9 +133,7 @@ export const Settings = defineType({
                             }
 
                             // Get icon component
-                            const Icon = socialIconsMap[
-                                title
-                            ] as keyof typeof socialIconsMap
+                            const Icon = socialIconsMap[title]
 
                             return {
                                 title: title ?? 'No title',

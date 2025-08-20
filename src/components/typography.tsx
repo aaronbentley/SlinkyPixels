@@ -94,7 +94,7 @@ const typographyVariants = cva([], {
             em: [...proseBaseClasses, 'italic', 'inline'],
             strong: [...proseBaseClasses, 'font-semibold', 'inline'],
             small: ['text-sm'],
-            address: [...proseBaseClasses, '!not-italic', 'max-w-xs'],
+            address: [...proseBaseClasses, 'not-italic!', 'max-w-xs'],
             del: [...proseBaseClasses, 'line-through']
         },
         muted: {

@@ -35,11 +35,12 @@ const Frontpage = ({
                 className={cn([
                     'px-2',
                     'text-transparent',
-                    'bg-gradient-to-r',
+                    'bg-linear-to-r',
                     'from-primary',
                     'to-secondary',
                     'bg-clip-text',
-                    'tracking-tighter'
+                    'tracking-tighter',
+                    'leading-96'
                 ])}>
                 {title}
             </Typography>

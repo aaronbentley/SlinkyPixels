@@ -3,12 +3,13 @@
  */
 import '@/assets/styles/globals.css'
 import { DisableDraftMode } from '@/components/disable-draft-mode'
-import { fonts } from '@/components/font-loader'
+// import { fonts } from '@/components/font-loader'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import TailwindIndicator from '@/components/tailwind-indicator'
 import { ThemeProvider } from '@/components/theme-provider'
 import { SanityLive } from '@/sanity/lib/live'
+import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
 import { VisualEditing } from 'next-sanity'
 import { draftMode } from 'next/headers'
@@ -31,8 +32,11 @@ const RootLayout = async ({
         <html
             lang='en'
             className='dark'
+            data-scroll-behavior='smooth'
             suppressHydrationWarning>
-            <body className={fonts}>
+            <body
+                // className={fonts}
+                className={GeistSans.variable}>
                 <ThemeProvider
                     attribute='class'
                     defaultTheme='system'

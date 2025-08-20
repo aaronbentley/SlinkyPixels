@@ -37,6 +37,7 @@
         "tailwindcss-animate": "^1.0.7"
     },
     "devDependencies": {
+        "@tailwindcss/postcss": "^4.1.12",
         "@types/node": "^24.3.0",
         "@types/react": "^19.1.10",
         "@types/react-dom": "^19.1.7",
@@ -51,5 +52,5 @@
         "tailwindcss": "^4.1.12",
         "typescript": "^5.9.2"
     },
-    "packageManager": "yarn@4.5.1"
+    "packageManager": "yarn@4.9.2"
 }

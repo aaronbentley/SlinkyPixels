@@ -14,6 +14,7 @@ import { structureTool } from 'sanity/structure'
 
 export default defineConfig({
     basePath: '/studio',
+    name: process.env.NEXT_PUBLIC_APP_TITLE!,
     projectId,
     dataset,
     schema,

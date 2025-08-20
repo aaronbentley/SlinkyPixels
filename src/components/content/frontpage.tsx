@@ -39,8 +39,8 @@ const Frontpage = ({
                     'from-primary',
                     'to-secondary',
                     'bg-clip-text',
-                    'tracking-tighter',
-                    'leading-96'
+                    'tracking-tighter'
+                    // 'leading-96'
                 ])}>
                 {title}
             </Typography>

@@ -86,9 +86,9 @@
         --chart-5: 340 75% 55%;
     }
 
-    * {
+    /* * {
         @apply border-border;
-    }
+    } */
 
     html {
         @apply scroll-smooth bg-primary;

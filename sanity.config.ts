@@ -3,8 +3,8 @@
 /**
  * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...tool]]/page.tsx` route
  */
-import { apiVersion, dataset, projectId } from '@/sanity/env'
-import { resolve } from '@/sanity/presentation/resolve'
+import { apiVersion, dataset, projectId, projectName } from '@/sanity/env'
+import { locations } from '@/sanity/lib/locations'
 import { schema } from '@/sanity/schema-types'
 import { structure } from '@/sanity/structure/structure'
 import { visionTool } from '@sanity/vision'
@@ -14,18 +14,20 @@ import { structureTool } from 'sanity/structure'
 
 export default defineConfig({
     basePath: '/studio',
-    name: process.env.NEXT_PUBLIC_APP_TITLE!,
+    title: projectName,
     projectId,
     dataset,
     schema,
     plugins: [
         structureTool({ structure }),
         presentationTool({
-            resolve,
+            resolve: {
+                locations
+            },
             previewUrl: {
                 previewMode: {
-                    enable: '/api/draft-mode/enable'
-                    // disable: '/api/draft-mode/disable'
+                    enable: '/api/draft-mode/enable',
+                    disable: '/api/draft-mode/disable'
                 }
             }
         }),
@@ -55,5 +57,6 @@ export default defineConfig({
         }
     },
     tasks: { enabled: false },
-    scheduledPublishing: { enabled: false }
+    scheduledPublishing: { enabled: false },
+    releases: { enabled: false }
 })

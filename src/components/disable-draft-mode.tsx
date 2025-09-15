@@ -12,7 +12,7 @@ export const DisableDraftMode = () => {
     return (
         <Link
             href='/api/draft-mode/disable'
-            className='fixed bottom-2 right-2 rounded-sm bg-foreground p-2 text-xs font-bold text-background'>
+            className='fixed right-2 bottom-2 rounded-sm bg-foreground p-2 text-xs font-bold text-background'>
             Disable Draft Mode
         </Link>
     )

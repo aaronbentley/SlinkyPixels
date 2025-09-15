@@ -1,3 +1,10 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "chat.mcp.serverSampling": {
+        "slinky-pixels/.vscode/mcp.json: Sanity": {
+            "allowedModels": [
+                "copilot/gpt-4.1"
+            ]
+        }
+    }
 }

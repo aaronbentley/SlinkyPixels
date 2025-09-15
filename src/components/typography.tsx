@@ -204,46 +204,38 @@ export interface TypographyProps
     disableSelect?: boolean
 }
 
-const Typography = React.forwardRef<HTMLElement, TypographyProps>(
-    (
-        {
-            className,
-            variant = 'p',
-            muted,
-            size,
-            weight,
-            display,
-            as,
-            asChild,
-            disableSelect,
-            ...props
-        },
-        ref
-    ) => {
-        const Component = asChild
-            ? Slot
-            : (as ??
-              (variant ? variantElementMap[variant] : undefined) ??
-              'div')
-        return (
-            <Component
-                className={cn(
-                    typographyVariants({
-                        variant,
-                        className,
-                        muted,
-                        size,
-                        weight,
-                        display
-                    }),
-                    disableSelect && 'select-none'
-                )}
-                ref={ref}
-                {...props}
-            />
-        )
-    }
-)
+const Typography = ({
+    className,
+    variant = 'p',
+    muted,
+    size,
+    weight,
+    display,
+    as,
+    asChild,
+    disableSelect,
+    ...props
+}: TypographyProps) => {
+    const Component = asChild
+        ? Slot
+        : (as ?? (variant ? variantElementMap[variant] : undefined) ?? 'div')
+    return (
+        <Component
+            className={cn(
+                typographyVariants({
+                    variant,
+                    className,
+                    muted,
+                    size,
+                    weight,
+                    display
+                }),
+                disableSelect && 'select-none'
+            )}
+            {...props}
+        />
+    )
+}
 
 Typography.displayName = 'Typography'
 

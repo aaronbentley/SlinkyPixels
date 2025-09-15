@@ -12,21 +12,21 @@ import {
 /**
  * Document & Object icons
  */
-export const FrontPageIcon = () => <House />
+export const FrontPageIcon = House
 
-export const PageIcon = () => <File />
+export const PageIcon = File
 
-export const PostIcon = () => <FileText />
+export const PostIcon = FileText
 
-export const PlaylistIcon = () => <ListVideo />
+export const PlaylistIcon = ListVideo
 
-export const WorkIcon = () => <Layers />
+export const WorkIcon = Layers
 
-export const MenuIcon = () => <Menu />
+export const MenuIcon = Menu
 
-export const SettingsIcon = () => <SlidersHorizontal />
+export const SettingsIcon = SlidersHorizontal
 
-export const BodyIcon = () => <Text />
+export const BodyIcon = Text
 
 /**
  * Social Link icons

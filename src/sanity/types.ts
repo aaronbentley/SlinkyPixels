@@ -13,70 +13,15 @@
  */
 
 // Source: schema.json
-export type SanityImagePaletteSwatch = {
-    _type: 'sanity.imagePaletteSwatch'
-    background?: string
-    foreground?: string
-    population?: number
-    title?: string
-}
-
-export type SanityImagePalette = {
-    _type: 'sanity.imagePalette'
-    darkMuted?: SanityImagePaletteSwatch
-    lightVibrant?: SanityImagePaletteSwatch
-    darkVibrant?: SanityImagePaletteSwatch
-    vibrant?: SanityImagePaletteSwatch
-    dominant?: SanityImagePaletteSwatch
-    lightMuted?: SanityImagePaletteSwatch
-    muted?: SanityImagePaletteSwatch
-}
-
-export type SanityImageDimensions = {
-    _type: 'sanity.imageDimensions'
-    height?: number
-    width?: number
-    aspectRatio?: number
-}
-
-export type SanityFileAsset = {
-    _id: string
-    _type: 'sanity.fileAsset'
-    _createdAt: string
-    _updatedAt: string
-    _rev: string
-    originalFilename?: string
-    label?: string
-    title?: string
-    description?: string
-    altText?: string
-    sha1hash?: string
-    extension?: string
-    mimeType?: string
-    size?: number
-    assetId?: string
-    uploadId?: string
-    path?: string
-    url?: string
-    source?: SanityAssetSourceData
-}
-
-export type Geopoint = {
-    _type: 'geopoint'
-    lat?: number
-    lng?: number
-    alt?: number
-}
-
 export type Work = {
     _id: string
     _type: 'work'
     _createdAt: string
     _updatedAt: string
     _rev: string
-    title?: string
+    title: string
     slug?: Slug
-    content?: Array<
+    content: Array<
         | ({
               _key: string
           } & Frontpage)
@@ -84,13 +29,14 @@ export type Work = {
               _key: string
           } & Body)
     >
-    image?: {
+    image: {
         asset?: {
             _ref: string
             _type: 'reference'
             _weak?: boolean
             [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
         }
+        media?: unknown
         hotspot?: SanityImageHotspot
         crop?: SanityImageCrop
         _type: 'image'
@@ -104,11 +50,11 @@ export type Settings = {
     _createdAt: string
     _updatedAt: string
     _rev: string
-    title?: string
-    description?: string
-    url?: string
+    title: string
+    description: string
+    url: string
     socialLinks?: Array<{
-        name?:
+        name:
             | 'X'
             | 'Instagram'
             | 'GitHub'
@@ -117,7 +63,7 @@ export type Settings = {
             | 'Facebook'
             | 'Youtube'
             | 'LinkedIn'
-        url?: string
+        url: string
         _type: 'socialLink'
         _key: string
     }>
@@ -129,10 +75,10 @@ export type Playlist = {
     _createdAt: string
     _updatedAt: string
     _rev: string
-    title?: string
-    slug?: Slug
-    playlistId?: string
-    content?: Array<
+    title: string
+    slug: Slug
+    playlistId: string
+    content: Array<
         | ({
               _key: string
           } & Frontpage)
@@ -140,13 +86,14 @@ export type Playlist = {
               _key: string
           } & Body)
     >
-    image?: {
+    image: {
         asset?: {
             _ref: string
             _type: 'reference'
             _weak?: boolean
             [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
         }
+        media?: unknown
         hotspot?: SanityImageHotspot
         crop?: SanityImageCrop
         _type: 'image'
@@ -156,7 +103,7 @@ export type Playlist = {
 
 export type MenuLink = {
     _type: 'menuLink'
-    label?: string
+    label: string
     customUrl?: boolean
     linkDestinationRef?:
         | {
@@ -187,7 +134,7 @@ export type Menu = {
     _createdAt: string
     _updatedAt: string
     _rev: string
-    menuTitle?: string
+    menuTitle: string
     menuLinkItems?: Array<
         {
             _key: string
@@ -197,7 +144,8 @@ export type Menu = {
 
 export type Frontpage = {
     _type: 'frontpage'
-    title?: string
+    title: string
+    content: string
 }
 
 export type Content = Array<
@@ -215,9 +163,9 @@ export type Category = {
     _createdAt: string
     _updatedAt: string
     _rev: string
-    title?: string
-    slug?: Slug
-    content?: Content
+    title: string
+    slug: Slug
+    content: Content
 }
 
 export type BodyPortableText = Array<{
@@ -256,8 +204,8 @@ export type BodyPortableText = Array<{
 
 export type Body = {
     _type: 'body'
-    title?: string
-    content?: BodyPortableText
+    title: string
+    content: BodyPortableText
 }
 
 export type BasicPortableText = Array<{
@@ -300,16 +248,17 @@ export type Post = {
     _createdAt: string
     _updatedAt: string
     _rev: string
-    title?: string
-    slug?: Slug
-    content?: Content
-    image?: {
+    title: string
+    slug: Slug
+    content: Content
+    image: {
         asset?: {
             _ref: string
             _type: 'reference'
             _weak?: boolean
             [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
         }
+        media?: unknown
         hotspot?: SanityImageHotspot
         crop?: SanityImageCrop
         _type: 'image'
@@ -321,8 +270,8 @@ export type Post = {
         _key: string
         [internalGroqTypeReferenceTo]?: 'category'
     }>
-    seo?: Seo
-    publishDate?: string
+    seo: Seo
+    publishDate: string
 }
 
 export type Page = {
@@ -331,16 +280,17 @@ export type Page = {
     _createdAt: string
     _updatedAt: string
     _rev: string
-    title?: string
-    slug?: Slug
-    content?: Content
-    image?: {
+    title: string
+    slug: Slug
+    content: Content
+    image: {
         asset?: {
             _ref: string
             _type: 'reference'
             _weak?: boolean
             [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
         }
+        media?: unknown
         hotspot?: SanityImageHotspot
         crop?: SanityImageCrop
         _type: 'image'
@@ -350,24 +300,72 @@ export type Page = {
 
 export type Seo = {
     _type: 'seo'
-    seoTitle?: string
-    seoDescription?: string
+    seoTitle: string
+    seoDescription: string
 }
 
-export type SanityImageCrop = {
-    _type: 'sanity.imageCrop'
-    top?: number
-    bottom?: number
-    left?: number
-    right?: number
+export type SanityImagePaletteSwatch = {
+    _type: 'sanity.imagePaletteSwatch'
+    background?: string
+    foreground?: string
+    population?: number
+    title?: string
+}
+
+export type SanityImagePalette = {
+    _type: 'sanity.imagePalette'
+    darkMuted?: SanityImagePaletteSwatch
+    lightVibrant?: SanityImagePaletteSwatch
+    darkVibrant?: SanityImagePaletteSwatch
+    vibrant?: SanityImagePaletteSwatch
+    dominant?: SanityImagePaletteSwatch
+    lightMuted?: SanityImagePaletteSwatch
+    muted?: SanityImagePaletteSwatch
+}
+
+export type SanityImageDimensions = {
+    _type: 'sanity.imageDimensions'
+    height: number
+    width: number
+    aspectRatio: number
 }
 
 export type SanityImageHotspot = {
     _type: 'sanity.imageHotspot'
-    x?: number
-    y?: number
-    height?: number
-    width?: number
+    x: number
+    y: number
+    height: number
+    width: number
+}
+
+export type SanityImageCrop = {
+    _type: 'sanity.imageCrop'
+    top: number
+    bottom: number
+    left: number
+    right: number
+}
+
+export type SanityFileAsset = {
+    _id: string
+    _type: 'sanity.fileAsset'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    originalFilename?: string
+    label?: string
+    title?: string
+    description?: string
+    altText?: string
+    sha1hash?: string
+    extension?: string
+    mimeType?: string
+    size?: number
+    assetId?: string
+    uploadId?: string
+    path?: string
+    url?: string
+    source?: SanityAssetSourceData
 }
 
 export type SanityImageAsset = {
@@ -393,13 +391,6 @@ export type SanityImageAsset = {
     source?: SanityAssetSourceData
 }
 
-export type SanityAssetSourceData = {
-    _type: 'sanity.assetSourceData'
-    name?: string
-    id?: string
-    url?: string
-}
-
 export type SanityImageMetadata = {
     _type: 'sanity.imageMetadata'
     location?: Geopoint
@@ -411,18 +402,27 @@ export type SanityImageMetadata = {
     isOpaque?: boolean
 }
 
+export type Geopoint = {
+    _type: 'geopoint'
+    lat?: number
+    lng?: number
+    alt?: number
+}
+
 export type Slug = {
     _type: 'slug'
-    current?: string
+    current: string
     source?: string
 }
 
+export type SanityAssetSourceData = {
+    _type: 'sanity.assetSourceData'
+    name?: string
+    id?: string
+    url?: string
+}
+
 export type AllSanitySchemaTypes =
-    | SanityImagePaletteSwatch
-    | SanityImagePalette
-    | SanityImageDimensions
-    | SanityFileAsset
-    | Geopoint
     | Work
     | Settings
     | Playlist
@@ -437,24 +437,29 @@ export type AllSanitySchemaTypes =
     | Post
     | Page
     | Seo
-    | SanityImageCrop
+    | SanityImagePaletteSwatch
+    | SanityImagePalette
+    | SanityImageDimensions
     | SanityImageHotspot
+    | SanityImageCrop
+    | SanityFileAsset
     | SanityImageAsset
-    | SanityAssetSourceData
     | SanityImageMetadata
+    | Geopoint
     | Slug
+    | SanityAssetSourceData
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PAGES_QUERY
 // Query: *[_type == 'page' && defined(slug.current)]{slug}
 export type PAGES_QUERYResult = Array<{
-    slug: Slug | null
+    slug: Slug
 }>
 // Variable: PAGE_QUERY
 // Query: *[_type == 'page' && slug.current == $slug][0]{title,content,image}
 export type PAGE_QUERYResult = {
-    title: string | null
-    content: Content | null
+    title: string
+    content: Content
     image: {
         asset?: {
             _ref: string
@@ -462,23 +467,24 @@ export type PAGE_QUERYResult = {
             _weak?: boolean
             [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
         }
+        media?: unknown
         hotspot?: SanityImageHotspot
         crop?: SanityImageCrop
         _type: 'image'
-    } | null
+    }
 } | null
 // Variable: POSTS_QUERY
 // Query: *[_type == 'post' && defined(slug.current)][0...12]{_id,title,slug}
 export type POSTS_QUERYResult = Array<{
     _id: string
-    title: string | null
-    slug: Slug | null
+    title: string
+    slug: Slug
 }>
 // Variable: POST_QUERY
 // Query: *[_type == 'post' && slug.current == $slug][0]{title,content,image}
 export type POST_QUERYResult = {
-    title: string | null
-    content: Content | null
+    title: string
+    content: Content
     image: {
         asset?: {
             _ref: string
@@ -486,19 +492,20 @@ export type POST_QUERYResult = {
             _weak?: boolean
             [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
         }
+        media?: unknown
         hotspot?: SanityImageHotspot
         crop?: SanityImageCrop
         _type: 'image'
-    } | null
+    }
 } | null
 // Variable: SETTINGS_QUERY
 // Query: *[_type == 'settings'][0]{title,description,url,socialLinks}
 export type SETTINGS_QUERYResult = {
-    title: string | null
-    description: string | null
-    url: string | null
+    title: string
+    description: string
+    url: string
     socialLinks: Array<{
-        name?:
+        name:
             | 'Facebook'
             | 'GitHub'
             | 'Instagram'
@@ -507,7 +514,7 @@ export type SETTINGS_QUERYResult = {
             | 'Threads'
             | 'X'
             | 'Youtube'
-        url?: string
+        url: string
         _type: 'socialLink'
         _key: string
     }> | null

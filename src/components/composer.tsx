@@ -2,7 +2,7 @@
  * SlinkyPixels : Composer
  */
 import Frontpage from '@/components/content/frontpage'
-import { type Content } from '../../sanity.types'
+import { type Content } from '@/sanity/types'
 import Body from './content/body'
 
 /**

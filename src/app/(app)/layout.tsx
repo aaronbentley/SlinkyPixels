@@ -11,7 +11,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { SanityLive } from '@/sanity/lib/live'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
-import { VisualEditing } from 'next-sanity'
+import { VisualEditing } from 'next-sanity/visual-editing'
 import { draftMode } from 'next/headers'
 
 export const metadata: Metadata = {

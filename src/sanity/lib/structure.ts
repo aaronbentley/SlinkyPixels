@@ -7,7 +7,6 @@ import {
     FrontPageIcon,
     MenuIcon,
     PageIcon,
-    PlaylistIcon,
     PostIcon,
     SettingsIcon,
     WorkIcon
@@ -53,9 +52,6 @@ export const structure: StructureResolver = (S) => {
                             )
                         ])
                 ),
-            S.documentTypeListItem('playlist')
-                .title('Playlists')
-                .icon(PlaylistIcon),
             S.documentTypeListItem('work').title('Work').icon(WorkIcon),
             S.divider(),
             S.documentTypeListItem('menu').title('Menus').icon(MenuIcon),

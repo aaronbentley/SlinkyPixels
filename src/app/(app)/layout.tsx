@@ -34,9 +34,7 @@ const RootLayout = async ({
             className='dark'
             data-scroll-behavior='smooth'
             suppressHydrationWarning>
-            <body
-                // className={fonts}
-                className={GeistSans.variable}>
+            <body className={GeistSans.variable}>
                 <ThemeProvider
                     attribute='class'
                     defaultTheme='system'

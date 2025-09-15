@@ -2,6 +2,7 @@
  * SlinkyPixels : Header
  */
 import ModeToggle from '@/components/mode-toggle'
+import { headingBaseClasses } from '@/components/typography'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
@@ -17,12 +18,12 @@ const Header = () => (
                             variant: 'ghost',
                             size: 'sm',
                             className: [
+                                headingBaseClasses,
                                 'md:mr-6',
                                 'text-xl',
                                 'tracking-tight',
                                 'transition-all',
-                                'duration-200',
-                                'font-bold'
+                                'duration-200'
                             ]
                         })
                     )}>

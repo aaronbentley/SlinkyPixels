@@ -5,8 +5,8 @@
  */
 import { apiVersion, dataset, projectId, projectName } from '@/sanity/env'
 import { locations } from '@/sanity/lib/locations'
+import { structure } from '@/sanity/lib/structure'
 import { schema } from '@/sanity/schema-types'
-import { structure } from '@/sanity/structure/structure'
 import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
 import { presentationTool } from 'sanity/presentation'

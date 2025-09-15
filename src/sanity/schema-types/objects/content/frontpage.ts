@@ -32,6 +32,15 @@ export const Frontpage = defineType({
                 Rule.required().error(`Specify ${contentType} Content`),
             initialValue: process.env.NEXT_PUBLIC_APP_DESCRIPTION,
             rows: 4
+        }),
+        defineField({
+            name: 'buttons',
+            title: 'Buttons',
+            type: 'array',
+            of: [{ type: 'button' }],
+            description: `Add up to 2 buttons`,
+            validation: (Rule) =>
+                Rule.max(2).error('You can add up to 2 buttons only')
         })
     ],
     preview: {

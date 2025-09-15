@@ -1,31 +1,31 @@
+import { Category } from '@/sanity/schema-types/documents/category'
+import { Menu } from '@/sanity/schema-types/documents/menu'
+import { Page } from '@/sanity/schema-types/documents/page'
+import { Post } from '@/sanity/schema-types/documents/post'
+import { Settings } from '@/sanity/schema-types/documents/settings'
+import { Work } from '@/sanity/schema-types/documents/work'
+import { BasicPortableText } from '@/sanity/schema-types/objects/basic-portable-text'
+import { BodyPortableText } from '@/sanity/schema-types/objects/body-portable-text'
+import { Button } from '@/sanity/schema-types/objects/button'
+import { Body } from '@/sanity/schema-types/objects/content/body'
+import { Content } from '@/sanity/schema-types/objects/content/content'
+import { Frontpage } from '@/sanity/schema-types/objects/content/frontpage'
+import { MenuLink } from '@/sanity/schema-types/objects/menu-link'
+import { Seo } from '@/sanity/schema-types/objects/seo'
 import { type SchemaTypeDefinition } from 'sanity'
-import { Category } from './documents/category'
-import { Menu } from './documents/menu'
-import { Page } from './documents/page'
-import { Playlist } from './documents/playlist'
-import { Post } from './documents/post'
-import { Settings } from './documents/settings'
-import { Work } from './documents/work'
-import { BasicPortableText } from './objects/basic-portable-text'
-import { BodyPortableText } from './objects/body-portable-text'
-import { Body } from './objects/content/body'
-import { Content } from './objects/content/content'
-import { Frontpage } from './objects/content/frontpage'
-import { MenuLink } from './objects/menu-link'
-import { Seo } from './objects/seo'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
         BasicPortableText,
         Body,
         BodyPortableText,
+        Button,
         Category,
         Content,
         Frontpage,
         Menu,
         MenuLink,
         Page,
-        Playlist,
         Post,
         Seo,
         Settings,

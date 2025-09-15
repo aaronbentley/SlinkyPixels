@@ -69,38 +69,6 @@ export type Settings = {
     }>
 }
 
-export type Playlist = {
-    _id: string
-    _type: 'playlist'
-    _createdAt: string
-    _updatedAt: string
-    _rev: string
-    title: string
-    slug: Slug
-    playlistId: string
-    content: Array<
-        | ({
-              _key: string
-          } & Frontpage)
-        | ({
-              _key: string
-          } & Body)
-    >
-    image: {
-        asset?: {
-            _ref: string
-            _type: 'reference'
-            _weak?: boolean
-            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-        }
-        media?: unknown
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        _type: 'image'
-    }
-    seo?: Seo
-}
-
 export type MenuLink = {
     _type: 'menuLink'
     label: string
@@ -146,6 +114,11 @@ export type Frontpage = {
     _type: 'frontpage'
     title: string
     content: string
+    buttons?: Array<
+        {
+            _key: string
+        } & Button
+    >
 }
 
 export type Content = Array<
@@ -168,6 +141,27 @@ export type Category = {
     content: Content
 }
 
+export type Button = {
+    _type: 'button'
+    label: string
+    customUrl?: boolean
+    destinationRef?:
+        | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'page'
+          }
+        | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'post'
+          }
+    destinationHref?: string
+    blank?: boolean
+}
+
 export type BodyPortableText = Array<{
     children?: Array<{
         marks?: Array<string>
@@ -179,7 +173,7 @@ export type BodyPortableText = Array<{
     listItem?: 'bullet' | 'number'
     markDefs?: Array<{
         customUrl?: boolean
-        linkDestinationRef?:
+        destinationRef?:
             | {
                   _ref: string
                   _type: 'reference'
@@ -192,7 +186,7 @@ export type BodyPortableText = Array<{
                   _weak?: boolean
                   [internalGroqTypeReferenceTo]?: 'page'
               }
-        linkDestinationHref?: string
+        destinationHref?: string
         blank?: boolean
         _type: 'link'
         _key: string
@@ -425,12 +419,12 @@ export type SanityAssetSourceData = {
 export type AllSanitySchemaTypes =
     | Work
     | Settings
-    | Playlist
     | MenuLink
     | Menu
     | Frontpage
     | Content
     | Category
+    | Button
     | BodyPortableText
     | Body
     | BasicPortableText
@@ -450,48 +444,289 @@ export type AllSanitySchemaTypes =
     | SanityAssetSourceData
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./src/sanity/lib/queries.ts
-// Variable: PAGES_QUERY
-// Query: *[_type == 'page' && defined(slug.current)]{slug}
-export type PAGES_QUERYResult = Array<{
-    slug: Slug
+// Variable: PAGE_PATHS_QUERY
+// Query: *[        _type == 'page' &&         defined(slug.current)    ] {            slug {        current    }    }
+export type PAGE_PATHS_QUERYResult = Array<{
+    slug: {
+        current: string
+    }
 }>
 // Variable: PAGE_QUERY
-// Query: *[_type == 'page' && slug.current == $slug][0]{title,content,image}
+// Query: *[        _type == 'page' &&         slug.current == $slug    ][0] {        title,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            label,            customUrl,            destinationHref,            destinationRef-> {                _type,                title,                    slug {        current    }            },            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
 export type PAGE_QUERYResult = {
     title: string
-    content: Content
+    content: Array<
+        | {
+              _key: string
+              _type: 'body'
+              title: string
+              content: Array<{
+                  children?: Array<{
+                      marks?: Array<string>
+                      text?: string
+                      _type: 'span'
+                      _key: string
+                  }>
+                  style?:
+                      | 'blockquote'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                  listItem?: 'bullet' | 'number'
+                  markDefs: Array<
+                      | {
+                            customUrl?: boolean
+                            destinationRef?:
+                                | {
+                                      _ref: string
+                                      _type: 'reference'
+                                      _weak?: boolean
+                                      [internalGroqTypeReferenceTo]?: 'page'
+                                  }
+                                | {
+                                      _ref: string
+                                      _type: 'reference'
+                                      _weak?: boolean
+                                      [internalGroqTypeReferenceTo]?: 'post'
+                                  }
+                            destinationHref?: string
+                            blank?: boolean
+                            _type: 'link'
+                            _key: string
+                        }
+                      | {
+                            customUrl?: boolean
+                            destinationRef:
+                                | {
+                                      _type: 'page'
+                                      title: string
+                                      slug: {
+                                          current: string
+                                      }
+                                  }
+                                | {
+                                      _type: 'post'
+                                      title: string
+                                      slug: {
+                                          current: string
+                                      }
+                                  }
+                                | null
+                            destinationHref?: string
+                            blank?: boolean
+                            _type: 'link'
+                            _key: string
+                        }
+                  > | null
+                  level?: number
+                  _type: 'block'
+                  _key: string
+              }>
+          }
+        | {
+              _key: string
+              _type: 'frontpage'
+              title: string
+              content: string
+              buttons: Array<{
+                  label: string
+                  customUrl: boolean | null
+                  destinationHref: string | null
+                  destinationRef:
+                      | {
+                            _type: 'page'
+                            title: string
+                            slug: {
+                                current: string
+                            }
+                        }
+                      | {
+                            _type: 'post'
+                            title: string
+                            slug: {
+                                current: string
+                            }
+                        }
+                      | null
+                  blank: boolean | null
+              }> | null
+          }
+    >
     image: {
-        asset?: {
-            _ref: string
-            _type: 'reference'
-            _weak?: boolean
-            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-        }
+        asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata: SanityImageMetadata | null
+            source?: SanityAssetSourceData
+        } | null
         media?: unknown
         hotspot?: SanityImageHotspot
         crop?: SanityImageCrop
         _type: 'image'
     }
 } | null
+// Variable: POST_PATHS_QUERY
+// Query: *[        _type == 'post' &&         defined(slug.current)    ]{             slug {        current    }    }
+export type POST_PATHS_QUERYResult = Array<{
+    slug: {
+        current: string
+    }
+}>
 // Variable: POSTS_QUERY
-// Query: *[_type == 'post' && defined(slug.current)][0...12]{_id,title,slug}
+// Query: *[        _type == 'post' &&         defined(slug.current)    ][0...12] {        _id,        title,            slug {        current    },    }
 export type POSTS_QUERYResult = Array<{
     _id: string
     title: string
-    slug: Slug
+    slug: {
+        current: string
+    }
 }>
 // Variable: POST_QUERY
-// Query: *[_type == 'post' && slug.current == $slug][0]{title,content,image}
+// Query: *[        _type == 'post' &&         slug.current == $slug    ][0] {        title,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            label,            customUrl,            destinationHref,            destinationRef-> {                _type,                title,                    slug {        current    }            },            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
 export type POST_QUERYResult = {
     title: string
-    content: Content
+    content: Array<
+        | {
+              _key: string
+              _type: 'body'
+              title: string
+              content: Array<{
+                  children?: Array<{
+                      marks?: Array<string>
+                      text?: string
+                      _type: 'span'
+                      _key: string
+                  }>
+                  style?:
+                      | 'blockquote'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                  listItem?: 'bullet' | 'number'
+                  markDefs: Array<
+                      | {
+                            customUrl?: boolean
+                            destinationRef?:
+                                | {
+                                      _ref: string
+                                      _type: 'reference'
+                                      _weak?: boolean
+                                      [internalGroqTypeReferenceTo]?: 'page'
+                                  }
+                                | {
+                                      _ref: string
+                                      _type: 'reference'
+                                      _weak?: boolean
+                                      [internalGroqTypeReferenceTo]?: 'post'
+                                  }
+                            destinationHref?: string
+                            blank?: boolean
+                            _type: 'link'
+                            _key: string
+                        }
+                      | {
+                            customUrl?: boolean
+                            destinationRef:
+                                | {
+                                      _type: 'page'
+                                      title: string
+                                      slug: {
+                                          current: string
+                                      }
+                                  }
+                                | {
+                                      _type: 'post'
+                                      title: string
+                                      slug: {
+                                          current: string
+                                      }
+                                  }
+                                | null
+                            destinationHref?: string
+                            blank?: boolean
+                            _type: 'link'
+                            _key: string
+                        }
+                  > | null
+                  level?: number
+                  _type: 'block'
+                  _key: string
+              }>
+          }
+        | {
+              _key: string
+              _type: 'frontpage'
+              title: string
+              content: string
+              buttons: Array<{
+                  label: string
+                  customUrl: boolean | null
+                  destinationHref: string | null
+                  destinationRef:
+                      | {
+                            _type: 'page'
+                            title: string
+                            slug: {
+                                current: string
+                            }
+                        }
+                      | {
+                            _type: 'post'
+                            title: string
+                            slug: {
+                                current: string
+                            }
+                        }
+                      | null
+                  blank: boolean | null
+              }> | null
+          }
+    >
     image: {
-        asset?: {
-            _ref: string
-            _type: 'reference'
-            _weak?: boolean
-            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-        }
+        asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata: SanityImageMetadata | null
+            source?: SanityAssetSourceData
+        } | null
         media?: unknown
         hotspot?: SanityImageHotspot
         crop?: SanityImageCrop
@@ -499,7 +734,7 @@ export type POST_QUERYResult = {
     }
 } | null
 // Variable: SETTINGS_QUERY
-// Query: *[_type == 'settings'][0]{title,description,url,socialLinks}
+// Query: *[_type == 'settings'][0] {        title,        description,        url,        socialLinks    }
 export type SETTINGS_QUERYResult = {
     title: string
     description: string
@@ -524,10 +759,11 @@ export type SETTINGS_QUERYResult = {
 import '@sanity/client'
 declare module '@sanity/client' {
     interface SanityQueries {
-        "*[_type == 'page' && defined(slug.current)]{slug}": PAGES_QUERYResult
-        "*[_type == 'page' && slug.current == $slug][0]{title,content,image}": PAGE_QUERYResult
-        "*[_type == 'post' && defined(slug.current)][0...12]{_id,title,slug}": POSTS_QUERYResult
-        "*[_type == 'post' && slug.current == $slug][0]{title,content,image}": POST_QUERYResult
-        "*[_type == 'settings'][0]{title,description,url,socialLinks}": SETTINGS_QUERYResult
+        "\n    *[\n        _type == 'page' && \n        defined(slug.current)\n    ] {\n        \n    slug {\n        current\n    }\n\n    }\n": PAGE_PATHS_QUERYResult
+        "\n    *[\n        _type == 'page' && \n        slug.current == $slug\n    ][0] {\n        title,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": PAGE_QUERYResult
+        "\n    *[\n        _type == 'post' && \n        defined(slug.current)\n    ]{ \n        \n    slug {\n        current\n    }\n\n    }\n": POST_PATHS_QUERYResult
+        "\n    *[\n        _type == 'post' && \n        defined(slug.current)\n    ][0...12] {\n        _id,\n        title,\n        \n    slug {\n        current\n    }\n,\n    }\n": POSTS_QUERYResult
+        "\n    *[\n        _type == 'post' && \n        slug.current == $slug\n    ][0] {\n        title,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": POST_QUERYResult
+        "\n    *[_type == 'settings'][0] {\n        title,\n        description,\n        url,\n        socialLinks\n    }\n": SETTINGS_QUERYResult
     }
 }

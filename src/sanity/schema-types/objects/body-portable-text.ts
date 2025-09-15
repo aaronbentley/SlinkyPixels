@@ -43,7 +43,7 @@ export const BodyPortableText = defineType({
                                 initialValue: false
                             }),
                             defineField({
-                                name: 'linkDestinationRef',
+                                name: 'destinationRef',
                                 title: 'Destination Reference',
                                 type: 'reference',
                                 to: [{ type: 'post' }, { type: 'page' }],
@@ -58,7 +58,7 @@ export const BodyPortableText = defineType({
                                 }
                             }),
                             defineField({
-                                name: 'linkDestinationHref',
+                                name: 'destinationHref',
                                 title: 'Destination URL',
                                 type: 'url',
                                 validation: (Rule) =>

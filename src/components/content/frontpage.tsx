@@ -2,8 +2,8 @@
  * SlinkyPixels : Content : Frontpage
  */
 
+import { headingBaseClasses, Typography } from '@/components/typography'
 import { cn } from '@/lib/utils'
-import { Typography } from '../typography'
 
 const Frontpage = ({
     id,
@@ -33,14 +33,16 @@ const Frontpage = ({
                 variant='h1'
                 display
                 className={cn([
+                    headingBaseClasses,
                     'px-2',
                     'text-transparent',
                     'bg-linear-to-r',
                     'from-primary',
-                    'to-secondary',
+                    'via-secondary',
+                    'to-tertiary',
                     'bg-clip-text',
-                    'tracking-tighter'
-                    // 'leading-96'
+                    'tracking-tighter',
+                    'backdrop-blur-lg'
                 ])}>
                 {title}
             </Typography>

@@ -1,9 +1,9 @@
 /**
  * SlinkyPixels : Composer
  */
+import Body from '@/components/content/body'
 import Frontpage from '@/components/content/frontpage'
-import { type Content } from '@/sanity/types'
-import Body from './content/body'
+import { PAGE_QUERYResult, POST_QUERYResult } from '@/sanity/types'
 
 /**
  * Lookup map to match content type to a component
@@ -12,6 +12,11 @@ const contentComponents = {
     frontpage: Frontpage,
     body: Body
 }
+
+/**
+ * Create type for content component type
+ */
+export type ContentComponentType = keyof typeof contentComponents
 
 /**
  * Map content components to content
@@ -23,7 +28,7 @@ const Content = ({
     ...rest
 }: {
     id: string
-    type: keyof typeof contentComponents
+    type: ContentComponentType
     order: number
     [key: string]: unknown
 }) => {
@@ -46,7 +51,18 @@ const Content = ({
     )
 }
 
-const Composer = ({ content }: { content: Content | null }) => {
+/**
+ * Compose content block types into content components
+ * indexed access types to allow more content types post, team, proposal etc...
+ */
+type ContentType =
+    | Extract<
+          PAGE_QUERYResult | POST_QUERYResult,
+          { content: unknown }
+      >['content']
+    | null
+
+const Composer = ({ content }: { content: ContentType | null }) => {
     /**
      * If content is empty, return null
      */

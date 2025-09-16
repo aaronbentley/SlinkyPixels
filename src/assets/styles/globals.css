@@ -133,4 +133,9 @@
     [role='button']:not(:disabled) {
         cursor: pointer;
     }
+
+    /* Set selection styles */
+    ::selection {
+        @apply bg-secondary text-background;
+    }
 }

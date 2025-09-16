@@ -23,6 +23,9 @@ const Post = async ({ params }: { params: Promise<{ slug: string }> }) => {
         params: await params
     })
 
+    /**
+     * Bail if no post found
+     */
     if (!post) notFound()
 
     return <h1>{post.title}</h1>

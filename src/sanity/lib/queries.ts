@@ -30,6 +30,7 @@ const frontpage = `
         title,
         content,
         buttons[] {
+            _key,
             label,
             customUrl,
             destinationHref,

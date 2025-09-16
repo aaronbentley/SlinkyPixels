@@ -27,6 +27,9 @@ const Page = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
         params: { slug }
     })
 
+    /**
+     * Bail if no page found
+     */
     if (!page) notFound()
 
     return <Composer content={page.content} />

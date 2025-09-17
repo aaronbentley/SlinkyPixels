@@ -28,6 +28,9 @@ export type Work = {
         | ({
               _key: string
           } & Body)
+        | ({
+              _key: string
+          } & CollectionGrid)
     >
     image: {
         asset?: {
@@ -110,39 +113,8 @@ export type Menu = {
     >
 }
 
-export type Frontpage = {
-    _type: 'frontpage'
-    title: string
-    content: string
-    buttons?: Array<
-        {
-            _key: string
-        } & Button
-    >
-}
-
-export type Content = Array<
-    | ({
-          _key: string
-      } & Frontpage)
-    | ({
-          _key: string
-      } & Body)
->
-
-export type Category = {
-    _id: string
-    _type: 'category'
-    _createdAt: string
-    _updatedAt: string
-    _rev: string
-    title: string
-    slug: Slug
-    content: Content
-}
-
-export type Button = {
-    _type: 'button'
+export type Link = {
+    _type: 'link'
     label: string
     customUrl?: boolean
     destinationRef?:
@@ -160,6 +132,70 @@ export type Button = {
           }
     destinationHref?: string
     blank?: boolean
+}
+
+export type Frontpage = {
+    _type: 'frontpage'
+    title: string
+    content: string
+    buttons?: Array<
+        {
+            _key: string
+        } & Link
+    >
+}
+
+export type Content = Array<
+    | ({
+          _key: string
+      } & Frontpage)
+    | ({
+          _key: string
+      } & Body)
+    | ({
+          _key: string
+      } & CollectionGrid)
+>
+
+export type CollectionGrid = {
+    _type: 'collectionGrid'
+    title: string
+    contentType: 'post' | 'page' | 'work' | 'custom'
+    limit?: number
+    customContent?: Array<
+        | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              _key: string
+              [internalGroqTypeReferenceTo]?: 'page'
+          }
+        | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              _key: string
+              [internalGroqTypeReferenceTo]?: 'post'
+          }
+        | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              _key: string
+              [internalGroqTypeReferenceTo]?: 'work'
+          }
+    >
+}
+
+export type Category = {
+    _id: string
+    _type: 'category'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title: string
+    slug: Slug
+    content: Content
 }
 
 export type BodyPortableText = Array<{
@@ -421,10 +457,11 @@ export type AllSanitySchemaTypes =
     | Settings
     | MenuLink
     | Menu
+    | Link
     | Frontpage
     | Content
+    | CollectionGrid
     | Category
-    | Button
     | BodyPortableText
     | Body
     | BasicPortableText
@@ -445,14 +482,55 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PAGE_PATHS_QUERY
-// Query: *[        _type == 'page' &&         defined(slug.current)    ] {            slug {        current    }    }
+// Query: *[        _type == 'page' &&        defined(slug.current) &&        slug.current != '/'    ] {            slug {        current    }    }
 export type PAGE_PATHS_QUERYResult = Array<{
     slug: {
         current: string
     }
 }>
+// Variable: PAGES_QUERY
+// Query: *[        _type == 'page' &&        defined(slug.current) &&        slug.current != '/'    ] {        ...,            image {        ...,        asset-> {            ...,            metadata        }    }    }
+export type PAGES_QUERYResult = Array<{
+    _id: string
+    _type: 'page'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title: string
+    slug: Slug
+    content: Content
+    image: {
+        asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata: SanityImageMetadata | null
+            source?: SanityAssetSourceData
+        } | null
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+    }
+    seo?: Seo
+}>
 // Variable: PAGE_QUERY
-// Query: *[        _type == 'page' &&         slug.current == $slug    ][0] {        title,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            _key,            label,            customUrl,            destinationHref,            destinationRef->,            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
+// Query: *[        _type == 'page' &&         defined(slug.current) &&        slug.current == $slug    ][0] {        title,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            _key,            label,            customUrl,            destinationHref,            destinationRef-> {                _type,                title,                    slug {        current    }            },            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    },            _type == 'collectionGrid' => {        contentType,        limit,        "content": select(            defined(customContent) && contentType == 'custom' => customContent[]-> {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            },            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            }|order(title asc),            []        )    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
 export type PAGE_QUERYResult = {
     title: string
     content: Array<
@@ -528,6 +606,152 @@ export type PAGE_QUERYResult = {
           }
         | {
               _key: string
+              _type: 'collectionGrid'
+              title: string
+              contentType: 'custom' | 'page' | 'post' | 'work'
+              limit: number | null
+              customContent?: Array<
+                  | {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        _key: string
+                        [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                  | {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        _key: string
+                        [internalGroqTypeReferenceTo]?: 'post'
+                    }
+                  | {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        _key: string
+                        [internalGroqTypeReferenceTo]?: 'work'
+                    }
+              >
+              content:
+                  | Array<never>
+                  | Array<
+                        | {
+                              _id: string
+                              _type: 'page'
+                              title: string
+                              excerpt: null
+                              slug: {
+                                  current: string
+                              }
+                              image: {
+                                  asset: {
+                                      _id: string
+                                      _type: 'sanity.imageAsset'
+                                      _createdAt: string
+                                      _updatedAt: string
+                                      _rev: string
+                                      originalFilename?: string
+                                      label?: string
+                                      title?: string
+                                      description?: string
+                                      altText?: string
+                                      sha1hash?: string
+                                      extension?: string
+                                      mimeType?: string
+                                      size?: number
+                                      assetId?: string
+                                      uploadId?: string
+                                      path?: string
+                                      url?: string
+                                      metadata: SanityImageMetadata | null
+                                      source?: SanityAssetSourceData
+                                  } | null
+                                  media?: unknown
+                                  hotspot?: SanityImageHotspot
+                                  crop?: SanityImageCrop
+                                  _type: 'image'
+                              }
+                          }
+                        | {
+                              _id: string
+                              _type: 'post'
+                              title: string
+                              excerpt: null
+                              slug: {
+                                  current: string
+                              }
+                              image: {
+                                  asset: {
+                                      _id: string
+                                      _type: 'sanity.imageAsset'
+                                      _createdAt: string
+                                      _updatedAt: string
+                                      _rev: string
+                                      originalFilename?: string
+                                      label?: string
+                                      title?: string
+                                      description?: string
+                                      altText?: string
+                                      sha1hash?: string
+                                      extension?: string
+                                      mimeType?: string
+                                      size?: number
+                                      assetId?: string
+                                      uploadId?: string
+                                      path?: string
+                                      url?: string
+                                      metadata: SanityImageMetadata | null
+                                      source?: SanityAssetSourceData
+                                  } | null
+                                  media?: unknown
+                                  hotspot?: SanityImageHotspot
+                                  crop?: SanityImageCrop
+                                  _type: 'image'
+                              }
+                          }
+                        | {
+                              _id: string
+                              _type: 'work'
+                              title: string
+                              excerpt: null
+                              slug: {
+                                  current: string
+                              } | null
+                              image: {
+                                  asset: {
+                                      _id: string
+                                      _type: 'sanity.imageAsset'
+                                      _createdAt: string
+                                      _updatedAt: string
+                                      _rev: string
+                                      originalFilename?: string
+                                      label?: string
+                                      title?: string
+                                      description?: string
+                                      altText?: string
+                                      sha1hash?: string
+                                      extension?: string
+                                      mimeType?: string
+                                      size?: number
+                                      assetId?: string
+                                      uploadId?: string
+                                      path?: string
+                                      url?: string
+                                      metadata: SanityImageMetadata | null
+                                      source?: SanityAssetSourceData
+                                  } | null
+                                  media?: unknown
+                                  hotspot?: SanityImageHotspot
+                                  crop?: SanityImageCrop
+                                  _type: 'image'
+                              }
+                          }
+                    >
+                  | null
+          }
+        | {
+              _key: string
               _type: 'frontpage'
               title: string
               content: string
@@ -538,58 +762,18 @@ export type PAGE_QUERYResult = {
                   destinationHref: string | null
                   destinationRef:
                       | {
-                            _id: string
                             _type: 'page'
-                            _createdAt: string
-                            _updatedAt: string
-                            _rev: string
                             title: string
-                            slug: Slug
-                            content: Content
-                            image: {
-                                asset?: {
-                                    _ref: string
-                                    _type: 'reference'
-                                    _weak?: boolean
-                                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-                                }
-                                media?: unknown
-                                hotspot?: SanityImageHotspot
-                                crop?: SanityImageCrop
-                                _type: 'image'
+                            slug: {
+                                current: string
                             }
-                            seo?: Seo
                         }
                       | {
-                            _id: string
                             _type: 'post'
-                            _createdAt: string
-                            _updatedAt: string
-                            _rev: string
                             title: string
-                            slug: Slug
-                            content: Content
-                            image: {
-                                asset?: {
-                                    _ref: string
-                                    _type: 'reference'
-                                    _weak?: boolean
-                                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-                                }
-                                media?: unknown
-                                hotspot?: SanityImageHotspot
-                                crop?: SanityImageCrop
-                                _type: 'image'
+                            slug: {
+                                current: string
                             }
-                            categories?: Array<{
-                                _ref: string
-                                _type: 'reference'
-                                _weak?: boolean
-                                _key: string
-                                [internalGroqTypeReferenceTo]?: 'category'
-                            }>
-                            seo: Seo
-                            publishDate: string
                         }
                       | null
                   blank: boolean | null
@@ -633,7 +817,7 @@ export type POST_PATHS_QUERYResult = Array<{
     }
 }>
 // Variable: POSTS_QUERY
-// Query: *[        _type == 'post' &&         defined(slug.current)    ][0...12] {        _id,        title,            slug {        current    },    }
+// Query: *[        _type == 'post' &&         defined(slug.current)    ] {        _id,        title,            slug {        current    },    }
 export type POSTS_QUERYResult = Array<{
     _id: string
     title: string
@@ -642,7 +826,7 @@ export type POSTS_QUERYResult = Array<{
     }
 }>
 // Variable: POST_QUERY
-// Query: *[        _type == 'post' &&         slug.current == $slug    ][0] {        title,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            _key,            label,            customUrl,            destinationHref,            destinationRef->,            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
+// Query: *[        _type == 'post' &&         defined(slug.current) &&        slug.current == $slug    ][0] {        title,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            _key,            label,            customUrl,            destinationHref,            destinationRef-> {                _type,                title,                    slug {        current    }            },            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    },            _type == 'collectionGrid' => {        contentType,        limit,        "content": select(            defined(customContent) && contentType == 'custom' => customContent[]-> {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            },            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            }|order(title asc),            []        )    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
 export type POST_QUERYResult = {
     title: string
     content: Array<
@@ -718,6 +902,152 @@ export type POST_QUERYResult = {
           }
         | {
               _key: string
+              _type: 'collectionGrid'
+              title: string
+              contentType: 'custom' | 'page' | 'post' | 'work'
+              limit: number | null
+              customContent?: Array<
+                  | {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        _key: string
+                        [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                  | {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        _key: string
+                        [internalGroqTypeReferenceTo]?: 'post'
+                    }
+                  | {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        _key: string
+                        [internalGroqTypeReferenceTo]?: 'work'
+                    }
+              >
+              content:
+                  | Array<never>
+                  | Array<
+                        | {
+                              _id: string
+                              _type: 'page'
+                              title: string
+                              excerpt: null
+                              slug: {
+                                  current: string
+                              }
+                              image: {
+                                  asset: {
+                                      _id: string
+                                      _type: 'sanity.imageAsset'
+                                      _createdAt: string
+                                      _updatedAt: string
+                                      _rev: string
+                                      originalFilename?: string
+                                      label?: string
+                                      title?: string
+                                      description?: string
+                                      altText?: string
+                                      sha1hash?: string
+                                      extension?: string
+                                      mimeType?: string
+                                      size?: number
+                                      assetId?: string
+                                      uploadId?: string
+                                      path?: string
+                                      url?: string
+                                      metadata: SanityImageMetadata | null
+                                      source?: SanityAssetSourceData
+                                  } | null
+                                  media?: unknown
+                                  hotspot?: SanityImageHotspot
+                                  crop?: SanityImageCrop
+                                  _type: 'image'
+                              }
+                          }
+                        | {
+                              _id: string
+                              _type: 'post'
+                              title: string
+                              excerpt: null
+                              slug: {
+                                  current: string
+                              }
+                              image: {
+                                  asset: {
+                                      _id: string
+                                      _type: 'sanity.imageAsset'
+                                      _createdAt: string
+                                      _updatedAt: string
+                                      _rev: string
+                                      originalFilename?: string
+                                      label?: string
+                                      title?: string
+                                      description?: string
+                                      altText?: string
+                                      sha1hash?: string
+                                      extension?: string
+                                      mimeType?: string
+                                      size?: number
+                                      assetId?: string
+                                      uploadId?: string
+                                      path?: string
+                                      url?: string
+                                      metadata: SanityImageMetadata | null
+                                      source?: SanityAssetSourceData
+                                  } | null
+                                  media?: unknown
+                                  hotspot?: SanityImageHotspot
+                                  crop?: SanityImageCrop
+                                  _type: 'image'
+                              }
+                          }
+                        | {
+                              _id: string
+                              _type: 'work'
+                              title: string
+                              excerpt: null
+                              slug: {
+                                  current: string
+                              } | null
+                              image: {
+                                  asset: {
+                                      _id: string
+                                      _type: 'sanity.imageAsset'
+                                      _createdAt: string
+                                      _updatedAt: string
+                                      _rev: string
+                                      originalFilename?: string
+                                      label?: string
+                                      title?: string
+                                      description?: string
+                                      altText?: string
+                                      sha1hash?: string
+                                      extension?: string
+                                      mimeType?: string
+                                      size?: number
+                                      assetId?: string
+                                      uploadId?: string
+                                      path?: string
+                                      url?: string
+                                      metadata: SanityImageMetadata | null
+                                      source?: SanityAssetSourceData
+                                  } | null
+                                  media?: unknown
+                                  hotspot?: SanityImageHotspot
+                                  crop?: SanityImageCrop
+                                  _type: 'image'
+                              }
+                          }
+                    >
+                  | null
+          }
+        | {
+              _key: string
               _type: 'frontpage'
               title: string
               content: string
@@ -728,58 +1058,18 @@ export type POST_QUERYResult = {
                   destinationHref: string | null
                   destinationRef:
                       | {
-                            _id: string
                             _type: 'page'
-                            _createdAt: string
-                            _updatedAt: string
-                            _rev: string
                             title: string
-                            slug: Slug
-                            content: Content
-                            image: {
-                                asset?: {
-                                    _ref: string
-                                    _type: 'reference'
-                                    _weak?: boolean
-                                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-                                }
-                                media?: unknown
-                                hotspot?: SanityImageHotspot
-                                crop?: SanityImageCrop
-                                _type: 'image'
+                            slug: {
+                                current: string
                             }
-                            seo?: Seo
                         }
                       | {
-                            _id: string
                             _type: 'post'
-                            _createdAt: string
-                            _updatedAt: string
-                            _rev: string
                             title: string
-                            slug: Slug
-                            content: Content
-                            image: {
-                                asset?: {
-                                    _ref: string
-                                    _type: 'reference'
-                                    _weak?: boolean
-                                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-                                }
-                                media?: unknown
-                                hotspot?: SanityImageHotspot
-                                crop?: SanityImageCrop
-                                _type: 'image'
+                            slug: {
+                                current: string
                             }
-                            categories?: Array<{
-                                _ref: string
-                                _type: 'reference'
-                                _weak?: boolean
-                                _key: string
-                                [internalGroqTypeReferenceTo]?: 'category'
-                            }>
-                            seo: Seo
-                            publishDate: string
                         }
                       | null
                   blank: boolean | null
@@ -815,6 +1105,351 @@ export type POST_QUERYResult = {
         _type: 'image'
     }
 } | null
+// Variable: WORK_PATHS_QUERY
+// Query: *[        _type == 'work' &&        defined(slug.current)    ] {            slug {        current    }    }
+export type WORK_PATHS_QUERYResult = Array<{
+    slug: {
+        current: string
+    } | null
+}>
+// Variable: WORKS_QUERY
+// Query: *[        _type == 'work' &&        defined(slug.current)    ] {        ...,            image {        ...,        asset-> {            ...,            metadata        }    }    }
+export type WORKS_QUERYResult = Array<{
+    _id: string
+    _type: 'work'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title: string
+    slug?: Slug
+    content: Array<
+        | ({
+              _key: string
+          } & Body)
+        | ({
+              _key: string
+          } & CollectionGrid)
+        | ({
+              _key: string
+          } & Frontpage)
+    >
+    image: {
+        asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata: SanityImageMetadata | null
+            source?: SanityAssetSourceData
+        } | null
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+    }
+    seo?: Seo
+}>
+// Variable: WORK_QUERY
+// Query: *[        _type == 'work' &&        defined(slug.current) &&        slug.current == $slug    ][0] {        ...,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            _key,            label,            customUrl,            destinationHref,            destinationRef-> {                _type,                title,                    slug {        current    }            },            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    },            _type == 'collectionGrid' => {        contentType,        limit,        "content": select(            defined(customContent) && contentType == 'custom' => customContent[]-> {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            },            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            }|order(title asc),            []        )    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
+export type WORK_QUERYResult = {
+    _id: string
+    _type: 'work'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title: string
+    slug?: Slug
+    content: Array<
+        | {
+              _key: string
+              _type: 'body'
+              title: string
+              content: Array<{
+                  children?: Array<{
+                      marks?: Array<string>
+                      text?: string
+                      _type: 'span'
+                      _key: string
+                  }>
+                  style?:
+                      | 'blockquote'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                  listItem?: 'bullet' | 'number'
+                  markDefs: Array<
+                      | {
+                            customUrl?: boolean
+                            destinationRef?:
+                                | {
+                                      _ref: string
+                                      _type: 'reference'
+                                      _weak?: boolean
+                                      [internalGroqTypeReferenceTo]?: 'page'
+                                  }
+                                | {
+                                      _ref: string
+                                      _type: 'reference'
+                                      _weak?: boolean
+                                      [internalGroqTypeReferenceTo]?: 'post'
+                                  }
+                            destinationHref?: string
+                            blank?: boolean
+                            _type: 'link'
+                            _key: string
+                        }
+                      | {
+                            customUrl?: boolean
+                            destinationRef:
+                                | {
+                                      _type: 'page'
+                                      title: string
+                                      slug: {
+                                          current: string
+                                      }
+                                  }
+                                | {
+                                      _type: 'post'
+                                      title: string
+                                      slug: {
+                                          current: string
+                                      }
+                                  }
+                                | null
+                            destinationHref?: string
+                            blank?: boolean
+                            _type: 'link'
+                            _key: string
+                        }
+                  > | null
+                  level?: number
+                  _type: 'block'
+                  _key: string
+              }>
+          }
+        | {
+              _key: string
+              _type: 'collectionGrid'
+              title: string
+              contentType: 'custom' | 'page' | 'post' | 'work'
+              limit: number | null
+              customContent?: Array<
+                  | {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        _key: string
+                        [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                  | {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        _key: string
+                        [internalGroqTypeReferenceTo]?: 'post'
+                    }
+                  | {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        _key: string
+                        [internalGroqTypeReferenceTo]?: 'work'
+                    }
+              >
+              content:
+                  | Array<never>
+                  | Array<
+                        | {
+                              _id: string
+                              _type: 'page'
+                              title: string
+                              excerpt: null
+                              slug: {
+                                  current: string
+                              }
+                              image: {
+                                  asset: {
+                                      _id: string
+                                      _type: 'sanity.imageAsset'
+                                      _createdAt: string
+                                      _updatedAt: string
+                                      _rev: string
+                                      originalFilename?: string
+                                      label?: string
+                                      title?: string
+                                      description?: string
+                                      altText?: string
+                                      sha1hash?: string
+                                      extension?: string
+                                      mimeType?: string
+                                      size?: number
+                                      assetId?: string
+                                      uploadId?: string
+                                      path?: string
+                                      url?: string
+                                      metadata: SanityImageMetadata | null
+                                      source?: SanityAssetSourceData
+                                  } | null
+                                  media?: unknown
+                                  hotspot?: SanityImageHotspot
+                                  crop?: SanityImageCrop
+                                  _type: 'image'
+                              }
+                          }
+                        | {
+                              _id: string
+                              _type: 'post'
+                              title: string
+                              excerpt: null
+                              slug: {
+                                  current: string
+                              }
+                              image: {
+                                  asset: {
+                                      _id: string
+                                      _type: 'sanity.imageAsset'
+                                      _createdAt: string
+                                      _updatedAt: string
+                                      _rev: string
+                                      originalFilename?: string
+                                      label?: string
+                                      title?: string
+                                      description?: string
+                                      altText?: string
+                                      sha1hash?: string
+                                      extension?: string
+                                      mimeType?: string
+                                      size?: number
+                                      assetId?: string
+                                      uploadId?: string
+                                      path?: string
+                                      url?: string
+                                      metadata: SanityImageMetadata | null
+                                      source?: SanityAssetSourceData
+                                  } | null
+                                  media?: unknown
+                                  hotspot?: SanityImageHotspot
+                                  crop?: SanityImageCrop
+                                  _type: 'image'
+                              }
+                          }
+                        | {
+                              _id: string
+                              _type: 'work'
+                              title: string
+                              excerpt: null
+                              slug: {
+                                  current: string
+                              } | null
+                              image: {
+                                  asset: {
+                                      _id: string
+                                      _type: 'sanity.imageAsset'
+                                      _createdAt: string
+                                      _updatedAt: string
+                                      _rev: string
+                                      originalFilename?: string
+                                      label?: string
+                                      title?: string
+                                      description?: string
+                                      altText?: string
+                                      sha1hash?: string
+                                      extension?: string
+                                      mimeType?: string
+                                      size?: number
+                                      assetId?: string
+                                      uploadId?: string
+                                      path?: string
+                                      url?: string
+                                      metadata: SanityImageMetadata | null
+                                      source?: SanityAssetSourceData
+                                  } | null
+                                  media?: unknown
+                                  hotspot?: SanityImageHotspot
+                                  crop?: SanityImageCrop
+                                  _type: 'image'
+                              }
+                          }
+                    >
+                  | null
+          }
+        | {
+              _key: string
+              _type: 'frontpage'
+              title: string
+              content: string
+              buttons: Array<{
+                  _key: string
+                  label: string
+                  customUrl: boolean | null
+                  destinationHref: string | null
+                  destinationRef:
+                      | {
+                            _type: 'page'
+                            title: string
+                            slug: {
+                                current: string
+                            }
+                        }
+                      | {
+                            _type: 'post'
+                            title: string
+                            slug: {
+                                current: string
+                            }
+                        }
+                      | null
+                  blank: boolean | null
+              }> | null
+          }
+    >
+    image: {
+        asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata: SanityImageMetadata | null
+            source?: SanityAssetSourceData
+        } | null
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+    }
+    seo?: Seo
+} | null
 // Variable: SETTINGS_QUERY
 // Query: *[_type == 'settings'][0] {        title,        description,        url,        socialLinks    }
 export type SETTINGS_QUERYResult = {
@@ -841,11 +1476,15 @@ export type SETTINGS_QUERYResult = {
 import '@sanity/client'
 declare module '@sanity/client' {
     interface SanityQueries {
-        "\n    *[\n        _type == 'page' && \n        defined(slug.current)\n    ] {\n        \n    slug {\n        current\n    }\n\n    }\n": PAGE_PATHS_QUERYResult
-        "\n    *[\n        _type == 'page' && \n        slug.current == $slug\n    ][0] {\n        title,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef->,\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": PAGE_QUERYResult
+        "\n    *[\n        _type == 'page' &&\n        defined(slug.current) &&\n        slug.current != '/'\n    ] {\n        \n    slug {\n        current\n    }\n\n    }\n": PAGE_PATHS_QUERYResult
+        "\n    *[\n        _type == 'page' &&\n        defined(slug.current) &&\n        slug.current != '/'\n    ] {\n        ...,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": PAGES_QUERYResult
+        "\n    *[\n        _type == 'page' && \n        defined(slug.current) &&\n        slug.current == $slug\n    ][0] {\n        title,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n,\n        \n    _type == 'collectionGrid' => {\n        contentType,\n        limit,\n        \"content\": select(\n            defined(customContent) && contentType == 'custom' => customContent[]-> {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            },\n            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            }|order(title asc),\n            []\n        )\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": PAGE_QUERYResult
         "\n    *[\n        _type == 'post' && \n        defined(slug.current)\n    ]{ \n        \n    slug {\n        current\n    }\n\n    }\n": POST_PATHS_QUERYResult
-        "\n    *[\n        _type == 'post' && \n        defined(slug.current)\n    ][0...12] {\n        _id,\n        title,\n        \n    slug {\n        current\n    }\n,\n    }\n": POSTS_QUERYResult
-        "\n    *[\n        _type == 'post' && \n        slug.current == $slug\n    ][0] {\n        title,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef->,\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": POST_QUERYResult
+        "\n    *[\n        _type == 'post' && \n        defined(slug.current)\n    ] {\n        _id,\n        title,\n        \n    slug {\n        current\n    }\n,\n    }\n": POSTS_QUERYResult
+        "\n    *[\n        _type == 'post' && \n        defined(slug.current) &&\n        slug.current == $slug\n    ][0] {\n        title,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n,\n        \n    _type == 'collectionGrid' => {\n        contentType,\n        limit,\n        \"content\": select(\n            defined(customContent) && contentType == 'custom' => customContent[]-> {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            },\n            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            }|order(title asc),\n            []\n        )\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": POST_QUERYResult
+        "\n    *[\n        _type == 'work' &&\n        defined(slug.current)\n    ] {\n        \n    slug {\n        current\n    }\n\n    }\n": WORK_PATHS_QUERYResult
+        "\n    *[\n        _type == 'work' &&\n        defined(slug.current)\n    ] {\n        ...,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": WORKS_QUERYResult
+        "\n    *[\n        _type == 'work' &&\n        defined(slug.current) &&\n        slug.current == $slug\n    ][0] {\n        ...,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n,\n        \n    _type == 'collectionGrid' => {\n        contentType,\n        limit,\n        \"content\": select(\n            defined(customContent) && contentType == 'custom' => customContent[]-> {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            },\n            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            }|order(title asc),\n            []\n        )\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": WORK_QUERYResult
         "\n    *[_type == 'settings'][0] {\n        title,\n        description,\n        url,\n        socialLinks\n    }\n": SETTINGS_QUERYResult
     }
 }

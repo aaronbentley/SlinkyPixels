@@ -2,15 +2,21 @@
  * SlinkyPixels : Composer
  */
 import Body from '@/components/content/body'
+import CollectionGrid from '@/components/content/collection-grid'
 import Frontpage from '@/components/content/frontpage'
-import { PAGE_QUERYResult, POST_QUERYResult } from '@/sanity/types'
+import {
+    PAGE_QUERYResult,
+    POST_QUERYResult,
+    WORK_QUERYResult
+} from '@/sanity/types'
 
 /**
  * Lookup map to match content type to a component
  */
 const contentComponents = {
     frontpage: Frontpage,
-    body: Body
+    body: Body,
+    collectionGrid: CollectionGrid
 }
 
 /**
@@ -57,7 +63,7 @@ const Content = ({
  */
 type ContentType =
     | Extract<
-          PAGE_QUERYResult | POST_QUERYResult,
+          PAGE_QUERYResult | POST_QUERYResult | WORK_QUERYResult,
           { content: unknown }
       >['content']
     | null

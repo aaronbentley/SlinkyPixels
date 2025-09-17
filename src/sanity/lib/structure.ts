@@ -11,6 +11,7 @@ import {
     SettingsIcon,
     WorkIcon
 } from '@/components/icons'
+import { apiVersion } from '@/sanity/env'
 import type { StructureResolver } from 'sanity/structure'
 
 export const structure: StructureResolver = (S) => {
@@ -34,6 +35,7 @@ export const structure: StructureResolver = (S) => {
                         .filter(
                             '_type == "page" && _id != "frontpage" && _id != "drafts.frontpage"'
                         )
+                        .apiVersion(apiVersion)
                         .defaultOrdering([{ field: 'title', direction: 'asc' }])
                 ),
             S.listItem()

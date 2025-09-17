@@ -1,12 +1,11 @@
 /**
  * SlinkyPixels : Content : Frontpage
  */
-
 import Link from '@/components/link'
 import { headingBaseClasses, Typography } from '@/components/typography'
-import { Button, buttonVariants } from '@/components/ui/button'
 import { resolveLinkURL } from '@/lib/helpers'
 import { cn } from '@/lib/utils'
+import { Button, buttonVariants } from '@ui/button'
 
 const Frontpage = ({
     id,
@@ -51,7 +50,7 @@ const Frontpage = ({
                     headingBaseClasses,
                     'px-2',
                     'text-transparent',
-                    'bg-linear-to-r',
+                    'bg-linear-125',
                     'from-primary',
                     'via-secondary',
                     'to-tertiary',
@@ -70,9 +69,9 @@ const Frontpage = ({
             </Typography>
             {buttons && buttons.length > 0 && (
                 <div className='mt-4 flex flex-wrap justify-center gap-3'>
-                    {buttons.map((button) => {
+                    {buttons.map((link) => {
                         /**
-                         * Destructure button properties
+                         * Destructure link properties
                          */
                         const {
                             _key,
@@ -81,10 +80,10 @@ const Frontpage = ({
                             destinationRef,
                             destinationHref,
                             label
-                        } = button
+                        } = link
 
                         /**
-                         * Verify button properties
+                         * Verify link properties
                          */
                         if (
                             !label ||
@@ -94,7 +93,7 @@ const Frontpage = ({
                             return null
 
                         /**
-                         * Resolve button item URL
+                         * Resolve link item URL
                          */
                         const href = resolveLinkURL({
                             customUrl,
@@ -112,7 +111,8 @@ const Frontpage = ({
                                         size: 'lg'
                                     }),
                                     'text-background',
-                                    'min-w-24'
+                                    'min-w-24',
+                                    'hover:text-background'
                                 )}>
                                 <Link
                                     target={blank ? '_blank' : '_self'}

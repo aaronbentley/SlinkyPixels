@@ -1,7 +1,9 @@
 /**
  * SlinkyPixels : Portable Text Serializer
  */
+import Link from '@/components/link'
 import { Typography } from '@/components/typography'
+import { resolveLinkURL } from '@/lib/helpers'
 import { PortableTextReactComponents } from 'next-sanity'
 
 /**
@@ -44,7 +46,31 @@ const baseSerializer: Partial<PortableTextReactComponents> = {
                 className='line-through decoration-2'>
                 {children}
             </Typography>
-        )
+        ),
+        link: ({ children, value }) => {
+            const {
+                customUrl = false,
+                destinationRef = null,
+                destinationHref = '',
+                blank = false
+            } = value
+
+            // Resolve link destination ref/url
+            const href = resolveLinkURL({
+                customUrl,
+                destinationRef,
+                destinationHref
+            })
+
+            return (
+                <Link
+                    href={href}
+                    target={blank ? '_blank' : '_self'}
+                    className='underline-offset-4 hover:underline'>
+                    {children}
+                </Link>
+            )
+        }
     },
     list: {
         bullet: ({ children }) => (

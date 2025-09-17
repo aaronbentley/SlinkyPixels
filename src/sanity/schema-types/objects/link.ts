@@ -1,12 +1,11 @@
 /**
- * Slinky Pixels : Button
+ * Slinky Pixels : Link
  */
-
 import { defineField, defineType } from 'sanity'
 
-export const Button = defineType({
-    name: 'button',
-    title: 'Button',
+export const Link = defineType({
+    name: 'link',
+    title: 'Link',
     type: 'object',
     fields: [
         defineField({
@@ -48,12 +47,7 @@ export const Button = defineType({
                     relativeOnly: false, // Force only relative links
                     scheme: ['https', 'http', 'mailto', 'tel'] // Default is ["https", "http"]
                 }),
-            hidden: ({ parent }) => {
-                if (parent.customUrl === true) {
-                    return false
-                }
-                return true
-            }
+            hidden: ({ parent }) => !parent.customUrl
         }),
         defineField({
             title: 'Open in new tab',

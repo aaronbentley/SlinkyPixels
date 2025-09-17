@@ -62,6 +62,32 @@ const body = `
     }
 `
 
+const collectionGrid = `
+    _type == 'collectionGrid' => {
+        contentType,
+        limit,
+        "content": select(
+            defined(customContent) && contentType == 'custom' => customContent[]-> {
+                _id,
+                _type,
+                title,
+                excerpt,
+                ${slug},
+                ${imageAssetReference}
+            },
+            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {
+                _id,
+                _type,
+                title,
+                excerpt,
+                ${slug},
+                ${imageAssetReference}
+            }|order(title asc),
+            []
+        )
+    }
+`
+
 const content = `
     content[] {
         ...,
@@ -69,7 +95,8 @@ const content = `
         _type,
         'title': coalesce(title, 'Content Title'),
         ${frontpage},
-        ${body}
+        ${body},
+        ${collectionGrid}
     }
 `
 
@@ -78,16 +105,29 @@ const content = `
  */
 export const PAGE_PATHS_QUERY = defineQuery(`
     *[
-        _type == 'page' && 
-        defined(slug.current)
+        _type == 'page' &&
+        defined(slug.current) &&
+        slug.current != '/'
     ] {
         ${slug}
+    }
+`)
+
+export const PAGES_QUERY = defineQuery(`
+    *[
+        _type == 'page' &&
+        defined(slug.current) &&
+        slug.current != '/'
+    ] {
+        ...,
+        ${imageAssetReference}
     }
 `)
 
 export const PAGE_QUERY = defineQuery(`
     *[
         _type == 'page' && 
+        defined(slug.current) &&
         slug.current == $slug
     ][0] {
         title,
@@ -112,7 +152,7 @@ export const POSTS_QUERY = defineQuery(`
     *[
         _type == 'post' && 
         defined(slug.current)
-    ][0...12] {
+    ] {
         _id,
         title,
         ${slug},
@@ -122,9 +162,44 @@ export const POSTS_QUERY = defineQuery(`
 export const POST_QUERY = defineQuery(`
     *[
         _type == 'post' && 
+        defined(slug.current) &&
         slug.current == $slug
     ][0] {
         title,
+        ${content},
+        ${imageAssetReference}
+    }
+`)
+
+/**
+ * Document type [Work] queries
+ */
+export const WORK_PATHS_QUERY = defineQuery(`
+    *[
+        _type == 'work' &&
+        defined(slug.current)
+    ] {
+        ${slug}
+    }
+`)
+
+export const WORKS_QUERY = defineQuery(`
+    *[
+        _type == 'work' &&
+        defined(slug.current)
+    ] {
+        ...,
+        ${imageAssetReference}
+    }
+`)
+
+export const WORK_QUERY = defineQuery(`
+    *[
+        _type == 'work' &&
+        defined(slug.current) &&
+        slug.current == $slug
+    ][0] {
+        ...,
         ${content},
         ${imageAssetReference}
     }

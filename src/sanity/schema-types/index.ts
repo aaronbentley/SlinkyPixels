@@ -6,10 +6,11 @@ import { Settings } from '@/sanity/schema-types/documents/settings'
 import { Work } from '@/sanity/schema-types/documents/work'
 import { BasicPortableText } from '@/sanity/schema-types/objects/basic-portable-text'
 import { BodyPortableText } from '@/sanity/schema-types/objects/body-portable-text'
-import { Button } from '@/sanity/schema-types/objects/button'
 import { Body } from '@/sanity/schema-types/objects/content/body'
+import { CollectionGrid } from '@/sanity/schema-types/objects/content/collection-grid'
 import { Content } from '@/sanity/schema-types/objects/content/content'
 import { Frontpage } from '@/sanity/schema-types/objects/content/frontpage'
+import { Link } from '@/sanity/schema-types/objects/link'
 import { MenuLink } from '@/sanity/schema-types/objects/menu-link'
 import { Seo } from '@/sanity/schema-types/objects/seo'
 import { type SchemaTypeDefinition } from 'sanity'
@@ -19,10 +20,11 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         BasicPortableText,
         Body,
         BodyPortableText,
-        Button,
         Category,
+        CollectionGrid,
         Content,
         Frontpage,
+        Link,
         Menu,
         MenuLink,
         Page,

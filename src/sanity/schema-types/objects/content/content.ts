@@ -1,16 +1,21 @@
 /**
  * SlinkyPixels : Content
  */
+import camelcase from 'camelcase'
 import { defineArrayMember, defineType } from 'sanity'
 
+// Define content type
+const contentType = 'Content'
+
 export const Content = defineType({
-    title: 'Content',
-    name: 'content',
+    name: camelcase(contentType),
+    title: contentType,
     type: 'array',
     description: 'Compose Page content',
     of: [
         defineArrayMember({ type: 'frontpage' }),
-        defineArrayMember({ type: 'body' })
+        defineArrayMember({ type: 'body' }),
+        defineArrayMember({ type: 'collectionGrid' })
     ],
     options: {
         insertMenu: {

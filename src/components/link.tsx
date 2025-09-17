@@ -21,15 +21,15 @@ const Link = ({
     /**
      * Build array of link styles
      */
-    // const linkStyles = [
-    //     'transition-colors',
-    //     'duration-200',
-    //     'text-secondary-foreground',
-    //     'cursor-pointer',
-    //     'inline-block',
-    //     'w-fit',
-    //     'hover:text-secondary'
-    // ]
+    const linkStyles = [
+        'transition-colors',
+        'duration-200',
+        'text-secondary-foreground',
+        'cursor-pointer',
+        'inline-block',
+        'w-fit',
+        'hover:text-secondary'
+    ]
 
     /**
      * Bail early if href is not provided
@@ -64,10 +64,7 @@ const Link = ({
                 target={target}
                 rel='noopener noreferrer'
                 {...rest}
-                className={cn(
-                    // ...linkStyles,
-                    className
-                )}>
+                className={cn(...linkStyles, className)}>
                 {children}
             </a>
         )
@@ -80,10 +77,7 @@ const Link = ({
         <NextLink
             href={href}
             target={target}
-            className={cn(
-                // ...linkStyles,
-                className
-            )}
+            className={cn(...linkStyles, className)}
             {...rest}>
             {children}
         </NextLink>

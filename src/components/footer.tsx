@@ -38,7 +38,7 @@ const Footer = async () => {
                             key={socialLink._key}
                             target='_blank'
                             className='group'>
-                            <Icon className='size-4 origin-bottom transition-all duration-200 group-hover:scale-150 group-hover:text-primary' />
+                            <Icon className='size-4 origin-bottom transition-all duration-200 group-hover:scale-150 group-hover:text-secondary' />
                         </Link>
                     )
                 })}

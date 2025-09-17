@@ -1,7 +1,6 @@
 /**
  * SlinkyPixels : Frontpage
  */
-
 import { FrontPageIcon } from '@/components/icons'
 import { defineField, defineType } from 'sanity'
 
@@ -37,7 +36,7 @@ export const Frontpage = defineType({
             name: 'buttons',
             title: 'Buttons',
             type: 'array',
-            of: [{ type: 'button' }],
+            of: [{ type: 'link' }],
             description: `Add up to 2 buttons`,
             validation: (Rule) =>
                 Rule.max(2).error('You can add up to 2 buttons only')

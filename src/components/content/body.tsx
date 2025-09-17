@@ -1,10 +1,9 @@
 /**
  * SlinkyPixels : Content : Body
  */
-
+import serializer from '@/components/serializer'
 import { cn } from '@/lib/utils'
 import { PortableText, PortableTextBlock } from 'next-sanity'
-import serializer from '../serializer'
 
 const Body = ({
     id,
@@ -24,7 +23,7 @@ const Body = ({
         <div
             id={id}
             data-order={order}
-            className={cn(['flex', 'flex-col', 'gap-12', 'container'])}>
+            className={cn(['flex', 'flex-col', 'gap-8', 'container'])}>
             <PortableText
                 value={content}
                 components={serializer()}

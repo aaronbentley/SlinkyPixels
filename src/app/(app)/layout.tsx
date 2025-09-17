@@ -1,11 +1,8 @@
 /**
- * SlinkyPixels : Root Layout
+ * SlinkyPixels : App Layout
  */
 import '@/assets/styles/globals.css'
 import { DisableDraftMode } from '@/components/disable-draft-mode'
-// import { fonts } from '@/components/font-loader'
-import Footer from '@/components/footer'
-import Header from '@/components/header'
 import TailwindIndicator from '@/components/tailwind-indicator'
 import { ThemeProvider } from '@/components/theme-provider'
 import { SanityLive } from '@/sanity/lib/live'
@@ -23,7 +20,7 @@ export const metadata: Metadata = {
     description: process.env.APP_DESCRIPTION!
 }
 
-const RootLayout = async ({
+const AppLayout = async ({
     children
 }: Readonly<{
     children: React.ReactNode
@@ -42,11 +39,7 @@ const RootLayout = async ({
                     disableTransitionOnChange
                     enableColorScheme>
                     <main className='flex min-h-screen flex-col'>
-                        <Header />
-                        <div className='flex min-h-max flex-1 flex-col items-center justify-start gap-y-4 md:gap-y-12'>
-                            {children}
-                        </div>
-                        <Footer />
+                        {children}
                     </main>
                     <TailwindIndicator />
                     <SanityLive />
@@ -62,4 +55,4 @@ const RootLayout = async ({
     )
 }
 
-export default RootLayout
+export default AppLayout

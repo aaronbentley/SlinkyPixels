@@ -1,6 +1,7 @@
 import {
     File,
     FileText,
+    Grid3X3,
     House,
     Layers,
     ListVideo,
@@ -27,6 +28,8 @@ export const MenuIcon = Menu
 export const SettingsIcon = SlidersHorizontal
 
 export const BodyIcon = Text
+
+export const CollectionGridIcon = Grid3X3
 
 /**
  * Social Link icons

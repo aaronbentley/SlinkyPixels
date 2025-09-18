@@ -45,8 +45,8 @@ const Footer = async () => {
                         <Link
                             href={socialLink.url}
                             key={socialLink._key}
-                            title={`Visit me on ${socialLink.name}`}
-                            aria-label={socialLink.name}
+                            title={`Say hi on ${socialLink.name}`}
+                            aria-label={`Say hi on ${socialLink.name}`}
                             rel='noopener noreferrer'
                             target='_blank'
                             className='group'>

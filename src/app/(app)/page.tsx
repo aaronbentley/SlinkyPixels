@@ -31,7 +31,14 @@ const Frontpage = async () => {
      */
     if (!frontPage) notFound()
 
-    return <Composer content={frontPage?.content} />
+    return (
+        <Composer
+            content={frontPage?.content}
+            documentId={frontPage._id}
+            documentType={frontPage._type}
+            className='min-h-screen'
+        />
+    )
 }
 
 export default Frontpage

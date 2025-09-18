@@ -23,7 +23,16 @@ const Body = ({
         <div
             id={id}
             data-order={order}
-            className={cn(['flex', 'flex-col', 'gap-8', 'container'])}>
+            className={cn([
+                'flex',
+                'flex-col',
+                'gap-8',
+                'container',
+                'lg:max-w-[980px]',
+                'mx-auto',
+                'pb-12',
+                'md:pb-16'
+            ])}>
             <PortableText
                 value={content}
                 components={serializer()}

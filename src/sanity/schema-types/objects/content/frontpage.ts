@@ -37,9 +37,9 @@ export const Frontpage = defineType({
             title: 'Buttons',
             type: 'array',
             of: [{ type: 'link' }],
-            description: `Add up to 2 buttons`,
+            description: `Add up to 3 buttons`,
             validation: (Rule) =>
-                Rule.max(2).error('You can add up to 2 buttons only')
+                Rule.max(3).error('You can add up to 3 buttons only')
         })
     ],
     preview: {

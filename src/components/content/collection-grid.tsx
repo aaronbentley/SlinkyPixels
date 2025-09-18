@@ -18,6 +18,7 @@ type CollectionGridContentItemProps = {
     _id: string
     _type: string
     title: string
+    subtitle: string
     excerpt: string
     slug: Slug
     image: ImageProps['image']
@@ -50,8 +51,8 @@ const CollectionGrid = async ({
         <div
             id={id}
             data-order={order}
-            className={cn(['container'])}>
-            <div className='grid grid-cols-1 gap-6 lg:grid-cols-3'>
+            className={cn(['container', 'lg:max-w-[980px]'])}>
+            <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
                 {content &&
                     (limit ? content.slice(0, limit) : content).map(
                         (contentItem) => {
@@ -77,15 +78,17 @@ const CollectionGrid = async ({
                             return (
                                 <Link
                                     key={contentItem._id}
-                                    href={href}>
-                                    <Card className='h-full pt-0'>
+                                    href={href}
+                                    title={`View ${contentItem.title}`}
+                                    className='group'>
+                                    <Card className='h-full overflow-hidden border-2 pt-0 transition-colors duration-200 group-hover:border-secondary-foreground'>
                                         {contentItem.image && (
                                             <Image
                                                 image={contentItem.image}
                                                 alt={contentItem.title}
                                                 width={480}
                                                 height={320}
-                                                className='aspect-4/3 rounded-t-xl object-cover'
+                                                className='aspect-4/3 object-cover data-[lqip=true]:aspect-4/3!'
                                             />
                                         )}
                                         <CardHeader>
@@ -95,7 +98,7 @@ const CollectionGrid = async ({
                                         </CardHeader>
                                         <CardContent>
                                             <CardDescription>
-                                                {contentItem.excerpt}
+                                                {contentItem.subtitle}
                                             </CardDescription>
                                         </CardContent>
                                     </Card>

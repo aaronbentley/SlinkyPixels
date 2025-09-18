@@ -11,7 +11,6 @@ import { CollectionGrid } from '@/sanity/schema-types/objects/content/collection
 import { Content } from '@/sanity/schema-types/objects/content/content'
 import { Frontpage } from '@/sanity/schema-types/objects/content/frontpage'
 import { Link } from '@/sanity/schema-types/objects/link'
-import { MenuLink } from '@/sanity/schema-types/objects/menu-link'
 import { Seo } from '@/sanity/schema-types/objects/seo'
 import { type SchemaTypeDefinition } from 'sanity'
 
@@ -26,7 +25,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         Frontpage,
         Link,
         Menu,
-        MenuLink,
         Page,
         Post,
         Seo,

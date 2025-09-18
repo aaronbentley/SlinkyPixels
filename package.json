@@ -16,6 +16,9 @@
     "typegen": "yarn schema:extract && yarn schema:generate"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-navigation-menu": "^1.2.14",
+    "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-separator": "^1.1.7",
     "@sanity/icons": "^3.7.4",
     "@sanity/image-url": "1.2.0",
@@ -37,7 +40,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.13",
-    "@types/node": "^24.5.1",
+    "@types/node": "^24.5.2",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "@types/react-is": "^19.0.0",

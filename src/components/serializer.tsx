@@ -4,6 +4,7 @@
 import Link from '@/components/link'
 import { Typography } from '@/components/typography'
 import { resolveLinkURL } from '@/lib/helpers'
+import { cn } from '@/lib/utils'
 import { PortableTextReactComponents } from 'next-sanity'
 
 /**
@@ -66,7 +67,24 @@ const baseSerializer: Partial<PortableTextReactComponents> = {
                 <Link
                     href={href}
                     target={blank ? '_blank' : '_self'}
-                    className='underline-offset-4 hover:underline'>
+                    className={cn([
+                        'text-transparent',
+                        'bg-linear-125',
+                        'from-primary',
+                        'via-secondary',
+                        'to-tertiary',
+                        'bg-clip-text',
+                        'transition',
+                        'duration-200',
+                        'hover:text-transparent',
+                        'hover:from-primary-foreground',
+                        'hover:via-secondary-foreground',
+                        'hover:to-tertiary-foreground',
+                        'dark:hover:text-transparent',
+                        'dark:hover:from-primary-foreground',
+                        'dark:hover:via-secondary-foreground',
+                        'dark:hover:to-tertiary-foreground'
+                    ])}>
                     {children}
                 </Link>
             )

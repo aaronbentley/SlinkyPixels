@@ -1,37 +1,65 @@
 /**
  * SlinkyPixels : Header
  */
+import MobileNav from '@/components/mobile-nav'
 import ModeToggle from '@/components/mode-toggle'
 import { headingBaseClasses } from '@/components/typography'
 import { cn } from '@/lib/utils'
+import { sanityFetch } from '@/sanity/lib/live'
+import { MENU_QUERY } from '@/sanity/lib/queries'
 import Link from 'next/link'
 
-const Header = () => (
-    <header className='sticky top-0 z-50 w-full border-b border-muted bg-background/80 backdrop-blur dark:bg-background/80'>
-        <div className='container flex items-center'>
-            <div className='flex w-full justify-between py-4'>
-                <Link
-                    href='/'
-                    className={cn([
-                        headingBaseClasses,
-                        'text-xl',
-                        'text-transparent',
-                        'bg-linear-125',
-                        'from-primary',
-                        'via-secondary',
-                        'to-tertiary',
-                        'bg-clip-text',
-                        'tracking-tighter',
-                        'backdrop-blur-lg'
-                    ])}>
-                    {process.env.APP_TITLE!}
-                </Link>
+const Header = async () => {
+    /**
+     * Fetch menu & menu links
+     */
+    const { data: menu } = await sanityFetch({
+        query: MENU_QUERY,
+        params: { title: 'Nav Menu' }
+    })
+
+    return (
+        <header className='sticky top-0 z-50 w-full border-b border-muted bg-background/80 backdrop-blur dark:bg-background/80'>
+            <div className='container flex items-center'>
+                <div className='flex w-full justify-between py-4'>
+                    <MobileNav menu={menu} />
+                    <Link
+                        href='/'
+                        className={cn([
+                            headingBaseClasses,
+                            'text-xl',
+                            'text-transparent',
+                            'bg-linear-125',
+                            'from-primary',
+                            'via-secondary',
+                            'to-tertiary',
+                            'bg-clip-text',
+                            'transition',
+                            'origin-top',
+                            'duration-200',
+                            'hover:scale-110',
+                            'hover:text-transparent',
+                            'hover:from-primary-foreground',
+                            'hover:via-secondary-foreground',
+                            'hover:to-tertiary-foreground',
+                            'dark:hover:text-transparent',
+                            'dark:hover:from-primary-foreground',
+                            'dark:hover:via-secondary-foreground',
+                            'dark:hover:to-tertiary-foreground',
+                            'tracking-tighter',
+                            'backdrop-blur-lg',
+                            'pe-px'
+                        ])}>
+                        {process.env.APP_TITLE!}
+                    </Link>
+                    <ModeToggle />
+                </div>
+                {/* <div className='flex items-center md:space-x-4'>
+                    <ModeToggle />
+                </div> */}
             </div>
-            <div className='flex items-center md:space-x-4'>
-                <ModeToggle />
-            </div>
-        </div>
-    </header>
-)
+        </header>
+    )
+}
 
 export default Header

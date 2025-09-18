@@ -2,6 +2,7 @@
  * SlinkyPixels : /[slug]/ - Page
  */
 import Composer from '@/components/composer'
+import Image from '@/components/image'
 import { Typography } from '@/components/typography'
 import { Separator } from '@/components/ui/separator'
 import { sanityFetch } from '@/sanity/lib/live'
@@ -53,11 +54,39 @@ const Page = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
 
     return (
         <>
-            <div className='container mx-auto flex flex-col items-start gap-2 py-16 md:py-24'>
-                <Typography variant='h1'>{page.title}</Typography>
+            <div className='container mx-auto flex flex-col items-start gap-2 py-16 md:py-20 lg:max-w-[980px]'>
+                <div className='flex w-full flex-col items-center gap-6 md:flex-row-reverse md:justify-between'>
+                    {page.image && (
+                        <Image
+                            image={page.image}
+                            alt={page.title}
+                            width={200}
+                            height={200}
+                            className='aspect-square rounded-full object-cover'
+                        />
+                    )}
+                    <div className='flex flex-col gap-4'>
+                        <Typography
+                            variant='h1'
+                            className='text-center md:text-start'>
+                            {page.title}
+                        </Typography>
+                        <Typography
+                            variant='p'
+                            as='span'
+                            className='text-center text-balance md:text-start'
+                            muted>
+                            {page.subtitle}
+                        </Typography>
+                    </div>
+                </div>
                 <Separator className='mt-6 md:mt-12' />
             </div>
-            <Composer content={page.content} />
+            <Composer
+                content={page.content}
+                documentId={page._id}
+                documentType={page._type}
+            />
         </>
     )
 }

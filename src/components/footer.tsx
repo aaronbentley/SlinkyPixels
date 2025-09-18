@@ -1,7 +1,8 @@
 /**
  * SlinkyPixels : Footer
  */
-import { GitHub, Instagram, Threads, X } from '@/components/icons'
+import { GitHub, Instagram, Linkedin, Threads, X } from '@/components/icons'
+import { Typography } from '@/components/typography'
 import { client } from '@/sanity/lib/client'
 import { SETTINGS_QUERY } from '@/sanity/lib/queries'
 import Link from 'next/link'
@@ -10,7 +11,8 @@ const socialIcons: Record<string, React.FC<{ className?: string }>> = {
     X: X,
     Instagram: Instagram,
     Threads: Threads,
-    GitHub: GitHub
+    GitHub: GitHub,
+    LinkedIn: Linkedin
 }
 
 const Footer = async () => {
@@ -25,7 +27,7 @@ const Footer = async () => {
     const socialLinks = settings?.socialLinks || []
 
     return (
-        <footer className='mx-auto flex max-w-5xl flex-row items-center justify-center py-4'>
+        <footer className='container mt-16 flex items-start justify-between border-t py-8'>
             <div className='flex flex-row items-center justify-center gap-4'>
                 {socialLinks.map((socialLink) => {
                     if (!socialLink.name || !socialLink.url) return null
@@ -42,6 +44,13 @@ const Footer = async () => {
                         </Link>
                     )
                 })}
+            </div>
+            <div className='flex flex-row items-center justify-center gap-4'>
+                <Typography
+                    variant='small'
+                    muted>
+                    &copy; {new Date().getFullYear()} {settings?.title}
+                </Typography>
             </div>
         </footer>
     )

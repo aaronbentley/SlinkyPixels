@@ -12,7 +12,7 @@ export const Menu = defineType({
     type: 'document',
     fields: [
         defineField({
-            name: 'menuTitle',
+            name: 'title',
             title: 'Title',
             type: 'string',
             description: `${documentType} Title`,
@@ -20,11 +20,11 @@ export const Menu = defineType({
                 Rule.required().error(`Specify ${documentType} Title`)
         }),
         defineField({
-            name: 'menuLinkItems',
+            name: 'links',
             title: 'Links',
             type: 'array',
-            of: [{ type: 'menuLink' }],
-            description: `${documentType} Items`,
+            of: [{ type: 'link' }],
+            description: `${documentType} Links`,
             validation: (Rule) =>
                 Rule.custom((menuLinkItems) => {
                     if (!menuLinkItems || menuLinkItems.length === 0) {

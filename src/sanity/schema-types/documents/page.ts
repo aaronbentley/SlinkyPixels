@@ -37,6 +37,15 @@ export const Page = defineType({
             group: 'content'
         }),
         defineField({
+            name: 'subtitle',
+            title: 'Subtitle',
+            type: 'string',
+            description: `${documentType} Subtitle`,
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Subtitle`),
+            group: 'content'
+        }),
+        defineField({
             name: 'slug',
             title: 'Slug',
             type: 'slug',

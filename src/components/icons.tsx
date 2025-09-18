@@ -1,4 +1,5 @@
 import {
+    ExternalLink,
     File,
     FileText,
     Grid3X3,
@@ -30,6 +31,8 @@ export const SettingsIcon = SlidersHorizontal
 export const BodyIcon = Text
 
 export const CollectionGridIcon = Grid3X3
+
+export const ExternalLinkIcon = ExternalLink
 
 /**
  * Social Link icons

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     metadataBase: new URL(process.env.APP_URL!),
     title: {
         default: process.env.APP_TITLE!,
-        template: `%s - ${process.env.APP_TITLE!}`
+        template: `%s : ${process.env.APP_TITLE!}`
     },
     description: process.env.APP_DESCRIPTION!
 }
@@ -38,9 +38,7 @@ const AppLayout = async ({
                     enableSystem
                     disableTransitionOnChange
                     enableColorScheme>
-                    <main className='flex min-h-screen flex-col'>
-                        {children}
-                    </main>
+                    {children}
                     <TailwindIndicator />
                     <SanityLive />
                     {(await draftMode()).isEnabled && (

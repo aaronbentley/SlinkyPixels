@@ -4,11 +4,14 @@
 import Body from '@/components/content/body'
 import CollectionGrid from '@/components/content/collection-grid'
 import Frontpage from '@/components/content/frontpage'
+import { cn } from '@/lib/utils'
+import { client } from '@/sanity/lib/client'
 import {
     PAGE_QUERYResult,
     POST_QUERYResult,
     WORK_QUERYResult
 } from '@/sanity/types'
+import { createDataAttribute } from 'next-sanity'
 
 /**
  * Lookup map to match content type to a component
@@ -68,21 +71,55 @@ type ContentType =
       >['content']
     | null
 
-const Composer = ({ content }: { content: ContentType | null }) => {
+const Composer = ({
+    content,
+    documentId,
+    documentType,
+    path = 'content',
+    className
+}: {
+    content: ContentType | null
+    documentId: string
+    documentType: string
+    path?: string
+    className?: string
+}) => {
     /**
      * If content is empty, return null
      */
     if (!content || content.length === 0) return null
 
-    return content.map(({ _type, _key, ...rest }, index: number) => (
-        <Content
-            key={_key}
-            id={_key}
-            type={_type}
-            order={index}
-            {...rest}
-        />
-    ))
+    /**
+     * Get client config for Visual Editing data attributes
+     */
+    const { projectId, dataset, stega } = client.config()
+    const createDataAttributeConfig = {
+        projectId,
+        dataset,
+        baseUrl: typeof stega.studioUrl === 'string' ? stega.studioUrl : ''
+    }
+
+    return (
+        <main
+            className={cn(['flex', 'flex-col', className])}
+            data-sanity={createDataAttribute({
+                ...createDataAttributeConfig,
+                id: documentId,
+                type: documentType,
+                path
+            }).toString()}>
+            {content &&
+                content.map(({ _type, _key, ...rest }, index: number) => (
+                    <Content
+                        key={_key}
+                        id={_key}
+                        type={_type}
+                        order={index}
+                        {...rest}
+                    />
+                ))}
+        </main>
+    )
 }
 
 export default Composer

@@ -42,6 +42,18 @@
 }
 
 .dark {
+    /* Purple 400 / 300 */
+    --primary: oklch(71.4% 0.203 305.504);
+    --primary-foreground: oklch(82.7% 0.119 306.383);
+
+    /* Sky 400 / 300 */
+    --secondary: oklch(74.6% 0.16 232.661);
+    --secondary-foreground: oklch(82.8% 0.111 230.318);
+
+    /* Pink 400 / 300 */
+    --tertiary: oklch(71.8% 0.202 349.761);
+    --tertiary-foreground: oklch(82.3% 0.12 346.018);
+
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
 

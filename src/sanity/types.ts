@@ -20,7 +20,10 @@ export type Work = {
     _updatedAt: string
     _rev: string
     title: string
+    subtitle: string
     slug?: Slug
+    url: string
+    uses: Array<string>
     content: Array<
         | ({
               _key: string
@@ -72,44 +75,17 @@ export type Settings = {
     }>
 }
 
-export type MenuLink = {
-    _type: 'menuLink'
-    label: string
-    customUrl?: boolean
-    linkDestinationRef?:
-        | {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'page'
-          }
-        | {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'post'
-          }
-        | {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'category'
-          }
-    linkDestinationHref?: string
-    blank?: boolean
-}
-
 export type Menu = {
     _id: string
     _type: 'menu'
     _createdAt: string
     _updatedAt: string
     _rev: string
-    menuTitle: string
-    menuLinkItems?: Array<
+    title: string
+    links?: Array<
         {
             _key: string
-        } & MenuLink
+        } & Link
     >
 }
 
@@ -279,6 +255,7 @@ export type Post = {
     _updatedAt: string
     _rev: string
     title: string
+    subtitle: string
     slug: Slug
     content: Content
     image: {
@@ -311,6 +288,7 @@ export type Page = {
     _updatedAt: string
     _rev: string
     title: string
+    subtitle: string
     slug: Slug
     content: Content
     image: {
@@ -455,7 +433,6 @@ export type SanityAssetSourceData = {
 export type AllSanitySchemaTypes =
     | Work
     | Settings
-    | MenuLink
     | Menu
     | Link
     | Frontpage
@@ -488,51 +465,13 @@ export type PAGE_PATHS_QUERYResult = Array<{
         current: string
     }
 }>
-// Variable: PAGES_QUERY
-// Query: *[        _type == 'page' &&        defined(slug.current) &&        slug.current != '/'    ] {        ...,            image {        ...,        asset-> {            ...,            metadata        }    }    }
-export type PAGES_QUERYResult = Array<{
+// Variable: PAGE_QUERY
+// Query: *[        _type == 'page' &&         defined(slug.current) &&        slug.current == $slug    ][0] {        _id,        _type,        title,        subtitle,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            _key,            label,            customUrl,            destinationHref,            destinationRef-> {                _type,                title,                    slug {        current    }            },            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    },            _type == 'collectionGrid' => {        contentType,        limit,        "content": select(            defined(customContent) && contentType == 'custom' => customContent[]-> {                _id,                _type,                title,                subtitle,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            },            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {                _id,                _type,                title,                subtitle,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            }|order(title asc),            []        )    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
+export type PAGE_QUERYResult = {
     _id: string
     _type: 'page'
-    _createdAt: string
-    _updatedAt: string
-    _rev: string
     title: string
-    slug: Slug
-    content: Content
-    image: {
-        asset: {
-            _id: string
-            _type: 'sanity.imageAsset'
-            _createdAt: string
-            _updatedAt: string
-            _rev: string
-            originalFilename?: string
-            label?: string
-            title?: string
-            description?: string
-            altText?: string
-            sha1hash?: string
-            extension?: string
-            mimeType?: string
-            size?: number
-            assetId?: string
-            uploadId?: string
-            path?: string
-            url?: string
-            metadata: SanityImageMetadata | null
-            source?: SanityAssetSourceData
-        } | null
-        media?: unknown
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        _type: 'image'
-    }
-    seo?: Seo
-}>
-// Variable: PAGE_QUERY
-// Query: *[        _type == 'page' &&         defined(slug.current) &&        slug.current == $slug    ][0] {        title,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            _key,            label,            customUrl,            destinationHref,            destinationRef-> {                _type,                title,                    slug {        current    }            },            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    },            _type == 'collectionGrid' => {        contentType,        limit,        "content": select(            defined(customContent) && contentType == 'custom' => customContent[]-> {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            },            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            }|order(title asc),            []        )    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
-export type PAGE_QUERYResult = {
-    title: string
+    subtitle: string
     content: Array<
         | {
               _key: string
@@ -640,6 +579,7 @@ export type PAGE_QUERYResult = {
                               _id: string
                               _type: 'page'
                               title: string
+                              subtitle: string
                               excerpt: null
                               slug: {
                                   current: string
@@ -677,6 +617,7 @@ export type PAGE_QUERYResult = {
                               _id: string
                               _type: 'post'
                               title: string
+                              subtitle: string
                               excerpt: null
                               slug: {
                                   current: string
@@ -714,6 +655,7 @@ export type PAGE_QUERYResult = {
                               _id: string
                               _type: 'work'
                               title: string
+                              subtitle: string
                               excerpt: null
                               slug: {
                                   current: string
@@ -816,19 +758,13 @@ export type POST_PATHS_QUERYResult = Array<{
         current: string
     }
 }>
-// Variable: POSTS_QUERY
-// Query: *[        _type == 'post' &&         defined(slug.current)    ] {        _id,        title,            slug {        current    },    }
-export type POSTS_QUERYResult = Array<{
-    _id: string
-    title: string
-    slug: {
-        current: string
-    }
-}>
 // Variable: POST_QUERY
-// Query: *[        _type == 'post' &&         defined(slug.current) &&        slug.current == $slug    ][0] {        title,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            _key,            label,            customUrl,            destinationHref,            destinationRef-> {                _type,                title,                    slug {        current    }            },            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    },            _type == 'collectionGrid' => {        contentType,        limit,        "content": select(            defined(customContent) && contentType == 'custom' => customContent[]-> {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            },            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            }|order(title asc),            []        )    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
+// Query: *[        _type == 'post' &&         defined(slug.current) &&        slug.current == $slug    ][0] {        _id,        _type,        title,        subtitle,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            _key,            label,            customUrl,            destinationHref,            destinationRef-> {                _type,                title,                    slug {        current    }            },            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    },            _type == 'collectionGrid' => {        contentType,        limit,        "content": select(            defined(customContent) && contentType == 'custom' => customContent[]-> {                _id,                _type,                title,                subtitle,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            },            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {                _id,                _type,                title,                subtitle,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            }|order(title asc),            []        )    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
 export type POST_QUERYResult = {
+    _id: string
+    _type: 'post'
     title: string
+    subtitle: string
     content: Array<
         | {
               _key: string
@@ -936,6 +872,7 @@ export type POST_QUERYResult = {
                               _id: string
                               _type: 'page'
                               title: string
+                              subtitle: string
                               excerpt: null
                               slug: {
                                   current: string
@@ -973,6 +910,7 @@ export type POST_QUERYResult = {
                               _id: string
                               _type: 'post'
                               title: string
+                              subtitle: string
                               excerpt: null
                               slug: {
                                   current: string
@@ -1010,6 +948,7 @@ export type POST_QUERYResult = {
                               _id: string
                               _type: 'work'
                               title: string
+                              subtitle: string
                               excerpt: null
                               slug: {
                                   current: string
@@ -1112,67 +1051,15 @@ export type WORK_PATHS_QUERYResult = Array<{
         current: string
     } | null
 }>
-// Variable: WORKS_QUERY
-// Query: *[        _type == 'work' &&        defined(slug.current)    ] {        ...,            image {        ...,        asset-> {            ...,            metadata        }    }    }
-export type WORKS_QUERYResult = Array<{
-    _id: string
-    _type: 'work'
-    _createdAt: string
-    _updatedAt: string
-    _rev: string
-    title: string
-    slug?: Slug
-    content: Array<
-        | ({
-              _key: string
-          } & Body)
-        | ({
-              _key: string
-          } & CollectionGrid)
-        | ({
-              _key: string
-          } & Frontpage)
-    >
-    image: {
-        asset: {
-            _id: string
-            _type: 'sanity.imageAsset'
-            _createdAt: string
-            _updatedAt: string
-            _rev: string
-            originalFilename?: string
-            label?: string
-            title?: string
-            description?: string
-            altText?: string
-            sha1hash?: string
-            extension?: string
-            mimeType?: string
-            size?: number
-            assetId?: string
-            uploadId?: string
-            path?: string
-            url?: string
-            metadata: SanityImageMetadata | null
-            source?: SanityAssetSourceData
-        } | null
-        media?: unknown
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        _type: 'image'
-    }
-    seo?: Seo
-}>
 // Variable: WORK_QUERY
-// Query: *[        _type == 'work' &&        defined(slug.current) &&        slug.current == $slug    ][0] {        ...,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            _key,            label,            customUrl,            destinationHref,            destinationRef-> {                _type,                title,                    slug {        current    }            },            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    },            _type == 'collectionGrid' => {        contentType,        limit,        "content": select(            defined(customContent) && contentType == 'custom' => customContent[]-> {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            },            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {                _id,                _type,                title,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            }|order(title asc),            []        )    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
+// Query: *[        _type == 'work' &&        defined(slug.current) &&        slug.current == $slug    ][0] {        _id,        _type,        title,        subtitle,        url,        uses,            content[] {        ...,        _key,        _type,        'title': coalesce(title, 'Content Title'),            _type == 'frontpage' => {        title,        content,        buttons[] {            _key,            label,            customUrl,            destinationHref,            destinationRef-> {                _type,                title,                    slug {        current    }            },            blank        }    },            _type == 'body' => {        content[] {            ...,            markDefs[] {                ...,                (_type == 'link' && customUrl != true) => {                      destinationRef-> {                        _type,                        title,                            slug {        current    }                    }                }            },        }    },            _type == 'collectionGrid' => {        contentType,        limit,        "content": select(            defined(customContent) && contentType == 'custom' => customContent[]-> {                _id,                _type,                title,                subtitle,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            },            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {                _id,                _type,                title,                subtitle,                excerpt,                    slug {        current    },                    image {        ...,        asset-> {            ...,            metadata        }    }            }|order(title asc),            []        )    }    },            image {        ...,        asset-> {            ...,            metadata        }    }    }
 export type WORK_QUERYResult = {
     _id: string
     _type: 'work'
-    _createdAt: string
-    _updatedAt: string
-    _rev: string
     title: string
-    slug?: Slug
+    subtitle: string
+    url: string
+    uses: Array<string>
     content: Array<
         | {
               _key: string
@@ -1280,6 +1167,7 @@ export type WORK_QUERYResult = {
                               _id: string
                               _type: 'page'
                               title: string
+                              subtitle: string
                               excerpt: null
                               slug: {
                                   current: string
@@ -1317,6 +1205,7 @@ export type WORK_QUERYResult = {
                               _id: string
                               _type: 'post'
                               title: string
+                              subtitle: string
                               excerpt: null
                               slug: {
                                   current: string
@@ -1354,6 +1243,7 @@ export type WORK_QUERYResult = {
                               _id: string
                               _type: 'work'
                               title: string
+                              subtitle: string
                               excerpt: null
                               slug: {
                                   current: string
@@ -1448,7 +1338,81 @@ export type WORK_QUERYResult = {
         crop?: SanityImageCrop
         _type: 'image'
     }
-    seo?: Seo
+} | null
+// Variable: MENU_QUERY
+// Query: *[        _type == 'menu' &&         title == $title    ][0] {        ...,        links[] {            _key,            label,            customUrl,            destinationHref,            destinationRef->,            blank        }    }
+export type MENU_QUERYResult = {
+    _id: string
+    _type: 'menu'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title: string
+    links: Array<{
+        _key: string
+        label: string
+        customUrl: boolean | null
+        destinationHref: string | null
+        destinationRef:
+            | {
+                  _id: string
+                  _type: 'page'
+                  _createdAt: string
+                  _updatedAt: string
+                  _rev: string
+                  title: string
+                  subtitle: string
+                  slug: Slug
+                  content: Content
+                  image: {
+                      asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      _type: 'image'
+                  }
+                  seo?: Seo
+              }
+            | {
+                  _id: string
+                  _type: 'post'
+                  _createdAt: string
+                  _updatedAt: string
+                  _rev: string
+                  title: string
+                  subtitle: string
+                  slug: Slug
+                  content: Content
+                  image: {
+                      asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      _type: 'image'
+                  }
+                  categories?: Array<{
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      _key: string
+                      [internalGroqTypeReferenceTo]?: 'category'
+                  }>
+                  seo: Seo
+                  publishDate: string
+              }
+            | null
+        blank: boolean | null
+    }> | null
 } | null
 // Variable: SETTINGS_QUERY
 // Query: *[_type == 'settings'][0] {        title,        description,        url,        socialLinks    }
@@ -1477,14 +1441,12 @@ import '@sanity/client'
 declare module '@sanity/client' {
     interface SanityQueries {
         "\n    *[\n        _type == 'page' &&\n        defined(slug.current) &&\n        slug.current != '/'\n    ] {\n        \n    slug {\n        current\n    }\n\n    }\n": PAGE_PATHS_QUERYResult
-        "\n    *[\n        _type == 'page' &&\n        defined(slug.current) &&\n        slug.current != '/'\n    ] {\n        ...,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": PAGES_QUERYResult
-        "\n    *[\n        _type == 'page' && \n        defined(slug.current) &&\n        slug.current == $slug\n    ][0] {\n        title,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n,\n        \n    _type == 'collectionGrid' => {\n        contentType,\n        limit,\n        \"content\": select(\n            defined(customContent) && contentType == 'custom' => customContent[]-> {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            },\n            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            }|order(title asc),\n            []\n        )\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": PAGE_QUERYResult
+        "\n    *[\n        _type == 'page' && \n        defined(slug.current) &&\n        slug.current == $slug\n    ][0] {\n        _id,\n        _type,\n        title,\n        subtitle,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n,\n        \n    _type == 'collectionGrid' => {\n        contentType,\n        limit,\n        \"content\": select(\n            defined(customContent) && contentType == 'custom' => customContent[]-> {\n                _id,\n                _type,\n                title,\n                subtitle,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            },\n            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {\n                _id,\n                _type,\n                title,\n                subtitle,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            }|order(title asc),\n            []\n        )\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": PAGE_QUERYResult
         "\n    *[\n        _type == 'post' && \n        defined(slug.current)\n    ]{ \n        \n    slug {\n        current\n    }\n\n    }\n": POST_PATHS_QUERYResult
-        "\n    *[\n        _type == 'post' && \n        defined(slug.current)\n    ] {\n        _id,\n        title,\n        \n    slug {\n        current\n    }\n,\n    }\n": POSTS_QUERYResult
-        "\n    *[\n        _type == 'post' && \n        defined(slug.current) &&\n        slug.current == $slug\n    ][0] {\n        title,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n,\n        \n    _type == 'collectionGrid' => {\n        contentType,\n        limit,\n        \"content\": select(\n            defined(customContent) && contentType == 'custom' => customContent[]-> {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            },\n            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            }|order(title asc),\n            []\n        )\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": POST_QUERYResult
+        "\n    *[\n        _type == 'post' && \n        defined(slug.current) &&\n        slug.current == $slug\n    ][0] {\n        _id,\n        _type,\n        title,\n        subtitle,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n,\n        \n    _type == 'collectionGrid' => {\n        contentType,\n        limit,\n        \"content\": select(\n            defined(customContent) && contentType == 'custom' => customContent[]-> {\n                _id,\n                _type,\n                title,\n                subtitle,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            },\n            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {\n                _id,\n                _type,\n                title,\n                subtitle,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            }|order(title asc),\n            []\n        )\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": POST_QUERYResult
         "\n    *[\n        _type == 'work' &&\n        defined(slug.current)\n    ] {\n        \n    slug {\n        current\n    }\n\n    }\n": WORK_PATHS_QUERYResult
-        "\n    *[\n        _type == 'work' &&\n        defined(slug.current)\n    ] {\n        ...,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": WORKS_QUERYResult
-        "\n    *[\n        _type == 'work' &&\n        defined(slug.current) &&\n        slug.current == $slug\n    ][0] {\n        ...,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n,\n        \n    _type == 'collectionGrid' => {\n        contentType,\n        limit,\n        \"content\": select(\n            defined(customContent) && contentType == 'custom' => customContent[]-> {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            },\n            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {\n                _id,\n                _type,\n                title,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            }|order(title asc),\n            []\n        )\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": WORK_QUERYResult
+        "\n    *[\n        _type == 'work' &&\n        defined(slug.current) &&\n        slug.current == $slug\n    ][0] {\n        _id,\n        _type,\n        title,\n        subtitle,\n        url,\n        uses,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n,\n        \n    _type == 'collectionGrid' => {\n        contentType,\n        limit,\n        \"content\": select(\n            defined(customContent) && contentType == 'custom' => customContent[]-> {\n                _id,\n                _type,\n                title,\n                subtitle,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            },\n            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {\n                _id,\n                _type,\n                title,\n                subtitle,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            }|order(title asc),\n            []\n        )\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": WORK_QUERYResult
+        "\n    *[\n        _type == 'menu' && \n        title == $title\n    ][0] {\n        ...,\n        links[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef->,\n            blank\n        }\n    }   \n": MENU_QUERYResult
         "\n    *[_type == 'settings'][0] {\n        title,\n        description,\n        url,\n        socialLinks\n    }\n": SETTINGS_QUERYResult
     }
 }

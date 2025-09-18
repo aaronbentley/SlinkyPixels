@@ -10,7 +10,11 @@ import React from 'react'
 /**
  * Define base classes for typography components
  */
-export const headingBaseClasses = ['text-balance', 'font-bold']
+export const headingBaseClasses = [
+    'text-balance',
+    'font-bold',
+    'tracking-tighter'
+]
 export const proseBaseClasses = ['text-lg']
 
 const typographyVariants = cva([], {
@@ -88,8 +92,8 @@ const typographyVariants = cva([], {
                 'italic',
                 'max-w-prose'
             ],
-            ul: ['list-disc', 'list-inside', 'ps-4', 'space-y-2', 'my-6'],
-            ol: ['list-decimal', 'list-inside', 'ps-4', 'space-y-2', 'my-6'],
+            ul: ['list-disc', 'list-inside', 'ps-4', 'space-y-2', 'my-2'],
+            ol: ['list-decimal', 'list-inside', 'ps-4', 'space-y-2', 'my-2'],
             li: [...proseBaseClasses],
             em: [...proseBaseClasses, 'italic', 'inline'],
             strong: [...proseBaseClasses, 'font-semibold', 'inline'],

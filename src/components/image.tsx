@@ -143,8 +143,8 @@ const Image = ({
                 [
                     'block',
                     'h-auto',
-                    'max-w-full',
-                    'data-[lqip=true]:min-w-full!'
+                    'max-w-full'
+                    // 'data-[lqip=true]:min-w-full!'
                 ],
                 className
             )}

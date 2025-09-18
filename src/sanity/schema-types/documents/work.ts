@@ -36,6 +36,15 @@ export const Work = defineType({
             group: 'content'
         }),
         defineField({
+            name: 'subtitle',
+            title: 'Subtitle',
+            type: 'string',
+            description: `${documentType} Subtitle`,
+            validation: (Rule) =>
+                Rule.required().error(`Specify ${documentType} Subtitle`),
+            group: 'content'
+        }),
+        defineField({
             name: 'slug',
             title: 'Slug',
             type: 'slug',
@@ -45,6 +54,31 @@ export const Work = defineType({
                 source: 'title',
                 maxLength: 96
             }
+        }),
+        defineField({
+            name: 'url',
+            title: 'URL',
+            type: 'url',
+            validation: (Rule) =>
+                Rule.required().uri({
+                    allowRelative: false, // Allow relative links
+                    relativeOnly: false, // Force only relative links
+                    scheme: ['https'] // Default is ["https", "http"]
+                }),
+            group: 'content'
+        }),
+        defineField({
+            name: 'uses',
+            title: 'Uses',
+            type: 'array',
+            of: [{ type: 'string' }],
+            description: `Specify the technologies used in this ${documentType}`,
+            validation: (Rule) =>
+                Rule.required().min(1).error(`Specify at least one technology`),
+            options: {
+                layout: 'tags'
+            },
+            group: 'content'
         }),
         defineField({
             name: 'content',
@@ -82,9 +116,10 @@ export const Work = defineType({
         prepare({ title = 'No title', slug = {}, media = {} }) {
             return {
                 title: title ?? undefined,
-                subtitle: slug.current
-                    ? `/${documentType.toLowerCase()}/${slug.current}/`
-                    : undefined,
+                subtitle:
+                    (slug.current ?? undefined)
+                        ? `/${documentType.toLowerCase()}/${slug.current}/`
+                        : undefined,
                 media: media
             }
         }

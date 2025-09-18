@@ -38,6 +38,7 @@ export const structure: StructureResolver = (S) => {
                         .apiVersion(apiVersion)
                         .defaultOrdering([{ field: 'title', direction: 'asc' }])
                 ),
+            S.documentTypeListItem('work').title('Work').icon(WorkIcon),
             S.listItem()
                 .title('Posts')
                 .schemaType('post')
@@ -54,7 +55,6 @@ export const structure: StructureResolver = (S) => {
                             )
                         ])
                 ),
-            S.documentTypeListItem('work').title('Work').icon(WorkIcon),
             S.divider(),
             S.documentTypeListItem('menu').title('Menus').icon(MenuIcon),
             S.listItem()

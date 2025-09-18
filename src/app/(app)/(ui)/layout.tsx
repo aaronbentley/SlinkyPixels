@@ -10,13 +10,13 @@ const UiLayout = async ({
     children: React.ReactNode
 }>) => {
     return (
-        <>
+        <div className='flex min-h-screen flex-col'>
             <Header />
-            <div className='flex min-h-max flex-1 flex-col items-center justify-start gap-y-4 md:gap-y-12'>
+            <div className='flex flex-1 flex-col items-center justify-start gap-y-4 md:gap-y-12'>
                 {children}
             </div>
             <Footer />
-        </>
+        </div>
     )
 }
 

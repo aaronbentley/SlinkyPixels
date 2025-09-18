@@ -71,6 +71,7 @@ const collectionGrid = `
                 _id,
                 _type,
                 title,
+                subtitle,
                 excerpt,
                 ${slug},
                 ${imageAssetReference}
@@ -79,6 +80,7 @@ const collectionGrid = `
                 _id,
                 _type,
                 title,
+                subtitle,
                 excerpt,
                 ${slug},
                 ${imageAssetReference}
@@ -113,16 +115,16 @@ export const PAGE_PATHS_QUERY = defineQuery(`
     }
 `)
 
-export const PAGES_QUERY = defineQuery(`
-    *[
-        _type == 'page' &&
-        defined(slug.current) &&
-        slug.current != '/'
-    ] {
-        ...,
-        ${imageAssetReference}
-    }
-`)
+// export const PAGES_QUERY = defineQuery(`
+//     *[
+//         _type == 'page' &&
+//         defined(slug.current) &&
+//         slug.current != '/'
+//     ] {
+//         ...,
+//         ${imageAssetReference}
+//     }
+// `)
 
 export const PAGE_QUERY = defineQuery(`
     *[
@@ -130,7 +132,10 @@ export const PAGE_QUERY = defineQuery(`
         defined(slug.current) &&
         slug.current == $slug
     ][0] {
+        _id,
+        _type,
         title,
+        subtitle,
         ${content},
         ${imageAssetReference}
     }
@@ -148,16 +153,16 @@ export const POST_PATHS_QUERY = defineQuery(`
     }
 `)
 
-export const POSTS_QUERY = defineQuery(`
-    *[
-        _type == 'post' && 
-        defined(slug.current)
-    ] {
-        _id,
-        title,
-        ${slug},
-    }
-`)
+// export const POSTS_QUERY = defineQuery(`
+//     *[
+//         _type == 'post' &&
+//         defined(slug.current)
+//     ] {
+//         _id,
+//         title,
+//         ${slug},
+//     }
+// `)
 
 export const POST_QUERY = defineQuery(`
     *[
@@ -165,7 +170,10 @@ export const POST_QUERY = defineQuery(`
         defined(slug.current) &&
         slug.current == $slug
     ][0] {
+        _id,
+        _type,
         title,
+        subtitle,
         ${content},
         ${imageAssetReference}
     }
@@ -183,15 +191,15 @@ export const WORK_PATHS_QUERY = defineQuery(`
     }
 `)
 
-export const WORKS_QUERY = defineQuery(`
-    *[
-        _type == 'work' &&
-        defined(slug.current)
-    ] {
-        ...,
-        ${imageAssetReference}
-    }
-`)
+// export const WORKS_QUERY = defineQuery(`
+//     *[
+//         _type == 'work' &&
+//         defined(slug.current)
+//     ] {
+//         ...,
+//         ${imageAssetReference}
+//     }
+// `)
 
 export const WORK_QUERY = defineQuery(`
     *[
@@ -199,10 +207,35 @@ export const WORK_QUERY = defineQuery(`
         defined(slug.current) &&
         slug.current == $slug
     ][0] {
-        ...,
+        _id,
+        _type,
+        title,
+        subtitle,
+        url,
+        uses,
         ${content},
         ${imageAssetReference}
     }
+`)
+
+/**
+ * Document type [Menu] queries
+ */
+export const MENU_QUERY = defineQuery(`
+    *[
+        _type == 'menu' && 
+        title == $title
+    ][0] {
+        ...,
+        links[] {
+            _key,
+            label,
+            customUrl,
+            destinationHref,
+            destinationRef->,
+            blank
+        }
+    }   
 `)
 
 /**

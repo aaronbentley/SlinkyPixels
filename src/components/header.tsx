@@ -19,7 +19,7 @@ const Header = async () => {
     })
 
     return (
-        <header className='sticky top-0 z-50 w-full border-b border-muted bg-background/80 backdrop-blur dark:bg-background/80'>
+        <header className='sticky top-0 z-50 w-full border-b border-muted bg-background'>
             <div className='container flex items-center'>
                 <div className='flex w-full justify-between py-4'>
                     <MobileNav menu={menu} />

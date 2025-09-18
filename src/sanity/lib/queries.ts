@@ -249,3 +249,17 @@ export const SETTINGS_QUERY = defineQuery(`
         socialLinks
     }
 `)
+
+/**
+ * Sitemap query
+ */
+export const SITEMAP_QUERY = defineQuery(`
+    *[
+        _type == "page" && defined(slug.current) ||
+        _type == "work" && defined(slug.current)
+    ] | order(slug.current desc) | order(_createdAt asc){
+        _type,
+        _updatedAt,
+        slug
+    }
+`)

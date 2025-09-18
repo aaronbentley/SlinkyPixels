@@ -1435,6 +1435,20 @@ export type SETTINGS_QUERYResult = {
         _key: string
     }> | null
 } | null
+// Variable: SITEMAP_QUERY
+// Query: *[        _type == "page" && defined(slug.current) ||        _type == "work" && defined(slug.current)    ] | order(slug.current desc) | order(_createdAt asc){        _type,        _updatedAt,        slug    }
+export type SITEMAP_QUERYResult = Array<
+    | {
+          _type: 'page'
+          _updatedAt: string
+          slug: Slug
+      }
+    | {
+          _type: 'work'
+          _updatedAt: string
+          slug: Slug | null
+      }
+>
 
 // Query TypeMap
 import '@sanity/client'
@@ -1448,5 +1462,6 @@ declare module '@sanity/client' {
         "\n    *[\n        _type == 'work' &&\n        defined(slug.current) &&\n        slug.current == $slug\n    ][0] {\n        _id,\n        _type,\n        title,\n        subtitle,\n        url,\n        uses,\n        \n    content[] {\n        ...,\n        _key,\n        _type,\n        'title': coalesce(title, 'Content Title'),\n        \n    _type == 'frontpage' => {\n        title,\n        content,\n        buttons[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef-> {\n                _type,\n                title,\n                \n    slug {\n        current\n    }\n\n            },\n            blank\n        }\n    }\n,\n        \n    _type == 'body' => {\n        content[] {\n            ...,\n            markDefs[] {\n                ...,\n                (_type == 'link' && customUrl != true) => {  \n                    destinationRef-> {\n                        _type,\n                        title,\n                        \n    slug {\n        current\n    }\n\n                    }\n                }\n            },\n        }\n    }\n,\n        \n    _type == 'collectionGrid' => {\n        contentType,\n        limit,\n        \"content\": select(\n            defined(customContent) && contentType == 'custom' => customContent[]-> {\n                _id,\n                _type,\n                title,\n                subtitle,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            },\n            defined(contentType) && contentType != 'custom'  => *[_type == ^.contentType] {\n                _id,\n                _type,\n                title,\n                subtitle,\n                excerpt,\n                \n    slug {\n        current\n    }\n,\n                \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n            }|order(title asc),\n            []\n        )\n    }\n\n    }\n,\n        \n    image {\n        ...,\n        asset-> {\n            ...,\n            metadata\n        }\n    }\n\n    }\n": WORK_QUERYResult
         "\n    *[\n        _type == 'menu' && \n        title == $title\n    ][0] {\n        ...,\n        links[] {\n            _key,\n            label,\n            customUrl,\n            destinationHref,\n            destinationRef->,\n            blank\n        }\n    }   \n": MENU_QUERYResult
         "\n    *[_type == 'settings'][0] {\n        title,\n        description,\n        url,\n        socialLinks\n    }\n": SETTINGS_QUERYResult
+        '\n    *[\n        _type == "page" && defined(slug.current) ||\n        _type == "work" && defined(slug.current)\n    ] | order(slug.current desc) | order(_createdAt asc){\n        _type,\n        _updatedAt,\n        slug\n    }\n': SITEMAP_QUERYResult
     }
 }

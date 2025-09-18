@@ -117,17 +117,36 @@ const Work = async ({ params }: { params: Promise<{ slug: string }> }) => {
                         </Typography>
 
                         {work.url && (
-                            <Link
-                                href={work.url}
-                                title={`Visit ${work.title}`}
-                                target='_blank'
-                                rel='noopener noreferrer'
-                                className='flex items-center gap-2 text-center text-secondary md:text-start'>
-                                {work.url
-                                    .replace(/https?:\/\//, '')
-                                    .replace(/\/$/, '')}
-                                <ExternalLinkIcon className='size-4' />
-                            </Link>
+                            <div className='flex items-center gap-1 text-center md:text-start'>
+                                <Link
+                                    href={work.url}
+                                    title={`Visit ${work.title}`}
+                                    target='_blank'
+                                    rel='noopener noreferrer'
+                                    className={cn([
+                                        'text-transparent',
+                                        'bg-linear-125',
+                                        'from-primary',
+                                        'via-secondary',
+                                        'to-tertiary',
+                                        'bg-clip-text',
+                                        'transition',
+                                        'duration-200',
+                                        'hover:text-transparent',
+                                        'hover:from-primary-foreground',
+                                        'hover:via-secondary-foreground',
+                                        'hover:to-tertiary-foreground',
+                                        'dark:hover:text-transparent',
+                                        'dark:hover:from-primary-foreground',
+                                        'dark:hover:via-secondary-foreground',
+                                        'dark:hover:to-tertiary-foreground'
+                                    ])}>
+                                    {work.url
+                                        .replace(/https?:\/\//, '')
+                                        .replace(/\/$/, '')}
+                                </Link>
+                                <ExternalLinkIcon className='size-4 text-muted-foreground' />
+                            </div>
                         )}
 
                         {work.uses && (

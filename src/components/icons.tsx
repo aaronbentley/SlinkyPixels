@@ -1,4 +1,5 @@
 import {
+    Copyright,
     ExternalLink,
     File,
     FileText,
@@ -33,6 +34,8 @@ export const BodyIcon = Text
 export const CollectionGridIcon = Grid3X3
 
 export const ExternalLinkIcon = ExternalLink
+
+export const CopyrightIcon = Copyright
 
 /**
  * Social Link icons

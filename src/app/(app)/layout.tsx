@@ -21,7 +21,10 @@ export const metadata: Metadata = {
     openGraph: {
         type: 'website',
         locale: 'en_GB',
-        siteName: process.env.APP_TITLE!
+        siteName: process.env.APP_TITLE!,
+        url: process.env.APP_URL!,
+        title: process.env.APP_TITLE!,
+        description: process.env.APP_DESCRIPTION!
     },
     twitter: {
         card: 'summary_large_image',

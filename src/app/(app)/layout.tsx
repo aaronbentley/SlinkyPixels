@@ -17,7 +17,17 @@ export const metadata: Metadata = {
         default: process.env.APP_TITLE!,
         template: `%s : ${process.env.APP_TITLE!}`
     },
-    description: process.env.APP_DESCRIPTION!
+    description: process.env.APP_DESCRIPTION!,
+    openGraph: {
+        type: 'website',
+        locale: 'en_GB',
+        siteName: process.env.APP_TITLE!
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: process.env.APP_TITLE!,
+        description: process.env.APP_DESCRIPTION!
+    }
 }
 
 const AppLayout = async ({

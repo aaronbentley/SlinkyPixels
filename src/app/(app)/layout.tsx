@@ -6,6 +6,7 @@ import { DisableDraftMode } from '@/components/disable-draft-mode'
 import TailwindIndicator from '@/components/tailwind-indicator'
 import { ThemeProvider } from '@/components/theme-provider'
 import { SanityLive } from '@/sanity/lib/live'
+import { Analytics } from '@vercel/analytics/next'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
 import { VisualEditing } from 'next-sanity/visual-editing'
@@ -61,6 +62,7 @@ const AppLayout = async ({
                         </>
                     )}
                 </ThemeProvider>
+                <Analytics />
             </body>
         </html>
     )

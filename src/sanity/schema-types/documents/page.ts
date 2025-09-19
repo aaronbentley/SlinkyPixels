@@ -96,9 +96,10 @@ export const Page = defineType({
         select: {
             id: '_id',
             title: 'title',
-            slug: 'slug'
+            slug: 'slug',
+            image: 'image'
         },
-        prepare({ id = '', title = 'No title', slug = {} }) {
+        prepare({ id = '', title = 'No title', slug = {}, image = {} }) {
             return {
                 title: title ?? undefined,
                 subtitle: id.includes('frontpage')
@@ -106,7 +107,9 @@ export const Page = defineType({
                     : slug.current !== undefined
                       ? `/${slug.current}/`
                       : undefined,
-                media: id.includes('frontpage') ? FrontPageIcon : PageIcon
+                media: id.includes('frontpage')
+                    ? FrontPageIcon
+                    : image || PageIcon
             }
         }
     }

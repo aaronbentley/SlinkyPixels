@@ -1,7 +1,3 @@
 # SlinkyPixels
 
-## Todosies
-
-### Content
-- [ ] Work : NOSY - Add project details
-- [ ] Uses - Add details
+A small (but mighty) portfolio showcasing my work.

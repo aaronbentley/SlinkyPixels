@@ -56,12 +56,12 @@ const opengraphImage = async () => {
                     }}>
                     <h1
                         style={{
-                            fontSize: 256,
+                            fontSize: 128,
                             lineHeight: 1.2,
                             fontWeight: 700,
                             padding: 0,
                             textAlign: 'center',
-                            letterSpacing: '-8.4px',
+                            letterSpacing: '-4.2px',
                             backgroundImage:
                                 'linear-gradient(125deg, #9810fa, #0084d1, #e60076)',
                             color: 'transparent',

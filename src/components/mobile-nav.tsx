@@ -161,9 +161,10 @@ const MobileLink = ({
             href={href}
             target={blank ? '_blank' : '_self'}
             onClick={() => {
-                if (!blank) {
-                    router.push(href.toString())
-                }
+                if (!blank) router.push(href.toString())
+                onOpenChange?.(false)
+            }}
+            onNavigate={() => {
                 onOpenChange?.(false)
             }}
             className={cn(

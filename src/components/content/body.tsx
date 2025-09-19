@@ -27,6 +27,7 @@ const Body = ({
                 'flex',
                 'flex-col',
                 'gap-8',
+                // 'md:gap-12',
                 'container',
                 'lg:max-w-[980px]',
                 'mx-auto',

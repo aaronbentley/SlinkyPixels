@@ -29,6 +29,7 @@ const typographyVariants = cva([], {
             ],
             h2: [
                 ...headingBaseClasses,
+                'font-semibold',
                 'text-2xl',
                 'md:text-3xl',
                 'lg:text-4xl',
@@ -36,6 +37,7 @@ const typographyVariants = cva([], {
             ],
             h3: [
                 ...headingBaseClasses,
+                'font-semibold',
                 'text-xl',
                 'md:text-2xl',
                 'lg:text-3xl',
@@ -43,6 +45,7 @@ const typographyVariants = cva([], {
             ],
             h4: [
                 ...headingBaseClasses,
+                'font-semibold',
                 'text-lg',
                 'md:text-xl',
                 'lg:text-2xl',
@@ -50,6 +53,7 @@ const typographyVariants = cva([], {
             ],
             h5: [
                 ...headingBaseClasses,
+                'font-semibold',
                 'text-base',
                 'md:text-lg',
                 'lg:text-xl',
@@ -57,6 +61,7 @@ const typographyVariants = cva([], {
             ],
             h6: [
                 ...headingBaseClasses,
+                'font-semibold',
                 'text-sm',
                 'md:text-base',
                 'lg:text-lg',
@@ -130,9 +135,7 @@ const typographyVariants = cva([], {
             extrabold: ['font-extrabold'],
             black: ['font-black']
         },
-        display: {
-            true: ''
-        }
+        display: { true: '' }
     },
     compoundVariants: [
         {

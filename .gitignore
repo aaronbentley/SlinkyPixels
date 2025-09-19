@@ -39,4 +39,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# certificates
 certificates
+
+# MCP Server config
+.vscode/mcp.json

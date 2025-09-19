@@ -2,12 +2,16 @@
  * SlinkyPixels : Footer
  */
 import {
+    AppleMusic,
     CopyrightIcon,
+    Facebook,
     GitHub,
     Instagram,
     Linkedin,
+    Reddit,
     Threads,
-    X
+    X,
+    Youtube
 } from '@/components/icons'
 import { Typography } from '@/components/typography'
 import { client } from '@/sanity/lib/client'
@@ -17,9 +21,13 @@ import Link from 'next/link'
 const socialIcons: Record<string, React.FC<{ className?: string }>> = {
     X: X,
     Instagram: Instagram,
-    Threads: Threads,
     GitHub: GitHub,
-    LinkedIn: Linkedin
+    Reddit: Reddit,
+    Threads: Threads,
+    Facebook: Facebook,
+    Youtube: Youtube,
+    LinkedIn: Linkedin,
+    'Apple Music': AppleMusic
 }
 
 const Footer = async () => {

@@ -5,6 +5,7 @@ import {
     FileText,
     Grid3X3,
     House,
+    Images,
     Layers,
     ListVideo,
     Menu,
@@ -32,6 +33,8 @@ export const SettingsIcon = SlidersHorizontal
 export const BodyIcon = Text
 
 export const CollectionGridIcon = Grid3X3
+
+export const ImagesIcon = Images
 
 export const ExternalLinkIcon = ExternalLink
 
@@ -192,5 +195,31 @@ export const Facebook = ({ className }: { className?: string }) => (
         strokeLinejoin='round'
         className={className}>
         <path d='M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z' />
+    </svg>
+)
+
+export const AppleMusic = ({ className }: { className?: string }) => (
+    <svg
+        xmlns='http://www.w3.org/2000/svg'
+        width='24'
+        height='24'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='1'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        className={className}>
+        <path d='M9 18V5l12-2v13' />
+        <circle
+            cx='6'
+            cy='18'
+            r='3'
+        />
+        <circle
+            cx='18'
+            cy='16'
+            r='3'
+        />
     </svg>
 )

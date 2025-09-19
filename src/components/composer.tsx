@@ -1,6 +1,7 @@
 /**
  * SlinkyPixels : Composer
  */
+import Album from '@/components/content/album'
 import Body from '@/components/content/body'
 import CollectionGrid from '@/components/content/collection-grid'
 import Frontpage from '@/components/content/frontpage'
@@ -19,7 +20,8 @@ import { createDataAttribute } from 'next-sanity'
 const contentComponents = {
     frontpage: Frontpage,
     body: Body,
-    collectionGrid: CollectionGrid
+    collectionGrid: CollectionGrid,
+    album: Album
 }
 
 /**
@@ -101,7 +103,7 @@ const Composer = ({
 
     return (
         <main
-            className={cn(['flex', 'flex-col', className])}
+            className={cn(['flex', 'flex-col', 'gap-y-16', className])}
             data-sanity={createDataAttribute({
                 ...createDataAttributeConfig,
                 id: documentId,

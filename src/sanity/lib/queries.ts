@@ -90,6 +90,19 @@ const collectionGrid = `
     }
 `
 
+const album = `
+    _type == 'album' => {
+        title,
+        images[] {
+            ...,
+            _type,
+            asset->,
+            crop,
+            hotspot
+        }
+    }
+`
+
 const content = `
     content[] {
         ...,
@@ -98,7 +111,8 @@ const content = `
         'title': coalesce(title, 'Content Title'),
         ${frontpage},
         ${body},
-        ${collectionGrid}
+        ${collectionGrid},
+        ${album}
     }
 `
 

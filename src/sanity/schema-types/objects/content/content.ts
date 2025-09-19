@@ -15,7 +15,8 @@ export const Content = defineType({
     of: [
         defineArrayMember({ type: 'frontpage' }),
         defineArrayMember({ type: 'body' }),
-        defineArrayMember({ type: 'collectionGrid' })
+        defineArrayMember({ type: 'collectionGrid' }),
+        defineArrayMember({ type: 'album' })
     ],
     options: {
         insertMenu: {

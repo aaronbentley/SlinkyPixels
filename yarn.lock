@@ -5397,6 +5397,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sanity/ui@npm:^3.1.3":
+  version: 3.1.3
+  resolution: "@sanity/ui@npm:3.1.3"
+  dependencies:
+    "@floating-ui/react-dom": "npm:^2.1.6"
+    "@juggle/resize-observer": "npm:^3.4.0"
+    "@sanity/color": "npm:^3.0.6"
+    "@sanity/icons": "npm:^3.7.4"
+    csstype: "npm:^3.1.3"
+    framer-motion: "npm:^12.23.15"
+    react-compiler-runtime: "npm:19.1.0-rc.3"
+    react-refractor: "npm:^4.0.0"
+    use-effect-event: "npm:^2.0.3"
+  peerDependencies:
+    react: ^18 || >=19.0.0-0
+    react-dom: ^18 || >=19.0.0-0
+    react-is: ^18 || >=19.0.0-0
+    styled-components: ^5.2 || ^6
+  checksum: 10c0/743382b08d943868410bd81cf26df58cee52c29d515f47cdb61913f3afa60daffe7985f85301ca78b9c3ddfdb8d1ad1211bb090d89212ef97932a99a0928febf
+  languageName: node
+  linkType: hard
+
 "@sanity/util@npm:4.9.0":
   version: 4.9.0
   resolution: "@sanity/util@npm:4.9.0"
@@ -9484,6 +9506,28 @@ __metadata:
     react-dom:
       optional: true
   checksum: 10c0/40dfb57bf714075c4f6dd0bbe5b84dd11310114474ebf603846ef9b888ed475fa653271c1fd98ec57a6a1d0b781cdf8b3ebcd5e2c6a3620e934b46304ae0fd39
+  languageName: node
+  linkType: hard
+
+"framer-motion@npm:^12.23.15":
+  version: 12.23.15
+  resolution: "framer-motion@npm:12.23.15"
+  dependencies:
+    motion-dom: "npm:^12.23.12"
+    motion-utils: "npm:^12.23.6"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/472bd4a0c9d293f1a309109fbe055b83cf5524af03fb01afa05a7d34dc425b00906df8b4d4797cf6a18d31f6dcde925b3e28c4325ec7e7f67a8cfcdb5a440ee7
   languageName: node
   linkType: hard
 
@@ -14755,7 +14799,7 @@ __metadata:
     "@sanity/icons": "npm:^3.7.4"
     "@sanity/image-url": "npm:1.2.0"
     "@sanity/types": "npm:^4.9.0"
-    "@sanity/ui": "npm:^3.1.0"
+    "@sanity/ui": "npm:^3.1.3"
     "@sanity/vision": "npm:4.9.0"
     "@tailwindcss/postcss": "npm:^4.1.13"
     "@types/node": "npm:^24.5.2"

@@ -3,7 +3,6 @@
  */
 import Composer from '@/components/composer'
 import { ExternalLinkIcon } from '@/components/icons'
-import Image from '@/components/image'
 import Link from '@/components/link'
 import { Typography, typographyVariants } from '@/components/typography'
 import { Badge } from '@/components/ui/badge'
@@ -16,6 +15,7 @@ import {
     BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
+import { prettifyUrl } from '@/lib/helpers'
 import { cn } from '@/lib/utils'
 import { sanityFetch } from '@/sanity/lib/live'
 import { WORK_PATHS_QUERY, WORK_QUERY } from '@/sanity/lib/queries'
@@ -66,17 +66,8 @@ const Work = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
     return (
         <>
-            <div className='container mx-auto flex flex-col items-start gap-2 py-16 md:py-20 lg:max-w-[980px]'>
-                <div className='flex w-full flex-col items-center gap-6 md:flex-row-reverse md:justify-between'>
-                    {work.image && (
-                        <Image
-                            image={work.image}
-                            alt={work.title}
-                            width={200}
-                            height={200}
-                            className='aspect-square rounded-full object-cover'
-                        />
-                    )}
+            <div className='container mx-auto flex flex-col items-start gap-2 py-16 md:pt-20 lg:max-w-[980px]'>
+                <div className='flex w-full flex-col items-center gap-6 md:flex-row md:justify-between'>
                     <div className='flex flex-col items-center gap-4 md:items-start'>
                         <Breadcrumb>
                             <BreadcrumbList>
@@ -141,16 +132,13 @@ const Work = async ({ params }: { params: Promise<{ slug: string }> }) => {
                                         'dark:hover:via-secondary-foreground',
                                         'dark:hover:to-tertiary-foreground'
                                     ])}>
-                                    {work.url
-                                        .replace(/https?:\/\//, '')
-                                        .replace(/\/$/, '')}
+                                    {prettifyUrl(work.url)}
                                 </Link>
                                 <ExternalLinkIcon className='size-4 text-muted-foreground' />
                             </div>
                         )}
-
                         {work.uses && (
-                            <div className='flex flex-wrap justify-center gap-2 pt-2 md:max-w-md md:justify-start'>
+                            <div className='flex flex-wrap justify-center gap-2 pt-2 md:max-w-md md:flex-nowrap md:justify-start'>
                                 {work.uses.map((use) => (
                                     <Badge
                                         key={use}

@@ -95,3 +95,12 @@ export const resolveDocumentReferenceURL = (
             return slug.current
     }
 }
+
+/**
+ * Prettify url by removing protocol and trailing slash
+ */
+export const prettifyUrl = (url: string) => {
+    return url
+        .replace(/(^\w+:|^)\/\//, '') // Remove protocol
+        .replace(/\/$/, '') // Remove trailing slash
+}

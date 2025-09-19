@@ -6,6 +6,7 @@ import { Settings } from '@/sanity/schema-types/documents/settings'
 import { Work } from '@/sanity/schema-types/documents/work'
 import { BasicPortableText } from '@/sanity/schema-types/objects/basic-portable-text'
 import { BodyPortableText } from '@/sanity/schema-types/objects/body-portable-text'
+import { Album } from '@/sanity/schema-types/objects/content/album'
 import { Body } from '@/sanity/schema-types/objects/content/body'
 import { CollectionGrid } from '@/sanity/schema-types/objects/content/collection-grid'
 import { Content } from '@/sanity/schema-types/objects/content/content'
@@ -16,6 +17,7 @@ import { type SchemaTypeDefinition } from 'sanity'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
+        Album,
         BasicPortableText,
         Body,
         BodyPortableText,

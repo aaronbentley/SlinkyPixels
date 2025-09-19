@@ -108,7 +108,8 @@ export const Settings = defineType({
                                     'Threads',
                                     'Facebook',
                                     'Youtube',
-                                    'LinkedIn'
+                                    'LinkedIn',
+                                    'Apple Music'
                                 ]
                             }
                         }),

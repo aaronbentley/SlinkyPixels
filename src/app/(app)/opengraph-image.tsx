@@ -5,9 +5,14 @@ import { ImageResponse } from 'next/og'
 
 export const alt = `${process.env.APP_TITLE!}: ${process.env.APP_DESCRIPTION!}`
 
+// export const size = {
+//     width: 2400,
+//     height: 1260
+// }
+
 export const size = {
-    width: 2400,
-    height: 1260
+    width: 1200,
+    height: 630
 }
 
 export const contentType = 'image/png'

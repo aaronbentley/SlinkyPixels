@@ -1,21 +1,16 @@
 /**
- * SlinkyPixels : OpenGraph Image Generator
+ * SlinkyPixels : Icon Generator
  */
 import { ImageResponse } from 'next/og'
 
-export const alt = `${process.env.APP_TITLE!}: ${process.env.APP_DESCRIPTION!}`
-
-// export const size = {
-//     width: 2400,
-//     height: 1260
-// }
+export const alt = process.env.APP_TITLE!
 
 export const size = {
-    width: 1200,
-    height: 630
+    width: 512,
+    height: 512
 }
 
-export const contentType = 'image/png'
+export const contentType = 'image/svg+xml'
 
 export const debug = process.env.NODE_ENV !== 'production'
 
@@ -36,13 +31,13 @@ const loadGoogleFont = async (font: string, weight: number, text: string) => {
     throw new Error('failed to load font data')
 }
 
-const opengraphImage = async () => {
-    const text = process.env.APP_TITLE!
+const iconImage = async () => {
+    const text = process.env.APP_TITLE!.slice(0, 1).toUpperCase()
 
     return new ImageResponse(
         (
             <div
-                tw='flex items-center justify-center h-full w-full relative p-6'
+                tw='flex flex-col items-center justify-center h-full w-full p-6'
                 style={{
                     fontFamily: 'Geist',
                     backgroundImage:
@@ -56,7 +51,7 @@ const opengraphImage = async () => {
                     }}>
                     <h1
                         style={{
-                            fontSize: 128,
+                            fontSize: 384,
                             lineHeight: 1.2,
                             fontWeight: 700,
                             padding: 0,
@@ -87,4 +82,4 @@ const opengraphImage = async () => {
     )
 }
 
-export default opengraphImage
+export default iconImage

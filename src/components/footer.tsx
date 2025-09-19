@@ -1,34 +1,11 @@
 /**
  * SlinkyPixels : Footer
  */
-import {
-    AppleMusic,
-    CopyrightIcon,
-    Facebook,
-    GitHub,
-    Instagram,
-    Linkedin,
-    Reddit,
-    Threads,
-    X,
-    Youtube
-} from '@/components/icons'
+import { CopyrightIcon } from '@/components/icons'
+import SocialLinks from '@/components/social-links'
 import { Typography } from '@/components/typography'
 import { client } from '@/sanity/lib/client'
 import { SETTINGS_QUERY } from '@/sanity/lib/queries'
-import Link from 'next/link'
-
-const socialIcons: Record<string, React.FC<{ className?: string }>> = {
-    X: X,
-    Instagram: Instagram,
-    GitHub: GitHub,
-    Reddit: Reddit,
-    Threads: Threads,
-    Facebook: Facebook,
-    Youtube: Youtube,
-    LinkedIn: Linkedin,
-    'Apple Music': AppleMusic
-}
 
 const Footer = async () => {
     /**
@@ -43,26 +20,7 @@ const Footer = async () => {
 
     return (
         <footer className='container mt-16 flex items-start justify-between border-t py-8'>
-            <div className='flex flex-row items-center justify-center gap-4'>
-                {socialLinks.map((socialLink) => {
-                    if (!socialLink.name || !socialLink.url) return null
-
-                    const Icon = socialIcons[socialLink.name]
-
-                    return (
-                        <Link
-                            href={socialLink.url}
-                            key={socialLink._key}
-                            title={`Say hi on ${socialLink.name}`}
-                            aria-label={`Say hi on ${socialLink.name}`}
-                            rel='noopener noreferrer'
-                            target='_blank'
-                            className='group'>
-                            <Icon className='size-4 origin-bottom text-muted-foreground transition-all duration-200 group-hover:scale-150 group-hover:text-secondary' />
-                        </Link>
-                    )
-                })}
-            </div>
+            <SocialLinks socialLinks={socialLinks} />
             <div className='flex flex-row items-center justify-center gap-1.5'>
                 <CopyrightIcon className='size-4 stroke-[1.5] text-muted-foreground' />
                 <Typography

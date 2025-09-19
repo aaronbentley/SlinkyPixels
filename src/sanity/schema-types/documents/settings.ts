@@ -3,6 +3,7 @@
  */
 
 import {
+    AppleMusic,
     Facebook,
     GitHub,
     Instagram,
@@ -10,6 +11,7 @@ import {
     Reddit,
     Threads,
     X,
+    XboxIcon,
     Youtube
 } from '@/components/icons'
 import { defineField, defineType } from 'sanity'
@@ -26,7 +28,9 @@ const socialIconsMap: Record<string, React.FC> = {
     Threads: Threads,
     Youtube: Youtube,
     Facebook: Facebook,
-    LinkedIn: Linkedin
+    LinkedIn: Linkedin,
+    'Apple Music': AppleMusic,
+    Xbox: XboxIcon
 }
 
 export const Settings = defineType({
@@ -109,7 +113,8 @@ export const Settings = defineType({
                                     'Facebook',
                                     'Youtube',
                                     'LinkedIn',
-                                    'Apple Music'
+                                    'Apple Music',
+                                    'Xbox'
                                 ]
                             }
                         }),

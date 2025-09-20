@@ -75,14 +75,9 @@ const Work = async ({ params }: { params: Promise<{ slug: string }> }) => {
                                     <BreadcrumbLink asChild>
                                         <Link
                                             href='/'
-                                            title='View all Work'
-                                            className={cn(
-                                                typographyVariants({
-                                                    muted: true,
-                                                    variant: 'small'
-                                                })
-                                            )}>
-                                            <FrontPageIcon className='size-3' />
+                                            title='Go to Frontpage'
+                                            aria-label='Go to Frontpage'>
+                                            <FrontPageIcon className='size-3 text-muted-foreground hover:text-foreground' />
                                         </Link>
                                     </BreadcrumbLink>
                                 </BreadcrumbItem>

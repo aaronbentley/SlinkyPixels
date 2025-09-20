@@ -5,7 +5,7 @@ import Composer from '@/components/composer'
 import { FrontPageIcon } from '@/components/icons'
 import Image from '@/components/image'
 import Link from '@/components/link'
-import { Typography, typographyVariants } from '@/components/typography'
+import { Typography } from '@/components/typography'
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -15,7 +15,6 @@ import {
     BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
-import { cn } from '@/lib/utils'
 import { sanityFetch } from '@/sanity/lib/live'
 import { PAGE_PATHS_QUERY, PAGE_QUERY } from '@/sanity/lib/queries'
 import { notFound } from 'next/navigation'
@@ -84,14 +83,9 @@ const Page = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
                                     <BreadcrumbLink asChild>
                                         <Link
                                             href='/'
-                                            title='View all Work'
-                                            className={cn(
-                                                typographyVariants({
-                                                    muted: true,
-                                                    variant: 'small'
-                                                })
-                                            )}>
-                                            <FrontPageIcon className='size-3' />
+                                            title='Go to Frontpage'
+                                            aria-label='Go to Frontpage'>
+                                            <FrontPageIcon className='size-3 text-muted-foreground hover:text-foreground' />
                                         </Link>
                                     </BreadcrumbLink>
                                 </BreadcrumbItem>

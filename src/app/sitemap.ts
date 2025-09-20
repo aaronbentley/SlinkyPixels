@@ -1,5 +1,5 @@
 /**
- * SlinkyPixels : Sitemap
+ * SlinkyPixels : Sitemap generator
  */
 import { resolveDocumentReferenceURL } from '@/lib/helpers'
 import { sanityFetch } from '@/sanity/lib/live'

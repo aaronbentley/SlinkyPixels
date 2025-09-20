@@ -1,5 +1,5 @@
 /**
- * SlinkyPixels : Robots
+ * SlinkyPixels : Robots.txt generator
  */
 import { MetadataRoute } from 'next'
 

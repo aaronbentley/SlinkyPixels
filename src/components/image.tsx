@@ -110,6 +110,7 @@ const Image = ({
             id={asset._id}
             dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
             projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!}
+            fetchPriority={priority ? 'high' : 'auto'}
             loading={priority ? 'eager' : 'lazy'}
             // Specify how big it is expected to render so a reasonable srcSet can be generated using `width`, `height`, or both
             width={width}

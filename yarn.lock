@@ -2026,10 +2026,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.35.0":
-  version: 9.35.0
-  resolution: "@eslint/js@npm:9.35.0"
-  checksum: 10c0/d40fe38724bc76c085c0b753cdf937fa35c0d6807ae76b2632e3f5f66c3040c91adcf1aff2ce70b4f45752e60629fadc415eeec9af3be3c274bae1cac54b9840
+"@eslint/js@npm:9.36.0":
+  version: 9.36.0
+  resolution: "@eslint/js@npm:9.36.0"
+  checksum: 10c0/e3f6fb7d6f117d79615574f7bef4f238bcfed6ece0465d28226c3a75d2b6fac9cc189121e8673562796ca8ccea2bf9861715ee5cf4a3dbef87d17811c0dac22c
   languageName: node
   linkType: hard
 
@@ -5397,16 +5397,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/ui@npm:^3.1.3":
-  version: 3.1.3
-  resolution: "@sanity/ui@npm:3.1.3"
+"@sanity/ui@npm:^3.1.4":
+  version: 3.1.4
+  resolution: "@sanity/ui@npm:3.1.4"
   dependencies:
     "@floating-ui/react-dom": "npm:^2.1.6"
     "@juggle/resize-observer": "npm:^3.4.0"
     "@sanity/color": "npm:^3.0.6"
     "@sanity/icons": "npm:^3.7.4"
     csstype: "npm:^3.1.3"
-    framer-motion: "npm:^12.23.15"
+    framer-motion: "npm:^12.23.16"
     react-compiler-runtime: "npm:19.1.0-rc.3"
     react-refractor: "npm:^4.0.0"
     use-effect-event: "npm:^2.0.3"
@@ -5415,7 +5415,7 @@ __metadata:
     react-dom: ^18 || >=19.0.0-0
     react-is: ^18 || >=19.0.0-0
     styled-components: ^5.2 || ^6
-  checksum: 10c0/743382b08d943868410bd81cf26df58cee52c29d515f47cdb61913f3afa60daffe7985f85301ca78b9c3ddfdb8d1ad1211bb090d89212ef97932a99a0928febf
+  checksum: 10c0/ed9d065b9bbc8cdcf6457273d1af4c45ace15e84b496ed2654eb4e5e9613db5a58d9e4844a964538652e9f06af4cd13d8c3a06a212aa55a69b1a5635cb4544b2
   languageName: node
   linkType: hard
 
@@ -8924,9 +8924,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.35.0":
-  version: 9.35.0
-  resolution: "eslint@npm:9.35.0"
+"eslint@npm:^9.36.0":
+  version: 9.36.0
+  resolution: "eslint@npm:9.36.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.8.0"
     "@eslint-community/regexpp": "npm:^4.12.1"
@@ -8934,7 +8934,7 @@ __metadata:
     "@eslint/config-helpers": "npm:^0.3.1"
     "@eslint/core": "npm:^0.15.2"
     "@eslint/eslintrc": "npm:^3.3.1"
-    "@eslint/js": "npm:9.35.0"
+    "@eslint/js": "npm:9.36.0"
     "@eslint/plugin-kit": "npm:^0.3.5"
     "@humanfs/node": "npm:^0.16.6"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
@@ -8970,7 +8970,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10c0/798c527520ccf62106f8cd210bd1db1f8eb1b0e7a56feb0a8b322bf3a1e6a0bc6dc3a414542c22b1b393d58d5e3cd0252c44c023049de9067b836450503a2f03
+  checksum: 10c0/0e2705a94847813b03f2f3c1367c0708319cbb66458250a09b2d056a088c56e079a1c1d76c44feebf51971d9ce64d010373b2a4f007cd1026fc24f95c89836df
   languageName: node
   linkType: hard
 
@@ -9539,9 +9539,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.23.15":
-  version: 12.23.15
-  resolution: "framer-motion@npm:12.23.15"
+"framer-motion@npm:^12.23.16":
+  version: 12.23.16
+  resolution: "framer-motion@npm:12.23.16"
   dependencies:
     motion-dom: "npm:^12.23.12"
     motion-utils: "npm:^12.23.6"
@@ -9557,7 +9557,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/472bd4a0c9d293f1a309109fbe055b83cf5524af03fb01afa05a7d34dc425b00906df8b4d4797cf6a18d31f6dcde925b3e28c4325ec7e7f67a8cfcdb5a440ee7
+  checksum: 10c0/a154b614581f9e4d359a16cd590da7331e27857ac099c83908b5ec2b6bd7092d12192d989ecf17029355e64290d119e508342b5a6b0db69462df36727c674781
   languageName: node
   linkType: hard
 
@@ -14829,7 +14829,7 @@ __metadata:
     "@sanity/icons": "npm:^3.7.4"
     "@sanity/image-url": "npm:1.2.0"
     "@sanity/types": "npm:^4.9.0"
-    "@sanity/ui": "npm:^3.1.3"
+    "@sanity/ui": "npm:^3.1.4"
     "@sanity/vision": "npm:4.9.0"
     "@tailwindcss/postcss": "npm:^4.1.13"
     "@types/node": "npm:^24.5.2"
@@ -14839,7 +14839,7 @@ __metadata:
     "@vercel/analytics": "npm:^1.5.0"
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
-    eslint: "npm:^9.35.0"
+    eslint: "npm:^9.36.0"
     eslint-config-next: "npm:15.5.3"
     eslint-config-prettier: "npm:^10.1.8"
     geist: "npm:^1.5.1"

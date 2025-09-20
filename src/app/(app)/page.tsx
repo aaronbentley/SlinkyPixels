@@ -36,7 +36,7 @@ const Frontpage = async () => {
             content={frontPage?.content}
             documentId={frontPage._id}
             documentType={frontPage._type}
-            className='min-h-screen'
+            className='min-h-dvh'
         />
     )
 }

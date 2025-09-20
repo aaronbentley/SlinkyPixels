@@ -11,11 +11,11 @@ import React from 'react'
  * Define base classes for typography components
  */
 export const headingBaseClasses = [
-    'text-balance',
+    'text-pretty',
     'font-bold',
     'tracking-tighter'
 ]
-export const proseBaseClasses = ['text-lg']
+export const proseBaseClasses = ['text-balance', 'text-lg', 'tracking-tight']
 
 const typographyVariants = cva([], {
     variants: {

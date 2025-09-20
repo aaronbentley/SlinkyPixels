@@ -2,9 +2,20 @@
  * SlinkyPixels : /[slug]/ - Page
  */
 import Composer from '@/components/composer'
+import { FrontPageIcon } from '@/components/icons'
 import Image from '@/components/image'
-import { Typography } from '@/components/typography'
+import Link from '@/components/link'
+import { Typography, typographyVariants } from '@/components/typography'
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator
+} from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
+import { cn } from '@/lib/utils'
 import { sanityFetch } from '@/sanity/lib/live'
 import { PAGE_PATHS_QUERY, PAGE_QUERY } from '@/sanity/lib/queries'
 import { notFound } from 'next/navigation'
@@ -66,7 +77,32 @@ const Page = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
                             className='aspect-square rounded-full object-cover'
                         />
                     )}
-                    <div className='flex flex-col gap-4'>
+                    <div className='flex flex-col items-center gap-4 md:items-start'>
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink asChild>
+                                        <Link
+                                            href='/'
+                                            title='View all Work'
+                                            className={cn(
+                                                typographyVariants({
+                                                    muted: true,
+                                                    variant: 'small'
+                                                })
+                                            )}>
+                                            <FrontPageIcon className='size-3' />
+                                        </Link>
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage>
+                                        {page.title}
+                                    </BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
                         <Typography
                             variant='h1'
                             className='text-center md:text-start'>

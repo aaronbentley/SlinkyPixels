@@ -2,7 +2,7 @@
  * SlinkyPixels : /work/[slug]/ - Page
  */
 import Composer from '@/components/composer'
-import { ExternalLinkIcon } from '@/components/icons'
+import { ExternalLinkIcon, FrontPageIcon } from '@/components/icons'
 import Link from '@/components/link'
 import { Typography, typographyVariants } from '@/components/typography'
 import { Badge } from '@/components/ui/badge'
@@ -71,6 +71,22 @@ const Work = async ({ params }: { params: Promise<{ slug: string }> }) => {
                     <div className='flex flex-col items-center gap-4 md:items-start'>
                         <Breadcrumb>
                             <BreadcrumbList>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink asChild>
+                                        <Link
+                                            href='/'
+                                            title='View all Work'
+                                            className={cn(
+                                                typographyVariants({
+                                                    muted: true,
+                                                    variant: 'small'
+                                                })
+                                            )}>
+                                            <FrontPageIcon className='size-3' />
+                                        </Link>
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator />
                                 <BreadcrumbItem>
                                     <BreadcrumbLink asChild>
                                         <Link

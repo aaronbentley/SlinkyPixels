@@ -15,11 +15,7 @@ export const headingBaseClasses = [
     'font-bold',
     'tracking-tighter'
 ]
-export const proseBaseClasses = [
-    // 'text-balance',
-    'text-lg',
-    'tracking-tight'
-]
+export const proseBaseClasses = ['text-lg', 'tracking-tight']
 
 const typographyVariants = cva([], {
     variants: {

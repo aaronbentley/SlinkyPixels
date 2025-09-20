@@ -60,6 +60,7 @@ const Page = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
                         <Image
                             image={page.image}
                             alt={page.title}
+                            priority
                             width={200}
                             height={200}
                             className='aspect-square rounded-full object-cover'

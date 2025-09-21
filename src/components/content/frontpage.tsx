@@ -55,8 +55,7 @@ const Frontpage = ({
                     'via-secondary',
                     'to-tertiary',
                     'bg-clip-text',
-                    'tracking-tighter',
-                    'backdrop-blur-lg'
+                    'tracking-tighter'
                 ])}>
                 {title}
             </Typography>

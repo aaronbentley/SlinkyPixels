@@ -5397,16 +5397,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/ui@npm:^3.1.4":
-  version: 3.1.4
-  resolution: "@sanity/ui@npm:3.1.4"
+"@sanity/ui@npm:^3.1.5":
+  version: 3.1.5
+  resolution: "@sanity/ui@npm:3.1.5"
   dependencies:
     "@floating-ui/react-dom": "npm:^2.1.6"
     "@juggle/resize-observer": "npm:^3.4.0"
     "@sanity/color": "npm:^3.0.6"
     "@sanity/icons": "npm:^3.7.4"
     csstype: "npm:^3.1.3"
-    framer-motion: "npm:^12.23.16"
+    framer-motion: "npm:^12.23.18"
     react-compiler-runtime: "npm:19.1.0-rc.3"
     react-refractor: "npm:^4.0.0"
     use-effect-event: "npm:^2.0.3"
@@ -5415,7 +5415,7 @@ __metadata:
     react-dom: ^18 || >=19.0.0-0
     react-is: ^18 || >=19.0.0-0
     styled-components: ^5.2 || ^6
-  checksum: 10c0/ed9d065b9bbc8cdcf6457273d1af4c45ace15e84b496ed2654eb4e5e9613db5a58d9e4844a964538652e9f06af4cd13d8c3a06a212aa55a69b1a5635cb4544b2
+  checksum: 10c0/3e47fc2aed3a7ca4ba8aa20a50494843dc5081c7fbb373b4d81b130bd3c5b6d372e40dd97d3c6e60a8a36a8a9abdd2f494df33011402810ae0f7e23b8e2761ed
   languageName: node
   linkType: hard
 
@@ -9539,11 +9539,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.23.16":
-  version: 12.23.16
-  resolution: "framer-motion@npm:12.23.16"
+"framer-motion@npm:^12.23.18":
+  version: 12.23.18
+  resolution: "framer-motion@npm:12.23.18"
   dependencies:
-    motion-dom: "npm:^12.23.12"
+    motion-dom: "npm:^12.23.18"
     motion-utils: "npm:^12.23.6"
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -9557,7 +9557,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/a154b614581f9e4d359a16cd590da7331e27857ac099c83908b5ec2b6bd7092d12192d989ecf17029355e64290d119e508342b5a6b0db69462df36727c674781
+  checksum: 10c0/059fed39a1f7c1d277ac9ab94da093e0498d59b29de1a2ae5a040d080b644f34bc8862314d45676dfb93adeae01b6c5c84309b2799075b8d2c028ae1d493808d
   languageName: node
   linkType: hard
 
@@ -12018,6 +12018,15 @@ __metadata:
   dependencies:
     motion-utils: "npm:^12.23.6"
   checksum: 10c0/1b6a4b86c1aed5b5da7b8a5d1f8310ad169125235bdc1953b8c41cf9f4e2c460ee90bb48ffdae54daecb8db1d7006566ceb5f5c9ccdc82606d548c527cb2631e
+  languageName: node
+  linkType: hard
+
+"motion-dom@npm:^12.23.18":
+  version: 12.23.18
+  resolution: "motion-dom@npm:12.23.18"
+  dependencies:
+    motion-utils: "npm:^12.23.6"
+  checksum: 10c0/eea2db02f222deb1fb615d8e3c7d9ec3ac970fe27326e3bdf81d92ff0227fab7b7219170aaec0c514ff2a5ceb03c40244e7d7144c3fcac33bed648dd644bfde5
   languageName: node
   linkType: hard
 
@@ -14829,7 +14838,7 @@ __metadata:
     "@sanity/icons": "npm:^3.7.4"
     "@sanity/image-url": "npm:1.2.0"
     "@sanity/types": "npm:^4.9.0"
-    "@sanity/ui": "npm:^3.1.4"
+    "@sanity/ui": "npm:^3.1.5"
     "@sanity/vision": "npm:4.9.0"
     "@tailwindcss/postcss": "npm:^4.1.13"
     "@types/node": "npm:^24.5.2"

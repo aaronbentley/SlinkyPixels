@@ -4,7 +4,20 @@
 import { headingBaseClasses, Typography } from '@/components/typography'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Metadata } from 'next'
 import Link from 'next/link'
+
+/**
+ * Metadata
+ * @description Alternatively can use an async function that returns a metadata object
+ * @link https://nextjs.org/docs/app/building-your-application/optimizing/metadata
+ */
+export const metadata: Metadata = {
+    title: {
+        absolute: `404 : Page Not Found : ${process.env.APP_TITLE}`
+    },
+    description: 'The page you are looking for does not exist.'
+}
 
 const NotFound = () => (
     <div className='flex flex-1 flex-col items-center justify-center gap-y-4 md:gap-y-8'>

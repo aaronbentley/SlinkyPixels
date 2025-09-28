@@ -1,4 +1,7 @@
 import { Metadata } from 'next'
+import { preloadModule } from 'react-dom'
+
+const bridgeScript = 'https://core.sanity-cdn.com/bridge.js'
 
 export const metadata: Metadata = {
     title: `${process.env.APP_TITLE} : Studio`,
@@ -6,6 +9,9 @@ export const metadata: Metadata = {
 }
 
 const StudioLayout = ({ children }: { children: React.ReactNode }) => {
+    // Preload the Sanity Bridge script
+    preloadModule(bridgeScript, { as: 'script' })
+
     return (
         <html lang='en'>
             <body
@@ -13,6 +19,11 @@ const StudioLayout = ({ children }: { children: React.ReactNode }) => {
                     padding: 0,
                     margin: 0
                 }}>
+                <script
+                    src={bridgeScript}
+                    async
+                    type='module'
+                />
                 {children}
             </body>
         </html>

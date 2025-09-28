@@ -13,6 +13,7 @@
     "lint": "next lint",
     "schema:extract": "sanity schema extract --enforce-required-fields --path='./src/sanity/extract.json'",
     "schema:generate": "sanity typegen generate",
+    "schema:mainfest": "npx sanity manifest extract --path public/studio/static",
     "typegen": "yarn schema:extract && yarn schema:generate"
   },
   "dependencies": {
@@ -23,7 +24,7 @@
     "@sanity/icons": "^3.7.4",
     "@sanity/image-url": "1.2.0",
     "@sanity/types": "^4.10.1",
-    "@sanity/ui": "^3.1.7",
+    "@sanity/ui": "^3.1.8",
     "@sanity/vision": "4.10.1",
     "@vercel/analytics": "^1.5.0",
     "geist": "^1.5.1",
@@ -42,7 +43,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^24.5.2",
-    "@types/react": "^19.1.13",
+    "@types/react": "^19.1.15",
     "@types/react-dom": "^19.1.9",
     "@types/react-is": "^19.0.0",
     "class-variance-authority": "^0.7.1",

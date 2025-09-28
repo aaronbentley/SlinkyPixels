@@ -1,0 +1,1413 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Album Title"
+          }
+        ],
+        "description": "Album Title",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Album Content"
+          }
+        ],
+        "description": "Album Content",
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "description": "Image alt text",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "images",
+        "type": "array"
+      }
+    ],
+    "name": "album",
+    "type": "object"
+  },
+  {
+    "of": [
+      {
+        "marks": {
+          "annotations": [
+            {
+              "fields": [
+                {
+                  "initialValue": false,
+                  "description": "Specify a custom URL",
+                  "name": "customUrl",
+                  "type": "boolean",
+                  "title": "Custom URL?"
+                },
+                {
+                  "options": {
+                    "disableNew": true
+                  },
+                  "to": [
+                    {
+                      "type": "post"
+                    },
+                    {
+                      "type": "page"
+                    }
+                  ],
+                  "hidden": "conditional",
+                  "name": "linkDestinationRef",
+                  "type": "reference",
+                  "title": "Destination Reference"
+                },
+                {
+                  "validation": [
+                    {
+                      "rules": [
+                        {
+                          "flag": "uri",
+                          "constraint": {
+                            "options": {
+                              "scheme": [
+                                "/^https$/",
+                                "/^http$/",
+                                "/^mailto$/",
+                                "/^tel$/"
+                              ],
+                              "allowRelative": true,
+                              "relativeOnly": false,
+                              "allowCredentials": false
+                            }
+                          }
+                        }
+                      ],
+                      "level": "error"
+                    }
+                  ],
+                  "hidden": "conditional",
+                  "name": "linkDestinationHref",
+                  "type": "url",
+                  "title": "Destination URL"
+                },
+                {
+                  "initialValue": false,
+                  "name": "blank",
+                  "type": "boolean",
+                  "title": "Open in new tab"
+                }
+              ],
+              "name": "link",
+              "type": "object"
+            }
+          ],
+          "decorators": [
+            {
+              "value": "strong",
+              "title": "Strong"
+            },
+            {
+              "value": "em",
+              "title": "Emphasis"
+            }
+          ]
+        },
+        "styles": [
+          {
+            "value": "normal",
+            "title": "Normal"
+          }
+        ],
+        "of": [],
+        "type": "block"
+      }
+    ],
+    "name": "basicPortableText",
+    "type": "array",
+    "title": "Excerpt"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Body Title"
+          }
+        ],
+        "description": "Body Title",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Body Content"
+          }
+        ],
+        "description": "Body Content",
+        "name": "content",
+        "type": "bodyPortableText"
+      }
+    ],
+    "name": "body",
+    "type": "object"
+  },
+  {
+    "of": [
+      {
+        "marks": {
+          "annotations": [
+            {
+              "fields": [
+                {
+                  "initialValue": false,
+                  "description": "Specify a custom URL",
+                  "name": "customUrl",
+                  "type": "boolean",
+                  "title": "Custom URL?"
+                },
+                {
+                  "options": {
+                    "disableNew": true
+                  },
+                  "to": [
+                    {
+                      "type": "post"
+                    },
+                    {
+                      "type": "page"
+                    }
+                  ],
+                  "hidden": "conditional",
+                  "name": "destinationRef",
+                  "type": "reference",
+                  "title": "Destination Reference"
+                },
+                {
+                  "validation": [
+                    {
+                      "rules": [
+                        {
+                          "flag": "uri",
+                          "constraint": {
+                            "options": {
+                              "scheme": [
+                                "/^https$/",
+                                "/^http$/",
+                                "/^mailto$/",
+                                "/^tel$/"
+                              ],
+                              "allowRelative": true,
+                              "relativeOnly": false,
+                              "allowCredentials": false
+                            }
+                          }
+                        }
+                      ],
+                      "level": "error"
+                    }
+                  ],
+                  "hidden": "conditional",
+                  "name": "destinationHref",
+                  "type": "url",
+                  "title": "Destination URL"
+                },
+                {
+                  "initialValue": false,
+                  "name": "blank",
+                  "type": "boolean",
+                  "title": "Open in new tab"
+                }
+              ],
+              "name": "link",
+              "type": "object"
+            }
+          ],
+          "decorators": [
+            {
+              "value": "strong",
+              "title": "Strong"
+            },
+            {
+              "value": "em",
+              "title": "Emphasis"
+            }
+          ]
+        },
+        "lists": [
+          {
+            "value": "bullet",
+            "title": "Bullet"
+          },
+          {
+            "value": "number",
+            "title": "Number"
+          }
+        ],
+        "styles": [
+          {
+            "value": "normal",
+            "title": "Normal"
+          },
+          {
+            "value": "h2",
+            "title": "H2"
+          },
+          {
+            "value": "h3",
+            "title": "H3"
+          },
+          {
+            "value": "h4",
+            "title": "H4"
+          },
+          {
+            "value": "h5",
+            "title": "H5"
+          },
+          {
+            "value": "h6",
+            "title": "H6"
+          },
+          {
+            "value": "blockquote",
+            "title": "Quote"
+          }
+        ],
+        "of": [],
+        "type": "block"
+      }
+    ],
+    "name": "bodyPortableText",
+    "type": "array",
+    "title": "Body text"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Category Title"
+          }
+        ],
+        "description": "Category Title",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Category Slug"
+          }
+        ],
+        "description": "Generate slug from the Category Title",
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "options": {
+          "insertMenu": {
+            "showIcons": true
+          }
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Category Content"
+          }
+        ],
+        "description": "Category Content",
+        "name": "content",
+        "type": "content"
+      }
+    ],
+    "name": "category",
+    "type": "document"
+  },
+  {
+    "initialValue": {
+      "title": "Collection Grid",
+      "contentType": "post",
+      "orderBy": "title",
+      "orderDirection": "asc"
+    },
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Collection Grid Title"
+          }
+        ],
+        "description": "Collection Grid Title",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Posts",
+              "value": "post"
+            },
+            {
+              "title": "Pages",
+              "value": "page"
+            },
+            {
+              "title": "Work",
+              "value": "work"
+            },
+            {
+              "title": "Custom",
+              "value": "custom"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "post",
+                  "page",
+                  "work",
+                  "custom"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Collection Grid Type"
+          }
+        ],
+        "description": "Collection Grid Content Type",
+        "name": "contentType",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Optionally, limit the number of Collection Grid items",
+        "hidden": "conditional",
+        "name": "limit",
+        "type": "number"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Specify the Collection Grid Custom Content",
+        "of": [
+          {
+            "options": {
+              "disableNew": true
+            },
+            "to": [
+              {
+                "type": "page"
+              }
+            ],
+            "type": "reference",
+            "name": "page",
+            "title": "Reference to page"
+          },
+          {
+            "options": {
+              "disableNew": true
+            },
+            "to": [
+              {
+                "type": "post"
+              }
+            ],
+            "type": "reference",
+            "name": "post",
+            "title": "Reference to post"
+          },
+          {
+            "options": {
+              "disableNew": true
+            },
+            "to": [
+              {
+                "type": "work"
+              }
+            ],
+            "type": "reference",
+            "name": "work",
+            "title": "Reference to work"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "customContent",
+        "type": "array"
+      }
+    ],
+    "name": "collectionGrid",
+    "type": "object"
+  },
+  {
+    "options": {
+      "insertMenu": {
+        "showIcons": true
+      }
+    },
+    "description": "Compose Page content",
+    "of": [
+      {
+        "type": "frontpage"
+      },
+      {
+        "type": "body"
+      },
+      {
+        "initialValue": {
+          "title": "Collection Grid",
+          "contentType": "post",
+          "orderBy": "title",
+          "orderDirection": "asc"
+        },
+        "type": "collectionGrid"
+      },
+      {
+        "type": "album"
+      }
+    ],
+    "name": "content",
+    "type": "array"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "SlinkyPixels",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Frontpage Title"
+          }
+        ],
+        "description": "Frontpage Title",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "initialValue": "Forging the slinkiest of pixels",
+        "rows": 4,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Frontpage Content"
+          }
+        ],
+        "description": "Frontpage Content",
+        "name": "content",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 3
+              }
+            ],
+            "level": "error",
+            "message": "You can add up to 3 buttons only"
+          }
+        ],
+        "description": "Add up to 3 buttons",
+        "of": [
+          {
+            "type": "link"
+          }
+        ],
+        "name": "buttons",
+        "type": "array"
+      }
+    ],
+    "name": "frontpage",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Please specify a Label"
+          }
+        ],
+        "name": "label",
+        "type": "string"
+      },
+      {
+        "initialValue": false,
+        "description": "Specify a custom URL",
+        "name": "customUrl",
+        "type": "boolean",
+        "title": "Custom URL?"
+      },
+      {
+        "options": {
+          "disableNew": true
+        },
+        "to": [
+          {
+            "type": "page"
+          },
+          {
+            "type": "post"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "destinationRef",
+        "type": "reference",
+        "title": "Destination"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^https$/",
+                      "/^http$/",
+                      "/^mailto$/",
+                      "/^tel$/"
+                    ],
+                    "allowRelative": true,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "destinationHref",
+        "type": "url",
+        "title": "URL"
+      },
+      {
+        "initialValue": false,
+        "description": "Open link in a new tab?",
+        "name": "blank",
+        "type": "boolean",
+        "title": "Open in new tab"
+      }
+    ],
+    "name": "link",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Menu Title"
+          }
+        ],
+        "description": "Menu Title",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Menu Links",
+        "of": [
+          {
+            "type": "link"
+          }
+        ],
+        "name": "links",
+        "type": "array"
+      }
+    ],
+    "name": "menu",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Page Title"
+          }
+        ],
+        "description": "Page Title",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Page Subtitle"
+          }
+        ],
+        "description": "Page Subtitle",
+        "name": "subtitle",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Page Slug"
+          }
+        ],
+        "description": "Generate slug from the Page Title",
+        "readOnly": "conditional",
+        "hidden": "conditional",
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "options": {
+          "insertMenu": {
+            "showIcons": true
+          }
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Compose Page content",
+        "name": "content",
+        "type": "content"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Specify an image for Page",
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "name": "seo",
+        "type": "seo",
+        "title": "SEO"
+      }
+    ],
+    "name": "page",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Post Title"
+          }
+        ],
+        "description": "Post Title",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Post Subtitle"
+          }
+        ],
+        "description": "Post Subtitle",
+        "name": "subtitle",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Post Slug"
+          }
+        ],
+        "description": "Generate slug from the Post Title",
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "options": {
+          "insertMenu": {
+            "showIcons": true
+          }
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Post Content"
+          }
+        ],
+        "description": "Compose Page content",
+        "name": "content",
+        "type": "content"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify an image for Post"
+          }
+        ],
+        "description": "Specify an image for Post",
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Assign Post a Category",
+        "of": [
+          {
+            "options": {
+              "disableNew": true
+            },
+            "to": [
+              {
+                "type": "category"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to category"
+          }
+        ],
+        "name": "categories",
+        "type": "array"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify SEO for Post"
+          }
+        ],
+        "name": "seo",
+        "type": "seo",
+        "title": "SEO"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Publish date for Post"
+          }
+        ],
+        "name": "publishDate",
+        "type": "date",
+        "title": "Publish date"
+      }
+    ],
+    "name": "post",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "SEO title is required"
+          }
+        ],
+        "description": "Specify SEO title",
+        "name": "seoTitle",
+        "type": "string",
+        "title": "Title"
+      },
+      {
+        "rows": 4,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "SEO description is required"
+          }
+        ],
+        "description": "Specify SEO description",
+        "name": "seoDescription",
+        "type": "text",
+        "title": "Description"
+      }
+    ],
+    "name": "seo",
+    "type": "object",
+    "title": "SEO"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Site title"
+          }
+        ],
+        "description": "Specify Site Title",
+        "name": "title",
+        "type": "string",
+        "title": "Site Title"
+      },
+      {
+        "rows": 4,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Site description"
+          }
+        ],
+        "description": "Specify Site Description",
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Specify Site URL",
+        "name": "url",
+        "type": "url",
+        "title": "Site URL"
+      },
+      {
+        "description": "Social Links contact points",
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "list": [
+                    "X",
+                    "Instagram",
+                    "GitHub",
+                    "Reddit",
+                    "Threads",
+                    "Facebook",
+                    "Youtube",
+                    "LinkedIn",
+                    "Apple Music",
+                    "Xbox"
+                  ]
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "valid",
+                        "constraint": [
+                          "X",
+                          "Instagram",
+                          "GitHub",
+                          "Reddit",
+                          "Threads",
+                          "Facebook",
+                          "Youtube",
+                          "LinkedIn",
+                          "Apple Music",
+                          "Xbox"
+                        ]
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error",
+                    "message": "Specify Social Link Name"
+                  }
+                ],
+                "name": "name",
+                "type": "string",
+                "title": "Social Platform"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error",
+                    "message": "Specify Social Link URL"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "URL"
+              }
+            ],
+            "type": "object",
+            "name": "socialLink"
+          }
+        ],
+        "name": "socialLinks",
+        "type": "array"
+      }
+    ],
+    "name": "settings",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Work Title"
+          }
+        ],
+        "description": "Work Title",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Work Subtitle"
+          }
+        ],
+        "description": "Work Subtitle",
+        "name": "subtitle",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Generate slug from the Work Title",
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "url",
+        "type": "url",
+        "title": "URL"
+      },
+      {
+        "options": {
+          "layout": "tags"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ],
+            "level": "error",
+            "message": "Specify at least one technology"
+          }
+        ],
+        "description": "Specify the technologies used in this Work",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "uses",
+        "type": "array"
+      },
+      {
+        "options": {
+          "insertMenu": {
+            "showIcons": true
+          }
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify Work Content"
+          }
+        ],
+        "description": "Compose Page content",
+        "name": "content",
+        "type": "content"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error",
+            "message": "Specify an image for Work"
+          }
+        ],
+        "description": "Specify an image for Work",
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "name": "seo",
+        "type": "seo",
+        "title": "SEO"
+      }
+    ],
+    "name": "work",
+    "type": "document"
+  }
+]
